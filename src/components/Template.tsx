@@ -12,7 +12,7 @@ import { CourseList } from "./CourseList";
 export const Template = ({ next }: IPageProps) => {
   const [validJSON, setValidJSON] = useState(false);
   const [filename, setFilename] = useState("");
-  const [date, setDate] = useState<Dayjs | null>(dayjs(new Date()));
+  const [date, setDate] = useState<Dayjs | null>(dayjs(new Date("2024-05-15")));
   const dispatch = useDispatch();
 
   const onChange = (e: React.ChangeEvent<HTMLInputElement>) => {

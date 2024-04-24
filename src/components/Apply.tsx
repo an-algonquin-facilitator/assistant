@@ -14,8 +14,10 @@ import { RootState } from "../store/store";
 import {
   RichText,
   fetchFolder,
+  fetchNews,
   fetchQuiz,
   updateFolder,
+  updateNews,
   updateQuiz,
 } from "../api/api";
 import { IPageProps } from "./Page";
@@ -34,6 +36,7 @@ interface APIError {
 enum TaskType {
   ASSIGNMENT,
   QUIZ,
+  NEWS,
 }
 
 interface Task {
@@ -67,9 +70,17 @@ export const Apply = ({ next }: IPageProps) => {
         { name: ass.name, type: TaskType.ASSIGNMENT, loading: true },
       ]);
       const folder = await fetchFolder(token, [plan.id, ass.id]);
+      if (!folder.Availability) {
+        folder.Availability = {
+          StartDate: "",
+          EndDate: "",
+        };
+      }
       folder.Availability.StartDate = new Date(ass.start).toISOString();
       folder.DueDate = new Date(ass.due).toISOString();
       folder.Availability.EndDate = new Date(ass.end).toISOString();
+      folder.IsHidden = false;
+      folder.DisplayInCalendar = false;
       const prom = await updateFolder(token, plan.id, ass.id, folder);
       const resp = await prom.json();
       const error =
@@ -91,6 +102,8 @@ export const Apply = ({ next }: IPageProps) => {
       quiz.StartDate = new Date(qu.start).toISOString();
       quiz.DueDate = new Date(qu.due).toISOString();
       quiz.EndDate = new Date(qu.end).toISOString();
+      quiz.IsActive = true;
+      quiz.DisplayInCalendar = false;
       {
         // The body for a PUT request is a little different. Seems like a bug tbh.
         const attempts = quiz.AttemptsAllowed.NumberOfAttemptsAllowed;
@@ -104,7 +117,6 @@ export const Apply = ({ next }: IPageProps) => {
         aQuiz.Header.Text = toRichTextInput(quiz.Header.Text);
         aQuiz.Footer.Text = toRichTextInput(quiz.Footer.Text);
       }
-      console.log(quiz);
 
       const prom = await updateQuiz(token, plan.id, qu.id, quiz);
       const resp = await prom.json();
@@ -115,6 +127,35 @@ export const Apply = ({ next }: IPageProps) => {
       setTasks((t) => [
         ...t.slice(0, t.length - 1),
         { ...t[t.length - 1], loading: false, error },
+      ]);
+    }
+    for (const ne of plan.news) {
+      setTasks((t) => [
+        ...t,
+        { name: ne.name, type: TaskType.QUIZ, loading: true },
+      ]);
+      const bNews = await fetchNews(token, [plan.id, ne.id]);
+      {
+        const aNews = bNews as any;
+        // aNews.Body = toRichTextInput(bNews.Body);
+        delete aNews.Id;
+        delete aNews.IsHidden;
+        delete aNews.Attachments;
+        delete aNews.CreatedBy;
+        delete aNews.CreatedDate;
+        delete aNews.LastModifiedBy;
+        delete aNews.LastModifiedDate;
+        delete aNews.IsStartDateShown;
+        delete aNews.SortOrder;
+      }
+      bNews.IsPublished = true;
+      bNews.IsAuthorInfoShown = false;
+      bNews.StartDate = new Date(ne.open).toISOString();
+      bNews.EndDate = new Date(ne.dismiss).toISOString();
+      await updateNews(token, plan.id, ne.id, bNews);
+      setTasks((t) => [
+        ...t.slice(0, t.length - 1),
+        { ...t[t.length - 1], loading: false },
       ]);
     }
   };

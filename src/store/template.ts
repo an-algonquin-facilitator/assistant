@@ -20,9 +20,16 @@ export interface Quiz {
   end?: DateOffset;
 }
 
+export interface Announcement {
+  name: string;
+  start?: DateOffset;
+  end?: DateOffset;
+}
+
 export interface Template {
   assignments?: Assignment[];
   quizzes?: Quiz[];
+  news?: Announcement[];
 }
 
 export interface TemplateState {
@@ -32,7 +39,7 @@ export interface TemplateState {
 
 const initialState: TemplateState = {
   data: {},
-  startDateUnixMS: Date.now(),
+  startDateUnixMS: new Date("2024-05-15").getTime(),
 };
 
 export const templateSlice = createSlice({

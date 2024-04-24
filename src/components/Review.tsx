@@ -8,10 +8,15 @@ import {
 } from "@mui/material";
 import { IPageProps } from "./Page";
 import { useDispatch, useSelector } from "react-redux";
-import { useCourseQuery, useFoldersQuery, useQuizzesQuery } from "../api/api";
+import {
+  useCourseQuery,
+  useFoldersQuery,
+  useNewsQuery,
+  useQuizzesQuery,
+} from "../api/api";
 import { RootState } from "../store/store";
 import dayjs from "dayjs";
-import { IAssignmentPlan, IQuizPlan, setPlan } from "../store/plan";
+import { IAssignmentPlan, INewsPlan, IQuizPlan, setPlan } from "../store/plan";
 import { Apply } from "./Apply";
 import { DateOffset } from "../store/template";
 import { Template } from "./Template";
@@ -19,6 +24,7 @@ import { isDefined } from "../utils";
 import { ListWarnings } from "./ListWarnings";
 import { ReviewAssignment } from "./ReviewAssignment";
 import { ReviewQuiz } from "./ReviewQuiz";
+import { ReviewNews } from "./ReviewNews";
 
 const calculateDate = (
   start: number,
@@ -38,26 +44,63 @@ export const ReviewTemplate = ({ next }: IPageProps) => {
   const { data: folders, loading: foldersLoading } = useFoldersQuery(courseId);
   const { data: quizzes, loading: quizzesLoading } = useQuizzesQuery(courseId);
   const { data: course, loading: courseLoading } = useCourseQuery(courseId);
+  const { data: news, loading: newsLoading } = useNewsQuery(courseId);
   const template = useSelector((state: RootState) => state.template);
   const dispatch = useDispatch();
   const ass = template.data.assignments ?? [];
   const qu = template.data.quizzes ?? [];
+  const ne = template.data.news ?? [];
   if (
     courseLoading ||
     foldersLoading ||
     quizzesLoading ||
+    newsLoading ||
     !course ||
     !folders ||
-    !quizzes
+    !quizzes ||
+    !news
   )
     return <CircularProgress />;
   const plan = {
     id: courseId,
     name: course.Name,
+    news: ne
+      .map((n): INewsPlan | undefined => {
+        const bN = news.find((b) => b.Title === n.name);
+        if (!bN) return;
+
+        const defaultOpenOffset = {
+          days: n.start?.days ?? 0,
+          weeks: n.start?.weeks ?? 0,
+        };
+
+        const defaultDismissOffset = {
+          days: n.start?.days ?? 0,
+          weeks: (n.start?.weeks ?? 0) + 2,
+        };
+        console.log(defaultDismissOffset);
+        return {
+          id: bN.Id + "",
+          name: bN.Title,
+          open: calculateDate(
+            template.startDateUnixMS,
+            n.start ?? defaultOpenOffset,
+            true
+          ),
+          openOffset: defaultOpenOffset,
+          dismiss: calculateDate(
+            template.startDateUnixMS,
+            n.end ?? defaultDismissOffset,
+            false
+          ),
+          dismissOffset: n.end ?? defaultDismissOffset,
+        };
+      })
+      .filter(isDefined),
     quizzes: qu
       .map((q): IQuizPlan | undefined => {
         const bQ = quizzes.Objects.find((b) => b.Name === q.name);
-        if (!bQ) return undefined;
+        if (!bQ) return;
         const defaultEndOffset = {
           days: q.due.days ?? 0,
           weeks: (q.due.weeks ?? 0) + 1,
@@ -124,6 +167,13 @@ export const ReviewTemplate = ({ next }: IPageProps) => {
     (q) => !quizzes.Objects.some((b) => b.Name === q.name)
   );
 
+  const missingNewsBrightspace = news.filter(
+    (b) => !ne.some((q) => q.name === b.Title)
+  );
+  const missingNewsTemplate = ne.filter(
+    (q) => !news.some((b) => b.Title === q.name)
+  );
+
   return (
     <Box>
       <Typography variant="h3">Review</Typography>
@@ -146,9 +196,19 @@ export const ReviewTemplate = ({ next }: IPageProps) => {
         warnings={missingQuizzesBrightspace.map((m) => m.Name)}
       />
       <ListWarnings
-        explanation="The following assignments were found in your template but not in
+        explanation="The following announcements were found in your template but not in
         Brightspace. It will not be applied."
         warnings={missingQuizzesTemplate.map((m) => m.name)}
+      />
+      <ListWarnings
+        explanation="The following announcements were found in Brightspace but not in your
+            template. They will not be modified."
+        warnings={missingNewsBrightspace.map((m) => m.Title)}
+      />
+      <ListWarnings
+        explanation="The following assignments were found in your template but not in
+        Brightspace. It will not be applied."
+        warnings={missingNewsTemplate.map((m) => m.name)}
       />
       {plan.assignments.length > 0 && (
         <List>
@@ -178,6 +238,22 @@ export const ReviewTemplate = ({ next }: IPageProps) => {
               }}
             >
               <ReviewQuiz quiz={a} />
+            </ListItem>
+          ))}
+        </List>
+      )}
+      {plan.news.length > 0 && (
+        <List>
+          {plan.news.map((n) => (
+            <ListItem
+              key={n.name}
+              sx={{
+                display: "flex",
+                flexDirection: "column",
+                alignItems: "start",
+              }}
+            >
+              <ReviewNews news={n} />
             </ListItem>
           ))}
         </List>

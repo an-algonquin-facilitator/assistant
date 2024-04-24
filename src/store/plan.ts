@@ -32,11 +32,21 @@ export interface IQuizPlan {
   endOffset: DateOffset;
 }
 
+export interface INewsPlan {
+  id: string;
+  name: string;
+  open: number;
+  openOffset: DateOffset;
+  dismiss: number;
+  dismissOffset: DateOffset;
+}
+
 export interface ICoursePlan {
   id: string;
   name: string;
   assignments: IAssignmentPlan[];
   quizzes: IQuizPlan[];
+  news: INewsPlan[];
 }
 
 export const planSlice = createSlice({

@@ -70,8 +70,8 @@ export interface Folder {
   Availability: {
     StartDate: string;
     EndDate: string;
-    StartDateAvailabilityType: number;
-    EndDateAvailabilityType: number;
+    StartDateAvailabilityType?: number;
+    EndDateAvailabilityType?: number;
   };
   Assessment: unknown;
 }
@@ -264,3 +264,48 @@ export const fetchQuiz = makeFetch<Quiz, [string, string]>(
   leBaseURL,
   ([course, quiz]: [string, string]) => `/${course}/quizzes/${quiz}`
 );
+
+export interface News {
+  Id: number;
+  IsHidden: boolean;
+  Attachments: [];
+  CreatedBy: number;
+  CreatedDate: string;
+  LastModifiedBy: null;
+  LastModifiedDate: string;
+  Title: string;
+  Body: RichText;
+  StartDate: string;
+  EndDate: string;
+  IsGlobal: boolean;
+  IsPublished: boolean;
+  ShowOnlyInCourseOfferings: boolean;
+  IsAuthorInfoShown: boolean;
+  IsPinned: boolean;
+}
+
+export const useNewsQuery = makeQuery<News[], string>(
+  leBaseURL,
+  (course: string) => `/${course}/news/`
+);
+
+export const fetchNews = makeFetch<News, [string, string]>(
+  leBaseURL,
+  ([course, quiz]: [string, string]) => `/${course}/news/${quiz}`
+);
+
+export const updateNews = (
+  token: string,
+  course: string,
+  newsId: string,
+  news: News
+) => {
+  return fetch(`${leBaseURL}/${course}/news/${newsId}`, {
+    method: "PUT",
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: `Bearer ${token}`,
+    },
+    body: JSON.stringify(news),
+  });
+};
