@@ -32,7 +32,10 @@ export const Template = ({ next }: IPageProps) => {
           const q = data?.quizzes?.length
             ? `(${data.quizzes.length} quizzes)`
             : "";
-          setFilename(`${f.name} ${[a, q].join(" ")}`);
+          const n = data?.news?.length
+            ? `(${data.news.length} announcements)`
+            : "";
+          setFilename(`${f.name} ${[a, q, n].join(" ")}`);
         } catch (err) {
           setValidJSON(false);
         }

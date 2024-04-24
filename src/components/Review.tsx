@@ -67,7 +67,7 @@ export const ReviewTemplate = ({ next }: IPageProps) => {
     news: ne
       .map((n): INewsPlan | undefined => {
         const bN = news.find((b) => b.Title === n.name);
-        if (!bN) return;
+        if (!bN) return undefined;
 
         const defaultOpenOffset = {
           days: n.start?.days ?? 0,
@@ -100,7 +100,7 @@ export const ReviewTemplate = ({ next }: IPageProps) => {
     quizzes: qu
       .map((q): IQuizPlan | undefined => {
         const bQ = quizzes.Objects.find((b) => b.Name === q.name);
-        if (!bQ) return;
+        if (!bQ) return undefined;
         const defaultEndOffset = {
           days: q.due.days ?? 0,
           weeks: (q.due.weeks ?? 0) + 1,
