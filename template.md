@@ -8,7 +8,7 @@ due and end dates are always the end of the day (11:59)
 ## Object definitions
 
 ```ts
-// Represents a difference from the semester start date
+// Represents a difference from the semester start date must be whole number but CAN be negative, like 2 weeks - 1 day
 interface DateOffset {
   weeks?: number;
   days?: number;
