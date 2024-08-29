@@ -12,12 +12,14 @@ import {
 import { useSelector } from "react-redux";
 import { RootState } from "../store/store";
 import {
+  CreateNews,
   RichText,
+  createNews,
+  deleteNews,
+  fetchAllNews,
   fetchFolder,
-  fetchNews,
   fetchQuiz,
   updateFolder,
-  updateNews,
   updateQuiz,
 } from "../api/api";
 import { IPageProps } from "./Page";
@@ -25,18 +27,14 @@ import { useState } from "react";
 
 import DoneIcon from "@mui/icons-material/Done";
 import ErrorOutlineIcon from "@mui/icons-material/ErrorOutline";
-import QuizIcon from "@mui/icons-material/Quiz";
-import AssignmentIcon from "@mui/icons-material/Assignment";
+import { TaskIcon } from "./TaskIcon";
+import { TaskType } from "./TaskType";
+import Mustache from "mustache";
+import { ICoursePlan } from "../store/plan";
 
 interface APIError {
   title: string;
   detail: string;
-}
-
-enum TaskType {
-  ASSIGNMENT,
-  QUIZ,
-  NEWS,
 }
 
 interface Task {
@@ -53,9 +51,45 @@ const toRichTextInput = (rt: RichText) => {
   };
 };
 
+const createMustacheView = (plan: ICoursePlan) => {
+  const createDateObject = (date: number) => ({
+    iso8601: new Date(date).toISOString(),
+    date: new Date(date).toDateString(),
+  });
+  return {
+    assignments: Object.fromEntries(
+      plan?.assignments
+        .filter((a) => a.templateId)
+        .map((a) => [
+          a.templateId,
+          {
+            name: a.name,
+            start: createDateObject(a.start),
+            due: createDateObject(a.due),
+            end: createDateObject(a.end),
+          },
+        ]) || []
+    ),
+    quizzes: Object.fromEntries(
+      plan?.quizzes
+        .filter((q) => q.templateId)
+        .map((q) => [
+          q.templateId,
+          {
+            name: q.name,
+            start: createDateObject(q.start),
+            due: createDateObject(q.due),
+            end: createDateObject(q.end),
+          },
+        ]) || []
+    ),
+  };
+};
+
 export const Apply = ({ next }: IPageProps) => {
   const plan = useSelector((state: RootState) => state.plan.value);
   const token = useSelector((state: RootState) => state.token.value);
+  const courseId = useSelector((state: RootState) => state.currentCourse.value);
   const [started, setStarted] = useState(false);
   const [tasks, setTasks] = useState<Task[]>([]);
 
@@ -63,6 +97,7 @@ export const Apply = ({ next }: IPageProps) => {
     setStarted(true);
     setTasks([]);
     if (!plan || !token) return;
+    const mustacheView = createMustacheView(plan);
 
     for (const ass of plan.assignments) {
       setTasks((t) => [
@@ -129,30 +164,45 @@ export const Apply = ({ next }: IPageProps) => {
         { ...t[t.length - 1], loading: false, error },
       ]);
     }
+    {
+      // delete all current announcements
+      setTasks((t) => [
+        ...t,
+        {
+          name: "Deleting all current announcements",
+          type: TaskType.DELETE,
+          loading: true,
+        },
+      ]);
+      const allNews = await fetchAllNews(token, [courseId]);
+      for (const n of allNews) {
+        await deleteNews(token, courseId, n.Id + "");
+      }
+      setTasks((t) => [
+        ...t.slice(0, t.length - 1),
+        { ...t[t.length - 1], loading: false },
+      ]);
+    }
     for (const ne of plan.news) {
       setTasks((t) => [
         ...t,
         { name: ne.name, type: TaskType.QUIZ, loading: true },
       ]);
-      const bNews = await fetchNews(token, [plan.id, ne.id]);
-      {
-        const aNews = bNews as any;
-        // aNews.Body = toRichTextInput(bNews.Body);
-        delete aNews.Id;
-        delete aNews.IsHidden;
-        delete aNews.Attachments;
-        delete aNews.CreatedBy;
-        delete aNews.CreatedDate;
-        delete aNews.LastModifiedBy;
-        delete aNews.LastModifiedDate;
-        delete aNews.IsStartDateShown;
-        delete aNews.SortOrder;
-      }
-      bNews.IsPublished = true;
-      bNews.IsAuthorInfoShown = false;
-      bNews.StartDate = new Date(ne.open).toISOString();
-      bNews.EndDate = new Date(ne.dismiss).toISOString();
-      await updateNews(token, plan.id, ne.id, bNews);
+      const bNews: CreateNews = {
+        Body: {
+          Text: "",
+          Html: Mustache.render(ne.content, mustacheView),
+        },
+        StartDate: new Date(ne.open).toISOString(),
+        EndDate: new Date(ne.dismiss).toISOString(),
+        Title: ne.name,
+        IsPublished: true,
+        IsAuthorInfoShown: false,
+        IsGlobal: false,
+        ShowOnlyInCourseOfferings: false,
+        IsPinned: false,
+      };
+      await createNews(token, plan.id, bNews);
       setTasks((t) => [
         ...t.slice(0, t.length - 1),
         { ...t[t.length - 1], loading: false },
@@ -207,11 +257,7 @@ export const Apply = ({ next }: IPageProps) => {
                       <Typography
                         sx={{ display: "flex", alignItems: "center" }}
                       >
-                        {task.type === TaskType.ASSIGNMENT ? (
-                          <AssignmentIcon />
-                        ) : (
-                          <QuizIcon />
-                        )}
+                        <TaskIcon taskType={task.type} />
                         &nbsp;
                         {task.name}
                       </Typography>

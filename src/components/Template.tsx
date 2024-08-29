@@ -5,25 +5,38 @@ import { useState } from "react";
 import dayjs, { Dayjs } from "dayjs";
 import { ReviewTemplate } from "./Review";
 import { useDispatch } from "react-redux";
-import { setStartDateUnixMS, setTemplate } from "../store/template";
+import {
+  defaultStartDate,
+  setStartDateUnixMS,
+  setTemplate,
+} from "../store/template";
 import FileUploadIcon from "@mui/icons-material/FileUpload";
 import { CourseList } from "./CourseList";
+import YAML from "yaml";
+
+const parseFile = (f: File, content: string): any => {
+  if (f.name.endsWith(".json")) {
+    return JSON.parse(content);
+  } else {
+    return YAML.parse(content);
+  }
+};
 
 export const Template = ({ next }: IPageProps) => {
   const [validJSON, setValidJSON] = useState(false);
   const [filename, setFilename] = useState("");
-  const [date, setDate] = useState<Dayjs | null>(dayjs(new Date("2024-05-15")));
+  const [date, setDate] = useState<Dayjs | null>(
+    dayjs(new Date(defaultStartDate))
+  );
   const dispatch = useDispatch();
 
   const onChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const f = e.target.files && e.target.files[0];
-    if (!f) {
-      return;
-    }
+    if (!f) return;
     f.text()
       .then((t) => {
         try {
-          const data = JSON.parse(t);
+          const data = parseFile(f, t);
           setValidJSON(true);
           dispatch(setTemplate(data));
           const a = data?.assignments?.length

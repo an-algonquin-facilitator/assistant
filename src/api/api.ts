@@ -284,14 +284,36 @@ export interface News {
   IsPinned: boolean;
 }
 
+export interface RichText {
+  Text: string;
+  Html: string;
+}
+
+export interface CreateNews {
+  Title: string;
+  Body: RichText;
+  StartDate: string;
+  EndDate: string | null;
+  IsGlobal: boolean;
+  IsPublished: boolean;
+  ShowOnlyInCourseOfferings: boolean;
+  IsAuthorInfoShown: boolean;
+  IsPinned: boolean;
+}
+
 export const useNewsQuery = makeQuery<News[], string>(
   leBaseURL,
   (course: string) => `/${course}/news/`
 );
 
+export const fetchAllNews = makeFetch<News[], [string]>(
+  leBaseURL,
+  ([course]: [string]) => `/${course}/news/`
+);
+
 export const fetchNews = makeFetch<News, [string, string]>(
   leBaseURL,
-  ([course, quiz]: [string, string]) => `/${course}/news/${quiz}`
+  ([course, news]: [string, string]) => `/${course}/news/${news}`
 );
 
 export const updateNews = (
@@ -307,5 +329,25 @@ export const updateNews = (
       Authorization: `Bearer ${token}`,
     },
     body: JSON.stringify(news),
+  });
+};
+
+export const createNews = (token: string, course: string, news: CreateNews) => {
+  return fetch(`${leBaseURL}/${course}/news/`, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: `Bearer ${token}`,
+    },
+    body: JSON.stringify(news),
+  });
+};
+
+export const deleteNews = (token: string, course: string, newsId: string) => {
+  return fetch(`${leBaseURL}/${course}/news/${newsId}`, {
+    method: "DELETE",
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
   });
 };

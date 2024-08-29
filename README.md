@@ -37,4 +37,6 @@ After clicking next at the end of the page we will move to the final page, you'l
 
 ![](./doc/ready.png)
 
+Readying your plan WILL delete all the current announcements. Because all your announcements should be in your template file.
+
 At the time of writing this documentation I am not setting up any classes so I can't take a picture of the final output. But the website walks you through what it has done and what has failed (if anything).
