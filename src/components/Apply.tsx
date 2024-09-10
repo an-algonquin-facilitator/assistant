@@ -116,6 +116,10 @@ export const Apply = ({ next }: IPageProps) => {
       folder.Availability.EndDate = new Date(ass.end).toISOString();
       folder.IsHidden = false;
       folder.DisplayInCalendar = false;
+      (folder as any).CustomInstructions = {
+        Content: folder.CustomInstructions.Html,
+        Type: "Html",
+      };
       const prom = await updateFolder(token, plan.id, ass.id, folder);
       const resp = await prom.json();
       const error =
