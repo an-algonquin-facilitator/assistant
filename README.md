@@ -1,5 +1,5 @@
 ## ACO assistant
- 
+
 Website to help setup start/due/end dates for classes in ACO.
 It can be accessed [here](https://an-algonquin-facilitator.github.io/assistant/)
 
