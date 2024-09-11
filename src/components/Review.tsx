@@ -35,7 +35,16 @@ const calculateDate = (
   return d.unix() * 1000;
 };
 
-const calculateDateWithHoliday = (start: number, offset: DateOffset) => {
+enum TargetDateType {
+  START,
+  END,
+}
+
+const calculateDateWithHoliday = (
+  start: number,
+  offset: DateOffset,
+  targetDateType: TargetDateType
+) => {
   let d = dayjs(start);
   if (offset.weeks) d = d.add(offset.weeks, "week");
   if (offset.days) d = d.add(offset.days, "day");
@@ -44,7 +53,10 @@ const calculateDateWithHoliday = (start: number, offset: DateOffset) => {
     holidayOffset++;
     d = d.add(1, "day");
   }
-  d = d.startOf("day").add(1, "minute");
+  if (targetDateType === TargetDateType.START)
+    d = d.startOf("day").add(1, "minute");
+  else if (targetDateType === TargetDateType.END)
+    d = d.startOf("day").add(23, "hour").add(59, "minute");
   return [d.unix() * 1000, holidayOffset];
 };
 
@@ -107,7 +119,11 @@ export const ReviewTemplate = ({ next }: IPageProps) => {
           days: q.due.days ?? 0,
           weeks: (q.due.weeks ?? 0) + 1,
         };
-        const due = calculateDateWithHoliday(template.startDateUnixMS, q.due);
+        const due = calculateDateWithHoliday(
+          template.startDateUnixMS,
+          q.due,
+          TargetDateType.END
+        );
         return {
           id: bQ.QuizId + "",
           templateId: q.id,
@@ -135,7 +151,11 @@ export const ReviewTemplate = ({ next }: IPageProps) => {
           days: a.due.days ?? 0,
           weeks: (a.due.weeks ?? 0) + 1,
         };
-        const due = calculateDateWithHoliday(template.startDateUnixMS, a.due);
+        const due = calculateDateWithHoliday(
+          template.startDateUnixMS,
+          a.due,
+          TargetDateType.END
+        );
         return {
           id: f.Id + "",
           templateId: a.id,
