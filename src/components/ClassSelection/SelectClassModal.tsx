@@ -29,7 +29,7 @@ const Content = ({ myEnrollments, onClose }: IProps) => {
       <ClassList classes={recent} onClick={onClick} />
       <Accordion>
         <AccordionSummary expandIcon={<ExpandMoreIcon />}>
-          Older classes you may were facilitating
+          Older classes you were facilitating
         </AccordionSummary>
         <AccordionDetails>
           <ClassList classes={others} onClick={onClick} />
