@@ -104,7 +104,7 @@ export const useIsValidTemplate = () =>
     (s) =>
       s.template.assignments.length > 0 ||
       s.template.quizzes.length > 0 ||
-      s.template.news.length > 0
+      s.template.news.length > 0,
   );
 
 export const useTemplateLoaded = () => useAppSelector((s) => s.template.loaded);

@@ -28,7 +28,7 @@ export const validateTemplate = (
   ut: UnvalidatedTemplate | undefined,
   folders: Folder[],
   quizzes: BQuiz[],
-  news: BNews[]
+  news: BNews[],
 ): ValidatedTemplate => {
   if (!ut)
     return {
@@ -49,39 +49,39 @@ export const validateTemplate = (
 
   // in brightspace but not template
   const missingBrightspaceAssignments = folders.filter(
-    (f) => !templateAssignments.some((a) => a.name === f.Name)
+    (f) => !templateAssignments.some((a) => a.name === f.Name),
   );
 
   // in template but not brightspace
   const missingTemplateAssignments = templateAssignments.filter(
-    (f) => !folders.some((a) => a.Name === f.name)
+    (f) => !folders.some((a) => a.Name === f.name),
   );
 
   const validAssignments = templateAssignments.filter(
-    (a) => !missingTemplateAssignments.includes(a)
+    (a) => !missingTemplateAssignments.includes(a),
   );
 
   // in brightspace but not template
   const missingBrightspaceQuizzes = quizzes.filter(
-    (b) => !templateQuizzes.some((q) => q.name === b.Name)
+    (b) => !templateQuizzes.some((q) => q.name === b.Name),
   );
   // in template but not brightspace
   const missingTemplateQuizzes = templateQuizzes.filter(
-    (q) => !quizzes.some((b) => b.Name === q.name)
+    (q) => !quizzes.some((b) => b.Name === q.name),
   );
 
   const validQuizzes = templateQuizzes.filter(
-    (a) => !missingTemplateQuizzes.includes(a)
+    (a) => !missingTemplateQuizzes.includes(a),
   );
 
   // in brightspace but not template
   const missingBrightspaceNews = news.filter(
-    (b) => !templateNews.some((q) => q.name === b.Title)
+    (b) => !templateNews.some((q) => q.name === b.Title),
   );
 
   // in template but not brightspace
   const missingTemplateNews = templateNews.filter(
-    (q) => !news.some((b) => b.Title === q.name)
+    (q) => !news.some((b) => b.Title === q.name),
   );
 
   return {

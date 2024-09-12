@@ -118,7 +118,7 @@ export const useIsNewsPlanned = (name: string) =>
 
 export const useIsAllAssignmentPlanned = () =>
   useAppSelector(
-    (s) => s.plan.assignments.length === s.template.assignments?.length ?? 0
+    (s) => s.plan.assignments.length === s.template.assignments?.length ?? 0,
   );
 
 export const usePlanedAssignmentCount = () =>
@@ -126,7 +126,7 @@ export const usePlanedAssignmentCount = () =>
 
 export const useIsAllQuizPlanned = () =>
   useAppSelector(
-    (s) => s.plan.quizzes.length === s.template.quizzes?.length ?? 0
+    (s) => s.plan.quizzes.length === s.template.quizzes?.length ?? 0,
   );
 
 export const useIsAllNewsPlanned = () =>
@@ -143,7 +143,7 @@ export const useIsAnythingPlanned = () =>
     (s) =>
       s.plan.assignments.length > 0 ||
       s.plan.quizzes.length > 0 ||
-      s.plan.news.length > 0
+      s.plan.news.length > 0,
   );
 
 export const usePlannedAssignments = () =>

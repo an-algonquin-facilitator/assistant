@@ -20,7 +20,7 @@ import Mustache from "mustache";
 export const calculateDate = (
   start: number,
   offset: DateOffset,
-  startOfDay: boolean
+  startOfDay: boolean,
 ) => {
   let d = dayjs(start);
   if (offset.weeks) d = d.add(offset.weeks, "week");
@@ -38,7 +38,7 @@ export enum TargetDateType {
 export const calculateDateWithHoliday = (
   start: number,
   offset: DateOffset,
-  targetDateType: TargetDateType
+  targetDateType: TargetDateType,
 ) => {
   let d = dayjs(start);
   if (offset.weeks) d = d.add(offset.weeks, "week");
@@ -57,7 +57,7 @@ export const calculateDateWithHoliday = (
 
 const createMustacheView = (
   assignments: IAssignmentPlan[],
-  quizzes: IQuizPlan[]
+  quizzes: IQuizPlan[],
 ) => {
   const createDateObject = (date: number) => ({
     iso8601: new Date(date).toISOString(),
@@ -75,7 +75,7 @@ const createMustacheView = (
             due: createDateObject(a.due),
             end: createDateObject(a.end),
           },
-        ]) || []
+        ]) || [],
     ),
     quizzes: Object.fromEntries(
       quizzes
@@ -88,7 +88,7 @@ const createMustacheView = (
             due: createDateObject(q.due),
             end: createDateObject(q.end),
           },
-        ]) || []
+        ]) || [],
     ),
   };
 };
@@ -96,7 +96,7 @@ const createMustacheView = (
 const assignmentTemplateToPlan = (
   startDateUnixMS: number,
   folders: Folder[],
-  assignment: Assignment
+  assignment: Assignment,
 ): IAssignmentPlan | undefined => {
   const a = assignment;
   const f = folders.find((f) => f.Name === a.name);
@@ -108,7 +108,7 @@ const assignmentTemplateToPlan = (
   const due = calculateDateWithHoliday(
     startDateUnixMS,
     a.due,
-    TargetDateType.END
+    TargetDateType.END,
   );
   return {
     id: f.Id + "",
@@ -128,7 +128,7 @@ const assignmentTemplateToPlan = (
 const quizTemplateToPlan = (
   startDateUnixMS: number,
   quizzes: BQuiz[],
-  quiz: TQuiz
+  quiz: TQuiz,
 ): IQuizPlan | undefined => {
   const q = quiz;
   const bQ = quizzes.find((b) => b.Name === q.name);
@@ -140,7 +140,7 @@ const quizTemplateToPlan = (
   const due = calculateDateWithHoliday(
     startDateUnixMS,
     q.due,
-    TargetDateType.END
+    TargetDateType.END,
   );
   return {
     id: bQ.QuizId + "",
@@ -165,7 +165,7 @@ interface MustacheView {
 const newsTemplateToPlan = (
   startDateUnixMS: number,
   news: TNews,
-  view: MustacheView
+  view: MustacheView,
 ): INewsPlan => {
   const n = news;
   const defaultOpenOffset = {
@@ -185,7 +185,7 @@ const newsTemplateToPlan = (
     dismiss: calculateDate(
       startDateUnixMS,
       n.end ?? defaultDismissOffset,
-      false
+      false,
     ),
     dismissOffset: n.end ?? defaultDismissOffset,
   };
@@ -195,7 +195,7 @@ export const processTemplate = (
   template: Template,
   course: Course,
   quizzes: BQuiz[],
-  folders: Folder[]
+  folders: Folder[],
 ): ICoursePlan => {
   const startDateUnixMS = dayjs(course.StartDate).unix() * 1000;
   const ass = template.assignments ?? [];
@@ -213,7 +213,7 @@ export const processTemplate = (
   const mustacheView = createMustacheView(plannedAssignments, plannedQuizzes);
 
   const plannedNews = ne.map((n) =>
-    newsTemplateToPlan(startDateUnixMS, n, mustacheView)
+    newsTemplateToPlan(startDateUnixMS, n, mustacheView),
   );
 
   return {

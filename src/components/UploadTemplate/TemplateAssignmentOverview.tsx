@@ -39,13 +39,13 @@ export const TemplateAssignmentOverview = ({
               <ListWarnings
                 explanation="The following assignments were found in Brightspace but not in your template. They will not be modified."
                 warnings={template.missingBrightspaceAssignments.map(
-                  (m) => m.Name
+                  (m) => m.Name,
                 )}
               />
               <ListWarnings
                 explanation="The following assignments were found in your template but not in Brightspace. It cannot be applied."
                 warnings={template.missingTemplateAssignments.map(
-                  (m) => m.name
+                  (m) => m.name,
                 )}
               />
             </>

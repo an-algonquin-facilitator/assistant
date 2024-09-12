@@ -5,7 +5,7 @@ import { UnvalidatedTemplate } from "./UploadTemplateStep";
 
 const parseFile = (
   f: File,
-  content: string
+  content: string,
 ): UnvalidatedTemplate | undefined => {
   try {
     if (f.name.endsWith(".json")) {

@@ -9,7 +9,7 @@ export interface Response<T> {
 
 export const makeFetch = <RET, ARG>(
   baseURL: string,
-  path: (arg: ARG) => string
+  path: (arg: ARG) => string,
 ): ((token: string, arg: ARG) => Promise<RET>) => {
   return (token: string, arg: ARG): Promise<RET> => {
     return new Promise((res, rej) => {
@@ -45,7 +45,7 @@ export const makeQuery = <R, T>(baseURL: string, path: (t: T) => string) => {
               setResp({ data: body, loading: false });
             })
             .catch((e) =>
-              setResp({ loading: false, error: JSON.stringify(e) })
+              setResp({ loading: false, error: JSON.stringify(e) }),
             );
         else
           resp.json().then((body) => {

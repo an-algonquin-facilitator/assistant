@@ -27,7 +27,7 @@ const toRichTextInput = (rt: RichText): RichTextInput => {
 const applyAssignmentPlan = async (
   token: string,
   courseId: string,
-  assignment: IAssignmentPlan
+  assignment: IAssignmentPlan,
 ): Promise<APIError | undefined> => {
   const folder = await fetchFolder(token, [courseId, assignment.id]);
   if (!folder.Availability) {
@@ -43,7 +43,7 @@ const applyAssignmentPlan = async (
   folder.DisplayInCalendar = false;
   // We have to convert to RichTextInput for the API to not delete the assignment description.
   (folder as any).CustomInstructions = toRichTextInput(
-    folder.CustomInstructions
+    folder.CustomInstructions,
   );
   const prom = await updateFolder(token, courseId, assignment.id, folder);
   const resp = await prom.json();
@@ -57,7 +57,7 @@ const applyAssignmentPlan = async (
 const applyQuizPlan = async (
   token: string,
   courseId: string,
-  qu: IQuizPlan
+  qu: IQuizPlan,
 ): Promise<APIError | undefined> => {
   const quiz = await fetchQuiz(token, [courseId, qu.id]);
 
@@ -92,7 +92,7 @@ const applyQuizPlan = async (
 const applyCreateNewsPlan = async (
   token: string,
   courseId: string,
-  ne: INewsPlan
+  ne: INewsPlan,
 ): Promise<APIError | undefined> => {
   const createNewsPayload: CreateNews = {
     Body: {
@@ -121,7 +121,7 @@ const applyUpdateNewsPlan = async (
   token: string,
   courseId: string,
   existing: News,
-  ne: INewsPlan
+  ne: INewsPlan,
 ): Promise<APIError | undefined> => {
   const bNews = await fetchNews(token, [courseId, existing.Id + ""]);
   {
@@ -150,7 +150,7 @@ const applyNewsPlan = async (
   token: string,
   courseId: string,
   allNews: News[],
-  ne: INewsPlan
+  ne: INewsPlan,
 ): Promise<APIError | undefined> => {
   const existing = allNews.find((n) => n.Title === ne.name);
   if (!existing) return applyCreateNewsPlan(token, courseId, ne);

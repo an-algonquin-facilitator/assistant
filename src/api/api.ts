@@ -23,12 +23,12 @@ const leBaseURL = host + leBase;
 
 export const useWhoAmIQuery = makeQuery<WhoAmI, void>(
   lpBaseURL,
-  () => `/users/whoami`
+  () => `/users/whoami`,
 );
 
 export const fetchWhoAmI = makeFetch<WhoAmI, void>(
   lpBaseURL,
-  () => `/users/whoami`
+  () => `/users/whoami`,
 );
 
 export interface Folder {
@@ -74,12 +74,12 @@ export interface Folder {
 
 export const useFoldersQuery = makeQuery<Folder[], string>(
   leBaseURL,
-  (course: string) => `/${course}/dropbox/folders/`
+  (course: string) => `/${course}/dropbox/folders/`,
 );
 
 export const fetchFolders = makeFetch<Folder[], string>(
   leBaseURL,
-  (course: string) => `/${course}/dropbox/folders/`
+  (course: string) => `/${course}/dropbox/folders/`,
 );
 
 export interface Course {
@@ -111,12 +111,12 @@ export interface Course {
 
 export const useCourseQuery = makeQuery<Course, string>(
   lpBaseURL,
-  (course: string) => `/courses/${course}`
+  (course: string) => `/courses/${course}`,
 );
 
 export const fetchCourse = makeFetch<Course, string>(
   lpBaseURL,
-  (course: string) => `/courses/${course}`
+  (course: string) => `/courses/${course}`,
 );
 
 export interface Enrollment {
@@ -151,24 +151,25 @@ export interface MyEnrollments {
 
 export const useEnrollmentsQuery = makeQuery<MyEnrollments, void>(
   lpBaseURL,
-  () => `/enrollments/myenrollments/`
+  () => `/enrollments/myenrollments/`,
 );
 
 export const fetchEnrollments = makeFetch<MyEnrollments, void>(
   lpBaseURL,
-  () => `/enrollments/myenrollments/`
+  () => `/enrollments/myenrollments/`,
 );
 
 export const fetchFolder = makeFetch<Folder, [string, string]>(
   leBaseURL,
-  ([course, folder]: [string, string]) => `/${course}/dropbox/folders/${folder}`
+  ([course, folder]: [string, string]) =>
+    `/${course}/dropbox/folders/${folder}`,
 );
 
 export const updateFolder = (
   token: string,
   course: string,
   folderId: string,
-  folder: Folder
+  folder: Folder,
 ) => {
   return fetch(`${leBaseURL}/${course}/dropbox/folders/${folderId}`, {
     method: "PUT",
@@ -184,7 +185,7 @@ export const updateQuiz = (
   token: string,
   course: string,
   quizId: string,
-  quiz: Quiz
+  quiz: Quiz,
 ) => {
   return fetch(`${leBaseURL}/${course}/quizzes/${quizId}`, {
     method: "PUT",
@@ -255,17 +256,17 @@ interface Paginated<T> {
 
 export const useQuizzesQuery = makeQuery<Paginated<Quiz>, string>(
   leBaseURL,
-  (course: string) => `/${course}/quizzes/`
+  (course: string) => `/${course}/quizzes/`,
 );
 
 export const fetchQuizzes = makeFetch<Paginated<Quiz>, string>(
   leBaseURL,
-  (course: string) => `/${course}/quizzes/`
+  (course: string) => `/${course}/quizzes/`,
 );
 
 export const fetchQuiz = makeFetch<Quiz, [string, string]>(
   leBaseURL,
-  ([course, quiz]: [string, string]) => `/${course}/quizzes/${quiz}`
+  ([course, quiz]: [string, string]) => `/${course}/quizzes/${quiz}`,
 );
 
 export interface News {
@@ -311,24 +312,24 @@ export interface CreateNews {
 
 export const useNewsQuery = makeQuery<News[], string>(
   leBaseURL,
-  (course: string) => `/${course}/news/`
+  (course: string) => `/${course}/news/`,
 );
 
 export const fetchAllNews = makeFetch<News[], string>(
   leBaseURL,
-  (course: string) => `/${course}/news/`
+  (course: string) => `/${course}/news/`,
 );
 
 export const fetchNews = makeFetch<News, [string, string]>(
   leBaseURL,
-  ([course, news]: [string, string]) => `/${course}/news/${news}`
+  ([course, news]: [string, string]) => `/${course}/news/${news}`,
 );
 
 export const updateNews = (
   token: string,
   course: string,
   newsId: string,
-  news: News
+  news: News,
 ) => {
   return fetch(`${leBaseURL}/${course}/news/${newsId}`, {
     method: "PUT",

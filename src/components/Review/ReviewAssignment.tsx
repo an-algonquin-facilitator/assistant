@@ -45,7 +45,7 @@ export const ReviewAssignment = ({
               <Typography>
                 {dateOffsetToString(
                   assignment.dueOffset,
-                  assignment.holidayOffset
+                  assignment.holidayOffset,
                 )}
               </Typography>
             }

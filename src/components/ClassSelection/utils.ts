@@ -12,13 +12,13 @@ export const sortClasses = (enrollments: MyEnrollments) => {
   const facilitating = enrollments?.Items.filter(
     (e) =>
       e.Access.ClasslistRoleName === "Facilitator" &&
-      e.OrgUnit.Type.Code === "Course Offering"
+      e.OrgUnit.Type.Code === "Course Offering",
   );
 
   const maxDate = facilitating?.reduce(
     (date, f) =>
       f.Access.StartDate.localeCompare(date) ? f.Access.StartDate : date,
-    ""
+    "",
   );
 
   const recent = facilitating?.filter((f) => f.Access.StartDate === maxDate);
@@ -30,23 +30,23 @@ export const dispatchFetches = (courseId: string) => {
   store.dispatch(
     setFolders({
       loading: true,
-    })
+    }),
   );
   store.dispatch(
     setQuizzes({
       loading: true,
-    })
+    }),
   );
   store.dispatch(
     setNews({
       loading: true,
-    })
+    }),
   );
 
   store.dispatch(
     setCourse({
       loading: true,
-    })
+    }),
   );
 
   const token = store.getState().token.value;
@@ -56,16 +56,16 @@ export const dispatchFetches = (courseId: string) => {
         setFolders({
           data: f,
           loading: false,
-        })
-      )
+        }),
+      ),
     )
     .catch((e) =>
       store.dispatch(
         setFolders({
           loading: false,
           error: e,
-        })
-      )
+        }),
+      ),
     );
 
   fetchQuizzes(token, courseId)
@@ -74,16 +74,16 @@ export const dispatchFetches = (courseId: string) => {
         setQuizzes({
           data: f.Objects,
           loading: false,
-        })
-      )
+        }),
+      ),
     )
     .catch((e) =>
       store.dispatch(
         setQuizzes({
           loading: false,
           error: e,
-        })
-      )
+        }),
+      ),
     );
 
   fetchAllNews(token, courseId)
@@ -92,16 +92,16 @@ export const dispatchFetches = (courseId: string) => {
         setNews({
           data: f,
           loading: false,
-        })
-      )
+        }),
+      ),
     )
     .catch((e) =>
       store.dispatch(
         setNews({
           loading: false,
           error: e,
-        })
-      )
+        }),
+      ),
     );
 
   fetchCourse(token, courseId)
@@ -110,15 +110,15 @@ export const dispatchFetches = (courseId: string) => {
         setCourse({
           data: f,
           loading: false,
-        })
-      )
+        }),
+      ),
     )
     .catch((e) =>
       store.dispatch(
         setCourse({
           loading: false,
           error: e,
-        })
-      )
+        }),
+      ),
     );
 };

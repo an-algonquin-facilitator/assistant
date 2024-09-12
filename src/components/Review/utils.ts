@@ -2,7 +2,7 @@ import { DateOffset } from "../../store/template";
 
 export const dateOffsetToString = (
   offset: DateOffset,
-  holidayOffset?: number
+  holidayOffset?: number,
 ) => {
   let str = "semester start";
   if (offset.weeks) str += ` + ${offset.weeks} weeks`;
