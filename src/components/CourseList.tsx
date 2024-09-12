@@ -8,7 +8,7 @@ import {
 import { useEnrollmentsQuery } from "../api/api";
 import { IPageProps } from "./Page";
 import { useDispatch } from "react-redux";
-import { setCurrentCourse } from "../store/currentCourse";
+import { setCourse } from "../store/course";
 import { Template } from "./Template";
 
 export const CourseList = ({ next }: IPageProps) => {
@@ -21,7 +21,7 @@ export const CourseList = ({ next }: IPageProps) => {
   );
 
   const editCourse = (courseId: string) => () => {
-    dispatch(setCurrentCourse(courseId));
+    // dispatch(setCourse({ id: courseId, name: "" }));
     next(Template);
   };
 

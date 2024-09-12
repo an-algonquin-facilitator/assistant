@@ -1,14 +1,7 @@
 import { Box, Card } from "@mui/material";
-import { Welcome } from "./components/Welcome";
-import { useState } from "react";
-import { IPageProps } from "./components/Page";
+import { Assistant } from "./components/Assistant/Assistant";
 
 export function App() {
-  const [Page, setPage] = useState({ Page: Welcome });
-
-  const next = (f: (props: IPageProps) => JSX.Element) => {
-    setPage({ Page: f });
-  };
   return (
     <Box
       sx={{
@@ -18,8 +11,8 @@ export function App() {
         p: 4,
       }}
     >
-      <Card sx={{ p: 4 }}>
-        <Page.Page next={next} />
+      <Card sx={{ p: 4, width: "70vw" }}>
+        <Assistant />
       </Card>
     </Box>
   );

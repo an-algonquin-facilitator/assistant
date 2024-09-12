@@ -89,7 +89,9 @@ const createMustacheView = (plan: ICoursePlan) => {
 export const Apply = ({ next }: IPageProps) => {
   const plan = useSelector((state: RootState) => state.plan.value);
   const token = useSelector((state: RootState) => state.token.value);
-  const courseId = useSelector((state: RootState) => state.currentCourse.value);
+  const courseId = useSelector(
+    (state: RootState) => state.currentCourse.course?.data?.Identifier ?? ""
+  );
   const [started, setStarted] = useState(false);
   const [tasks, setTasks] = useState<Task[]>([]);
 
@@ -178,7 +180,7 @@ export const Apply = ({ next }: IPageProps) => {
           loading: true,
         },
       ]);
-      const allNews = await fetchAllNews(token, [courseId]);
+      const allNews = await fetchAllNews(token, courseId);
       for (const n of allNews) {
         await deleteNews(token, courseId, n.Id + "");
       }

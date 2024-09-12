@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import { RootState } from "../store/store";
+import { useToken } from "../store/token";
 
 export interface Response<T> {
   data?: T;
@@ -31,7 +32,7 @@ export const makeFetch = <RET, ARG>(
 export const makeQuery = <R, T>(baseURL: string, path: (t: T) => string) => {
   return (t: T) => {
     const [resp, setResp] = useState<Response<R>>({ loading: true });
-    const token = useSelector((state: RootState) => state.token.value);
+    const token = useToken();
     useEffect(() => {
       if (!token) return;
       fetch(baseURL + path(t), {

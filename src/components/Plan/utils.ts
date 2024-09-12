@@ -1,0 +1,150 @@
+import dayjs from "dayjs";
+import { DateOffset, Template } from "../../store/template";
+import { Holidays } from "../../holidays";
+import {
+  IAssignmentPlan,
+  ICoursePlan,
+  INewsPlan,
+  IQuizPlan,
+} from "../../store/plan";
+import { Course, Folder, Quiz } from "../../api/api";
+import { isDefined } from "../Introduction/utils";
+
+export const calculateDate = (
+  start: number,
+  offset: DateOffset,
+  startOfDay: boolean
+) => {
+  let d = dayjs(start);
+  if (offset.weeks) d = d.add(offset.weeks, "week");
+  if (offset.days) d = d.add(offset.days, "day");
+  if (startOfDay) d = d.startOf("day").add(1, "minute");
+  else d = d.startOf("day").add(23, "hour").add(59, "minute");
+  return d.unix() * 1000;
+};
+
+export enum TargetDateType {
+  START,
+  END,
+}
+
+export const calculateDateWithHoliday = (
+  start: number,
+  offset: DateOffset,
+  targetDateType: TargetDateType
+) => {
+  let d = dayjs(start);
+  if (offset.weeks) d = d.add(offset.weeks, "week");
+  if (offset.days) d = d.add(offset.days, "day");
+  let holidayOffset = 0;
+  while (Holidays.includes(d.format("YYYY-MM-DD"))) {
+    holidayOffset++;
+    d = d.add(1, "day");
+  }
+  if (targetDateType === TargetDateType.START)
+    d = d.startOf("day").add(1, "minute");
+  else if (targetDateType === TargetDateType.END)
+    d = d.startOf("day").add(23, "hour").add(59, "minute");
+  return [d.unix() * 1000, holidayOffset];
+};
+
+export const processTemplate = (
+  template: Template,
+  course: Course,
+  quizzes: Quiz[],
+  folders: Folder[],
+  startDateUnixMS: number
+): ICoursePlan => {
+  const ass = template.assignments ?? [];
+  const qu = template.quizzes ?? [];
+  const ne = template.news ?? [];
+  return {
+    id: course.Identifier,
+    name: course.Name,
+    news: ne
+      .map((n): INewsPlan | undefined => {
+        const defaultOpenOffset = {
+          days: n.start?.days ?? 0,
+          weeks: n.start?.weeks ?? 0,
+        };
+
+        const defaultDismissOffset = {
+          days: n.start?.days ?? 0,
+          weeks: (n.start?.weeks ?? 0) + 2,
+        };
+        return {
+          name: n.name,
+          content: n.content,
+          open: calculateDate(
+            startDateUnixMS,
+            n.start ?? defaultOpenOffset,
+            true
+          ),
+          openOffset: defaultOpenOffset,
+          dismiss: calculateDate(
+            startDateUnixMS,
+            n.end ?? defaultDismissOffset,
+            false
+          ),
+          dismissOffset: n.end ?? defaultDismissOffset,
+        };
+      })
+      .filter(isDefined),
+    quizzes: qu
+      .map((q): IQuizPlan | undefined => {
+        const bQ = quizzes.find((b) => b.Name === q.name);
+        if (!bQ) return undefined;
+        const defaultEndOffset = {
+          days: q.due.days ?? 0,
+          weeks: (q.due.weeks ?? 0) + 1,
+        };
+        const due = calculateDateWithHoliday(
+          startDateUnixMS,
+          q.due,
+          TargetDateType.END
+        );
+        return {
+          id: bQ.QuizId + "",
+          templateId: q.id,
+          name: bQ.Name,
+          start: calculateDate(startDateUnixMS, q.start ?? {}, true),
+          due: due[0],
+          end: calculateDate(startDateUnixMS, q.end ?? defaultEndOffset, false),
+
+          holidayOffset: due[1],
+          startOffset: q.start ?? {},
+          dueOffset: q.due,
+          endOffset: q.end ?? defaultEndOffset,
+        };
+      })
+      .filter(isDefined),
+    assignments: ass
+      .map((a): IAssignmentPlan | undefined => {
+        const f = folders.find((f) => f.Name === a.name);
+        if (!f) return undefined;
+        const defaultEndOffset = {
+          days: a.due.days ?? 0,
+          weeks: (a.due.weeks ?? 0) + 1,
+        };
+        const due = calculateDateWithHoliday(
+          startDateUnixMS,
+          a.due,
+          TargetDateType.END
+        );
+        return {
+          id: f.Id + "",
+          templateId: a.id,
+          name: f.Name,
+          start: calculateDate(startDateUnixMS, a.start ?? {}, true),
+          due: due[0],
+          end: calculateDate(startDateUnixMS, a.end ?? defaultEndOffset, false),
+
+          holidayOffset: due[1],
+          startOffset: a.start ?? {},
+          dueOffset: a.due,
+          endOffset: a.end ?? defaultEndOffset,
+        };
+      })
+      .filter(isDefined),
+  };
+};

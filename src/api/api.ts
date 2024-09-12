@@ -7,6 +7,7 @@ export interface WhoAmI {
   FirstName: string;
   LastName: string;
   UniqueName: string;
+  Pronouns: string;
   ProfileIdentifier: string;
 }
 
@@ -123,32 +124,34 @@ export const fetchCourse = makeFetch<Course, string>(
   (course: string) => `/courses/${course}`
 );
 
+export interface Enrollment {
+  OrgUnit: {
+    Id: number;
+    Type: {
+      Id: number;
+      Code: string;
+      Name: string;
+    };
+    Name: string;
+    Code: string;
+  };
+  Access: {
+    IsActive: true;
+    StartDate: string;
+    EndDate: string;
+    CanAccess: boolean;
+    ClasslistRoleName: string;
+    LISRoles: string[];
+    LastAccessed: string;
+  };
+}
+
 export interface MyEnrollments {
   PagingInfo: {
     Bookmark: string;
     HasMoreItems: boolean;
   };
-  Items: {
-    OrgUnit: {
-      Id: number;
-      Type: {
-        Id: number;
-        Code: string;
-        Name: string;
-      };
-      Name: string;
-      Code: string;
-    };
-    Access: {
-      IsActive: true;
-      StartDate: string;
-      EndDate: string;
-      CanAccess: boolean;
-      ClasslistRoleName: string;
-      LISRoles: string[];
-      LastAccessed: string;
-    };
-  }[];
+  Items: Enrollment[];
 }
 
 export const useEnrollmentsQuery = makeQuery<MyEnrollments, void>(
@@ -198,7 +201,7 @@ export const updateQuiz = (
   });
 };
 
-interface Quiz {
+export interface Quiz {
   QuizId: number;
   Name: string;
   AutoExportToGrades: boolean;
@@ -260,6 +263,11 @@ export const useQuizzesQuery = makeQuery<Paginated<Quiz>, string>(
   (course: string) => `/${course}/quizzes/`
 );
 
+export const fetchQuizzes = makeFetch<Paginated<Quiz>, string>(
+  leBaseURL,
+  (course: string) => `/${course}/quizzes/`
+);
+
 export const fetchQuiz = makeFetch<Quiz, [string, string]>(
   leBaseURL,
   ([course, quiz]: [string, string]) => `/${course}/quizzes/${quiz}`
@@ -306,9 +314,9 @@ export const useNewsQuery = makeQuery<News[], string>(
   (course: string) => `/${course}/news/`
 );
 
-export const fetchAllNews = makeFetch<News[], [string]>(
+export const fetchAllNews = makeFetch<News[], string>(
   leBaseURL,
-  ([course]: [string]) => `/${course}/news/`
+  (course: string) => `/${course}/news/`
 );
 
 export const fetchNews = makeFetch<News, [string, string]>(

@@ -1,6 +1,6 @@
 import { configureStore } from "@reduxjs/toolkit";
 import { tokenReducer } from "./token";
-import { currentCourseReducer } from "./currentCourse";
+import { currentCourseReducer } from "./course";
 import { templateReducer } from "./template";
 import { planReducer } from "./plan";
 

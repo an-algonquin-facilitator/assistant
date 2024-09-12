@@ -15,7 +15,7 @@ import { IAssignmentPlan, INewsPlan, IQuizPlan, setPlan } from "../store/plan";
 import { Apply } from "./Apply";
 import { DateOffset } from "../store/template";
 import { Template } from "./Template";
-import { isDefined } from "../utils";
+import { isDefined } from "./Introduction/utils";
 import { ListWarnings } from "./ListWarnings";
 import { ReviewAssignment } from "./ReviewAssignment";
 import { ReviewQuiz } from "./ReviewQuiz";
@@ -61,7 +61,9 @@ const calculateDateWithHoliday = (
 };
 
 export const ReviewTemplate = ({ next }: IPageProps) => {
-  const courseId = useSelector((state: RootState) => state.currentCourse.value);
+  const courseId = useSelector(
+    (state: RootState) => state.currentCourse.course?.data?.Identifier ?? ""
+  );
   const { data: folders, loading: foldersLoading } = useFoldersQuery(courseId);
   const { data: quizzes, loading: quizzesLoading } = useQuizzesQuery(courseId);
   const { data: course, loading: courseLoading } = useCourseQuery(courseId);
