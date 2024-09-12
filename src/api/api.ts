@@ -31,11 +31,6 @@ export const fetchWhoAmI = makeFetch<WhoAmI, void>(
   () => `/users/whoami`
 );
 
-export interface RichText {
-  Text: string;
-  Html: string;
-}
-
 export interface Folder {
   Id: number;
   CategoryId: unknown;
@@ -295,6 +290,11 @@ export interface News {
 export interface RichText {
   Text: string;
   Html: string;
+}
+
+export interface RichTextInput {
+  Type: "Html" | "Text";
+  Content: string;
 }
 
 export interface CreateNews {
