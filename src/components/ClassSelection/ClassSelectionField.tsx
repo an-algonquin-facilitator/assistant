@@ -10,6 +10,7 @@ export const ClassSelectionField = () => {
         display: "flex",
         alignItems: "center",
         justifyContent: "space-between",
+        width: "100%",
       }}
     >
       <Typography>Selected Class:</Typography>

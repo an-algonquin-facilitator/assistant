@@ -1,21 +1,17 @@
 import { Typography } from "@mui/material";
-import { useTemplate } from "../../store/template";
-import { isValidTemplate } from "./utils";
-import { useFolderCount, useNewsCount, useQuizCount } from "../../store/course";
-import { Specification } from "./Specification";
+import { TemplateAssignmentOverview } from "./TemplateAssignmentOverview";
+import { ValidatedTemplate, isValidTemplate } from "./utils";
+import { TemplateQuizzesOverview } from "./TemplateQuizzesOverview";
+import { TemplateNewsOverview } from "./TemplateNewsOverview";
 
-export const TemplateOverview = () => {
-  const template = useTemplate();
-  const folderCount = useFolderCount();
-  const quizCount = useQuizCount();
-  const newsCount = useNewsCount();
+interface TemplateOverviewProps {
+  template: ValidatedTemplate;
+}
 
-  const isEmpty = Object.getOwnPropertyNames(template).length === 0;
-  if (isEmpty) return <></>;
+export const TemplateOverview = ({ template }: TemplateOverviewProps) => {
+  const isValid = isValidTemplate(template);
 
-  const valid = isValidTemplate(template);
-
-  if (!valid)
+  if (!isValid)
     return (
       <>
         <Typography>
@@ -25,30 +21,14 @@ export const TemplateOverview = () => {
       </>
     );
 
-  const aCount = template?.assignments?.length ?? 0;
-  const qCount = template?.quizzes?.length ?? 0;
-  const nCount = template?.news?.length ?? 0;
-
   return (
     <>
       <Typography variant="h4">
         This template contains specification for:
       </Typography>
-      <Specification
-        templateCount={aCount}
-        classCount={folderCount}
-        resourceName={"assignment"}
-      />
-      <Specification
-        templateCount={qCount}
-        classCount={quizCount}
-        resourceName={"quizzes"}
-      />
-      <Specification
-        templateCount={nCount}
-        classCount={newsCount}
-        resourceName={"announcements"}
-      />
+      <TemplateAssignmentOverview template={template} />
+      <TemplateQuizzesOverview template={template} />
+      <TemplateNewsOverview template={template} />
     </>
   );
 };

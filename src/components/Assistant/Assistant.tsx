@@ -4,6 +4,8 @@ import { IntroductionStep } from "../Introduction/IntroductionStep";
 import { ClassSelectionStep } from "../ClassSelection/ClassSelectionStep";
 import { UploadTemplateStep } from "../UploadTemplate/UploadTemplateStep";
 import { PlanStep } from "../Plan/PlanStep";
+import { ReviewStep } from "../Review/ReviewStep";
+import { ApplyStep } from "../Apply/ApplyStep";
 
 interface AssistantStep {
   Label: string;
@@ -20,6 +22,8 @@ const steps: AssistantStep[] = [
   { Label: "Select Class", Page: ClassSelectionStep },
   { Label: "Upload Template", Page: UploadTemplateStep },
   { Label: "Plan", Page: PlanStep },
+  { Label: "Review", Page: ReviewStep },
+  { Label: "Apply", Page: ApplyStep },
 ];
 
 export const Assistant = () => {

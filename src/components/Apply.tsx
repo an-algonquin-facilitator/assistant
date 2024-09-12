@@ -87,7 +87,7 @@ const createMustacheView = (plan: ICoursePlan) => {
 };
 
 export const Apply = ({ next }: IPageProps) => {
-  const plan = useSelector((state: RootState) => state.plan.value);
+  const plan = useSelector((state: RootState) => state.plan);
   const token = useSelector((state: RootState) => state.token.value);
   const courseId = useSelector(
     (state: RootState) => state.currentCourse.course?.data?.Identifier ?? ""
@@ -106,7 +106,7 @@ export const Apply = ({ next }: IPageProps) => {
         ...t,
         { name: ass.name, type: TaskType.ASSIGNMENT, loading: true },
       ]);
-      const folder = await fetchFolder(token, [plan.id, ass.id]);
+      const folder = await fetchFolder(token, ["plan.id", ass.id]);
       if (!folder.Availability) {
         folder.Availability = {
           StartDate: "",
@@ -122,7 +122,7 @@ export const Apply = ({ next }: IPageProps) => {
         Content: folder.CustomInstructions.Html,
         Type: "Html",
       };
-      const prom = await updateFolder(token, plan.id, ass.id, folder);
+      const prom = await updateFolder(token, "plan.id", ass.id, folder);
       const resp = await prom.json();
       const error =
         resp.status === 400
@@ -138,7 +138,7 @@ export const Apply = ({ next }: IPageProps) => {
         ...t,
         { name: qu.name, type: TaskType.QUIZ, loading: true },
       ]);
-      const quiz = await fetchQuiz(token, [plan.id, qu.id]);
+      const quiz = await fetchQuiz(token, ["plan.id", qu.id]);
 
       quiz.StartDate = new Date(qu.start).toISOString();
       quiz.DueDate = new Date(qu.due).toISOString();
@@ -159,7 +159,7 @@ export const Apply = ({ next }: IPageProps) => {
         aQuiz.Footer.Text = toRichTextInput(quiz.Footer.Text);
       }
 
-      const prom = await updateQuiz(token, plan.id, qu.id, quiz);
+      const prom = await updateQuiz(token, "plan.id", qu.id, quiz);
       const resp = await prom.json();
       const error =
         resp.status === 400
@@ -208,7 +208,7 @@ export const Apply = ({ next }: IPageProps) => {
         ShowOnlyInCourseOfferings: false,
         IsPinned: false,
       };
-      await createNews(token, plan.id, bNews);
+      await createNews(token, "plan.id", bNews);
       setTasks((t) => [
         ...t.slice(0, t.length - 1),
         { ...t[t.length - 1], loading: false },

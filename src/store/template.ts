@@ -1,6 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
 import type { PayloadAction } from "@reduxjs/toolkit";
-import dayjs from "dayjs";
 import { useAppSelector } from "./hooks";
 
 export interface DateOffset {
@@ -24,7 +23,7 @@ export interface Quiz {
   end?: DateOffset;
 }
 
-export interface Announcement {
+export interface News {
   name: string;
   content: string;
   start?: DateOffset;
@@ -34,63 +33,78 @@ export interface Announcement {
 export interface Template {
   assignments?: Assignment[];
   quizzes?: Quiz[];
-  news?: Announcement[];
+  news?: News[];
 }
 
 export interface TemplateState {
-  data: Template;
-  startDateUnixMS: number;
+  loaded: boolean;
+  assignments: Assignment[];
+  quizzes: Quiz[];
+  news: News[];
 }
 
-export const defaultStartDate = (() => {
-  return "2024-09-11";
-  // Takes taken from https://www7.algonquincollege.com/ro/academic%20calendar2024-2025.pdf
-  // Yes all the dates in the code are 1 day after to make dayjs align properly.
-  const dates2024_2025 = [
-    "2024-09-11",
-    "2024-10-02",
-    "2024-11-02",
-    "2024-12-03",
-    "2025-01-15",
-    "2025-02-04",
-    "2025-03-04",
-    "2025-04-02",
-    "2025-05-14",
-    "2025-06-03",
-    "2025-07-03",
-  ];
-  const today = dayjs(new Date());
-  return (
-    dates2024_2025.find((d) => dayjs(d).isAfter(today)) ?? dates2024_2025[0]
-  );
-})();
-
 const initialState: TemplateState = {
-  data: {},
-  startDateUnixMS: new Date(defaultStartDate).getTime(),
+  loaded: false,
+  assignments: [],
+  quizzes: [],
+  news: [],
 };
 
 export const templateSlice = createSlice({
   name: "template",
   initialState,
   reducers: {
-    setTemplate(state, action: PayloadAction<Template>) {
-      state.data = action.payload;
+    setTemplateAssignments(state, action: PayloadAction<Assignment[]>) {
+      state.loaded = true;
+      state.assignments = action.payload;
     },
-    setStartDateUnixMS(state, action: PayloadAction<number>) {
-      state.startDateUnixMS = action.payload;
+    setTemplateQuizzes(state, action: PayloadAction<Quiz[]>) {
+      state.loaded = true;
+      state.quizzes = action.payload;
     },
-    resetStartDate(state) {
-      state.startDateUnixMS = new Date(defaultStartDate).getTime();
+    setTemplateNews(state, action: PayloadAction<News[]>) {
+      state.loaded = true;
+      state.news = action.payload;
+    },
+    resetTemplate(state) {
+      Object.assign(state, initialState);
     },
   },
 });
 
 // Action creators are generated for each case reducer function
-export const { setTemplate, setStartDateUnixMS, resetStartDate } =
-  templateSlice.actions;
+export const {
+  setTemplateAssignments,
+  setTemplateQuizzes,
+  setTemplateNews,
+  resetTemplate,
+} = templateSlice.actions;
 
 export const templateReducer = templateSlice.reducer;
-export const useStartDateUnixMS = () =>
-  useAppSelector((s) => s.template.startDateUnixMS);
-export const useTemplate = () => useAppSelector((s) => s.template.data);
+
+export const useTemplateAssignments = () =>
+  useAppSelector((s) => s.template.assignments);
+
+export const useTemplateQuizzes = () =>
+  useAppSelector((s) => s.template.quizzes);
+
+export const useTemplateNews = () => useAppSelector((s) => s.template.news);
+
+export const useTemplateAssignmentCount = () =>
+  useAppSelector((s) => s.template.assignments.length);
+
+export const useTemplateQuizCount = () =>
+  useAppSelector((s) => s.template.quizzes.length);
+
+export const useTemplateNewsCount = () =>
+  useAppSelector((s) => s.template.news.length);
+
+export const useIsValidTemplate = () =>
+  useAppSelector(
+    (s) =>
+      s.template.assignments.length > 0 ||
+      s.template.quizzes.length > 0 ||
+      s.template.news.length > 0
+  );
+
+export const useTemplateLoaded = () => useAppSelector((s) => s.template.loaded);
