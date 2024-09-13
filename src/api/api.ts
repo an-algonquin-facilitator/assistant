@@ -63,7 +63,7 @@ export interface Folder {
     FileName: string;
     Size: number;
   }[];
-  Availability: {
+  Availability?: {
     StartDate: string;
     EndDate: string;
     StartDateAvailabilityType?: number;
@@ -369,4 +369,5 @@ export const deleteNews = async (
   });
 };
 
+export const StatusOK = 200;
 export const StatusBadRequest = 400;

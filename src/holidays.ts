@@ -1,7 +1,7 @@
 // These holidays come from https://canada-holidays.ca/api/v1/holidays.
 // I didn't want to depend on an external website so I cached the response
 // for the next 2 years.
-export const Holidays = [
+const holidays = [
   "2024-01-01",
   "2024-02-19",
   "2024-02-19",
@@ -93,3 +93,6 @@ export const Holidays = [
   "2026-12-25",
   "2026-12-26",
 ];
+
+export const isHoliday = (yyyymmdd: string): boolean =>
+  holidays.includes(yyyymmdd);

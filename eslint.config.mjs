@@ -61,12 +61,8 @@ export default [
         "error",
         { ignoreArrowShorthand: true },
       ],
-
-      // These need to be turned back on.
-      "@typescript-eslint/no-unsafe-member-access": "off",
-      "@typescript-eslint/no-unsafe-assignment": "off",
-      "@typescript-eslint/no-explicit-any": "off",
-      "@typescript-eslint/no-unsafe-return": "off",
+      // Conflicts with api.ts
+      "@typescript-eslint/no-invalid-void-type": ["off"],
     },
   },
 ];

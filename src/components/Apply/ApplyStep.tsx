@@ -13,12 +13,13 @@ export const ApplyStep = ({ previous }: PageProps): ReactElement => {
   const [complete, setComplete] = useState(false);
   const [tasks, setTasks] = useState<Task[]>([]);
 
-  const onClick = async (): Promise<void> =>
-    apply({
+  const onClick = (): void => {
+    void apply({
       setStarted,
       setTasks,
       setComplete,
     });
+  };
 
   return (
     <>

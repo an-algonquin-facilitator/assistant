@@ -118,19 +118,17 @@ export const useIsNewsPlanned = (name: string): boolean =>
 
 export const useIsAllAssignmentPlanned = (): boolean =>
   useAppSelector(
-    (s) => s.plan.assignments.length === s.template.assignments.length ?? 0,
+    (s) => s.plan.assignments.length === s.template.assignments.length,
   );
 
 export const usePlanedAssignmentCount = (): number =>
   useAppSelector((s) => s.plan.assignments.length);
 
 export const useIsAllQuizPlanned = (): boolean =>
-  useAppSelector(
-    (s) => s.plan.quizzes.length === s.template.quizzes.length ?? 0,
-  );
+  useAppSelector((s) => s.plan.quizzes.length === s.template.quizzes.length);
 
 export const useIsAllNewsPlanned = (): boolean =>
-  useAppSelector((s) => s.plan.news.length === s.template.news.length ?? 0);
+  useAppSelector((s) => s.plan.news.length === s.template.news.length);
 
 export const usePlanedQuizCount = (): number =>
   useAppSelector((s) => s.plan.quizzes.length);

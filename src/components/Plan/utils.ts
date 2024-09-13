@@ -6,7 +6,7 @@ import type {
   Quiz as TQuiz,
   Template,
 } from "../../store/template";
-import { Holidays } from "../../holidays";
+import { isHoliday } from "../../holidays";
 import type {
   IAssignmentPlan,
   ICoursePlan,
@@ -27,8 +27,8 @@ export const calculateDate = (
   startOfDay: boolean,
 ): number => {
   let d = dayjs(start);
-  if (offset.weeks) d = d.add(offset.weeks, "week");
-  if (offset.days) d = d.add(offset.days, "day");
+  if (offset.weeks != null) d = d.add(offset.weeks, "week");
+  if (offset.days != null) d = d.add(offset.days, "day");
   if (startOfDay) d = d.startOf("day").add(1, "minute");
   else
     d = d.startOf("day").add(dayLastHour, "hour").add(dayLastMinute, "minute");
@@ -46,16 +46,16 @@ export const calculateDateWithHoliday = (
   targetDateType: TargetDateType,
 ): [number, number] => {
   let d = dayjs(start);
-  if (offset.weeks) d = d.add(offset.weeks, "week");
-  if (offset.days) d = d.add(offset.days, "day");
+  if (offset.weeks != null) d = d.add(offset.weeks, "week");
+  if (offset.days != null) d = d.add(offset.days, "day");
   let holidayOffset = 0;
-  while (Holidays.includes(d.format("YYYY-MM-DD"))) {
+  while (isHoliday("YYYY-MM-DD")) {
     holidayOffset++;
     d = d.add(1, "day");
   }
   if (targetDateType === TargetDateType.START)
     d = d.startOf("day").add(1, "minute");
-  else if (targetDateType === TargetDateType.END)
+  else
     d = d.startOf("day").add(dayLastHour, "hour").add(dayLastMinute, "minute");
   return [d.unix() * msPerSecond, holidayOffset];
 };
@@ -64,37 +64,39 @@ const createMustacheView = (
   assignments: IAssignmentPlan[],
   quizzes: IQuizPlan[],
 ): MustacheView => {
-  const createDateObject = (date: number) => ({
+  const createDateObject = (date: number): MustacheDate => ({
     iso8601: new Date(date).toISOString(),
     date: new Date(date).toDateString(),
   });
+
+  const createMustacheEvent = (
+    e: IAssignmentPlan | IQuizPlan,
+  ): MustacheEvent => {
+    return {
+      name: e.name,
+      start: createDateObject(e.start),
+      due: createDateObject(e.due),
+      end: createDateObject(e.end),
+    };
+  };
+
+  const assignmentEntries = assignments
+    .filter((a): boolean => a.templateId != null && a.templateId !== "")
+    .map((a): [string, MustacheEvent] => [
+      a.templateId ?? "BUG",
+      createMustacheEvent(a),
+    ]);
+
+  const quizEntries = quizzes
+    .filter((q) => q.templateId)
+    .map((q): [string, MustacheEvent] => [
+      q.templateId ?? "BUG",
+      createMustacheEvent(q),
+    ]);
+
   return {
-    assignments: Object.fromEntries(
-      assignments
-        .filter((a) => a.templateId)
-        .map((a) => [
-          a.templateId,
-          {
-            name: a.name,
-            start: createDateObject(a.start),
-            due: createDateObject(a.due),
-            end: createDateObject(a.end),
-          },
-        ]) || [],
-    ),
-    quizzes: Object.fromEntries(
-      quizzes
-        .filter((q) => q.templateId)
-        .map((q) => [
-          q.templateId,
-          {
-            name: q.name,
-            start: createDateObject(q.start),
-            due: createDateObject(q.due),
-            end: createDateObject(q.end),
-          },
-        ]) || [],
-    ),
+    assignments: Object.fromEntries(assignmentEntries),
+    quizzes: Object.fromEntries(quizEntries),
   };
 };
 
@@ -137,7 +139,7 @@ const quizTemplateToPlan = (
 ): IQuizPlan | undefined => {
   const q = quiz;
   const bQ = quizzes.find((b) => b.Name === q.name);
-  if (!bQ) return;
+  if (!bQ) return undefined;
   const defaultEndOffset = {
     days: q.due.days ?? 0,
     weeks: (q.due.weeks ?? 0) + 1,
@@ -165,6 +167,18 @@ const quizTemplateToPlan = (
 interface MustacheView {
   assignments: any;
   quizzes: any;
+}
+
+interface MustacheDate {
+  iso8601: string;
+  date: string;
+}
+
+interface MustacheEvent {
+  name: string;
+  start: MustacheDate;
+  due: MustacheDate;
+  end: MustacheDate;
 }
 
 const newsTemplateToPlan = (

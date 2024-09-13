@@ -5,9 +5,9 @@ export const dateOffsetToString = (
   holidayOffset?: number,
 ): string => {
   let str = "semester start";
-  if (offset.weeks) str += ` + ${offset.weeks} weeks`;
-  if (offset.days) str += ` + ${offset.days} days`;
-  if (holidayOffset) str += ` + ${holidayOffset} holidays`;
+  if (Number(offset.weeks) > 0) str += ` + ${offset.weeks} weeks`;
+  if (Number(offset.days) > 0) str += ` + ${offset.days} days`;
+  if (Number(holidayOffset) > 0) str += ` + ${holidayOffset} holidays`;
   return str;
 };
 

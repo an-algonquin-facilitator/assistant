@@ -14,13 +14,13 @@ export const ClassSelectionButton = (): ReactElement => {
         <CircularProgress />
       ) : (
         <Tooltip title={error + "" || ""}>
-          <Button disabled={loading || !!error} onClick={() => setOpen(true)}>
+          <Button disabled={error != null} onClick={() => setOpen(true)}>
             Select class
           </Button>
         </Tooltip>
       )}
       <SelectClassModal
-        myEnrollments={enrollments!}
+        enrollments={enrollments?.Items ?? []}
         open={open}
         onClose={() => setOpen(false)}
       />

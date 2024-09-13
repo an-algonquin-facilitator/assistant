@@ -46,7 +46,8 @@ export const PlanStep = ({ previous, next }: PageProps): ReactElement => {
   const folders = useFolders();
   const isAnythingPlanned = useIsAnythingPlanned();
   const dispatch = useAppDispatch();
-  const plan = processTemplate(template, course.data!, quizzes, folders);
+  if (!course.data) return <>Error: course.data was not loaded</>;
+  const plan = processTemplate(template, course.data, quizzes, folders);
 
   const onPrevious = (): void => {
     dispatch(resetPlan());
@@ -58,7 +59,11 @@ export const PlanStep = ({ previous, next }: PageProps): ReactElement => {
       <Typography variant="h4">
         Select the templates you want to apply
       </Typography>
-      <Tabs variant="fullWidth" value={tab} onChange={(_, v) => setTab(v)}>
+      <Tabs
+        variant="fullWidth"
+        value={tab}
+        onChange={(_, v: number) => setTab(v)}
+      >
         <Tab
           label={`Assignments (${plannedAssignmentCount}/${templateAssignmentCount})`}
         />

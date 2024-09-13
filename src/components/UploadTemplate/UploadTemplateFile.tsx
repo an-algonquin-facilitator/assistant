@@ -31,7 +31,7 @@ export const UploadTemplateFile = ({
   const onChange = async (
     e: React.ChangeEvent<HTMLInputElement>,
   ): Promise<void> => {
-    const f = e.target.files && e.target.files[0];
+    const f = e.target.files?.[0];
     if (!f) return;
     const fileContent = await f.text();
 
@@ -61,7 +61,9 @@ export const UploadTemplateFile = ({
           type="file"
           accept=".json,.yaml,.yml"
           hidden
-          onChange={onChange}
+          onChange={(e) => {
+            void onChange(e);
+          }}
         />
       </IconButton>
     </Box>

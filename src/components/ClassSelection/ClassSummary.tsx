@@ -18,7 +18,8 @@ export const ClassSummary = (): ReactElement => {
   const newsCount = useNewsCount();
 
   if (!course.data) return <></>;
-  if (error) return <Typography>Error loading course: {error}</Typography>;
+  if (error != null)
+    return <Typography>Error loading course: {error}</Typography>;
   if (isLoading) return <CircularProgress />;
   return (
     <Box sx={{ mt: 4 }}>

@@ -1,6 +1,6 @@
 import type { IModalProps } from "../Modal";
 import { Modal } from "../Modal";
-import type { MyEnrollments } from "../../api/api";
+import type { Enrollment } from "../../api/api";
 import {
   Accordion,
   AccordionDetails,
@@ -12,8 +12,8 @@ import { ClassList } from "./ClassList";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import type { ReactElement } from "react";
 
-const Content = ({ myEnrollments, onClose }: IProps): ReactElement => {
-  const [recent, others] = sortClasses(myEnrollments);
+const Content = ({ enrollments, onClose }: IProps): ReactElement => {
+  const [recent, others] = sortClasses(enrollments);
 
   const onClick = (courseId: string): void => {
     dispatchFetches(courseId);
@@ -42,7 +42,7 @@ const Content = ({ myEnrollments, onClose }: IProps): ReactElement => {
 };
 
 interface IProps extends IModalProps {
-  myEnrollments: MyEnrollments;
+  enrollments: Enrollment[];
 }
 export const SelectClassModal = (props: IProps): ReactElement => {
   return (

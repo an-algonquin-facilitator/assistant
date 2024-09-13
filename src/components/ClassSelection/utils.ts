@@ -1,4 +1,4 @@
-import type { Enrollment, MyEnrollments } from "../../api/api";
+import type { Enrollment } from "../../api/api";
 import {
   fetchAllNews,
   fetchCourse,
@@ -9,9 +9,9 @@ import { setCourse, setFolders, setNews, setQuizzes } from "../../store/course";
 import { store } from "../../store/store";
 
 export const sortClasses = (
-  enrollments: MyEnrollments,
+  enrollments: Enrollment[],
 ): [Enrollment[], Enrollment[]] => {
-  const facilitating = enrollments.Items.filter(
+  const facilitating = enrollments.filter(
     (e) =>
       e.Access.ClasslistRoleName === "Facilitator" &&
       e.OrgUnit.Type.Code === "Course Offering",

@@ -19,7 +19,7 @@ export const WhoAmI = ({ onValidate }: WhoAmIProps): ReactElement => {
   const onNotValid = (): void => onValidate(false);
 
   if (loading) return <CircularProgress />;
-  if (error) return <WhoAmIError onClose={onNotValid} />;
+  if (error != null) return <WhoAmIError onClose={onNotValid} />;
   if (!whoAmI) return <NoWhoAmI onClose={onNotValid} />;
 
   return (

@@ -84,11 +84,11 @@ export const useIsCourseReady = (): boolean =>
     return (
       c.course.data?.Identifier !== "" &&
       !c.folders.loading &&
-      !c.folders.error &&
+      c.folders.error == null &&
       !c.quizzes.loading &&
-      !c.quizzes.error &&
+      c.quizzes.error == null &&
       !c.news.loading &&
-      !c.news.error
+      c.news.error == null
     );
   });
 
