@@ -1,14 +1,34 @@
+import { hasProperty, isObject } from "../../validator/validate";
+
 const msPerSecond = 1000;
 const msPerMinutes = 60000;
 const msPerHour = 3600000;
 
+interface JWTPayload {
+  exp: number;
+  // aud: string;
+  // azp: string;
+  // iss: string;
+  // jti: string;
+  // nbf: number;
+  // scope: string;
+  // sub: string;
+  // tenantid: string;
+}
+
+const isJWTPayload = (v: unknown): v is JWTPayload =>
+  v != null &&
+  isObject(v) &&
+  hasProperty(v, "exp") &&
+  typeof v.exp === "number";
+
 export const tokenExpiryDateUnix = (jwt: string): number => {
   try {
-    return (
-      new Date(
-        JSON.parse(atob(jwt.split(".")[1])).exp * msPerSecond,
-      ).getTime() - Date.now()
-    );
+    const [, payloadB64] = jwt.split(".");
+    const payloadRaw = atob(payloadB64);
+    const payload: unknown = JSON.parse(payloadRaw);
+    if (!isJWTPayload(payload)) return -1;
+    return new Date(payload.exp * msPerSecond).getTime() - Date.now();
   } catch {
     return -1;
   }

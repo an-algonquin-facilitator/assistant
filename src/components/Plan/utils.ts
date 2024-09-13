@@ -81,7 +81,7 @@ const createMustacheView = (
   };
 
   const assignmentEntries = assignments
-    .filter((a): boolean => a.templateId != null && a.templateId !== "")
+    .filter((a) => a.templateId)
     .map((a): [string, MustacheEvent] => [
       a.templateId ?? "BUG",
       createMustacheEvent(a),
@@ -165,8 +165,8 @@ const quizTemplateToPlan = (
 };
 
 interface MustacheView {
-  assignments: any;
-  quizzes: any;
+  assignments: Record<string, MustacheEvent>;
+  quizzes: Record<string, MustacheEvent>;
 }
 
 interface MustacheDate {

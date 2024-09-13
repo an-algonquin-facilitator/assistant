@@ -28,6 +28,13 @@ export const sortClasses = (
   return [recent, others];
 };
 
+const unknownError = (e: unknown): Error => {
+  if (e instanceof Error) {
+    return e;
+  }
+  return new Error(String(e));
+};
+
 export const dispatchFetches = (courseId: string): void => {
   store.dispatch(
     setFolders({
@@ -65,7 +72,7 @@ export const dispatchFetches = (courseId: string): void => {
       store.dispatch(
         setFolders({
           loading: false,
-          error: e,
+          error: unknownError(e),
         }),
       ),
     );
@@ -83,7 +90,7 @@ export const dispatchFetches = (courseId: string): void => {
       store.dispatch(
         setQuizzes({
           loading: false,
-          error: e,
+          error: unknownError(e),
         }),
       ),
     );
@@ -101,7 +108,7 @@ export const dispatchFetches = (courseId: string): void => {
       store.dispatch(
         setNews({
           loading: false,
-          error: e,
+          error: unknownError(e),
         }),
       ),
     );
@@ -119,7 +126,7 @@ export const dispatchFetches = (courseId: string): void => {
       store.dispatch(
         setCourse({
           loading: false,
-          error: e,
+          error: unknownError(e),
         }),
       ),
     );

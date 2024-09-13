@@ -13,7 +13,7 @@ export interface CurrentCourseState {
 export interface APIRequest<T> {
   data?: T;
   loading: boolean;
-  error?: any;
+  error?: Error;
 }
 
 const initialState: CurrentCourseState = {
@@ -72,7 +72,7 @@ export const useIsCourseLoading = (): boolean =>
     return c.folders.loading || c.quizzes.loading || c.news.loading;
   });
 
-export const useCourseError = (): any =>
+export const useCourseError = (): Error | undefined =>
   useAppSelector((s) => {
     const c = s.currentCourse;
     return c.folders.error ?? c.quizzes.error ?? c.news.error ?? undefined;

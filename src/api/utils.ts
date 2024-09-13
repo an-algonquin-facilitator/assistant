@@ -53,7 +53,7 @@ export const makeQuery = <R, T>(baseURL: string, path: (t: T) => string) => {
           if (apiResp.status === StatusOK)
             apiResp
               .json()
-              .then((body) => {
+              .then((body: R) => {
                 setResp({ data: body, loading: false });
               })
               .catch((e: unknown) =>

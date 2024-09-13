@@ -19,7 +19,7 @@ export const ClassSummary = (): ReactElement => {
 
   if (!course.data) return <></>;
   if (error != null)
-    return <Typography>Error loading course: {error}</Typography>;
+    return <Typography>Error loading course: {error.message}</Typography>;
   if (isLoading) return <CircularProgress />;
   return (
     <Box sx={{ mt: 4 }}>
