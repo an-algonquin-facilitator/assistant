@@ -1,6 +1,7 @@
 import { Tooltip, Typography } from "@mui/material";
 import type { DateOffset } from "../../store/template";
 import { dateOffsetToString, formatDate } from "../Review/utils";
+import type { ReactElement } from "react";
 
 interface PlannedDateProps {
   date: number;
@@ -12,7 +13,7 @@ export const PlannedDate = ({
   date,
   offset,
   holidayOffset,
-}: PlannedDateProps) => {
+}: PlannedDateProps): ReactElement => {
   return (
     <Tooltip
       title={

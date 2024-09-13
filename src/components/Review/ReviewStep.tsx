@@ -8,15 +8,17 @@ import {
 import { ReviewAssignment } from "./ReviewAssignment";
 import { ReviewQuiz } from "./ReviewQuiz";
 import { ReviewNews } from "./ReviewNews";
+import type { ReactElement } from "react";
 import { useState } from "react";
 
-export const ReviewStep = ({ previous, next }: PageProps) => {
+export const ReviewStep = ({ previous, next }: PageProps): ReactElement => {
   const [expanded, setExpanded] = useState("");
   const assignments = usePlannedAssignments();
   const quizzes = usePlannedQuizzes();
   const news = usePlannedNews();
 
-  const changeExpanded = (id: string) => setExpanded(id === expanded ? "" : id);
+  const changeExpanded = (id: string): void =>
+    setExpanded(id === expanded ? "" : id);
 
   return (
     <>

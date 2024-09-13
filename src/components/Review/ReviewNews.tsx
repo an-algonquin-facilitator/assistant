@@ -10,6 +10,7 @@ import {
 import type { INewsPlan } from "../../store/plan";
 import { dateOffsetToString, formatDate } from "./utils";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
+import type { ReactElement } from "react";
 
 interface IProps {
   news: INewsPlan;
@@ -17,7 +18,11 @@ interface IProps {
   setExpanded: (id: string) => void;
 }
 
-export const ReviewNews = ({ news, expanded, setExpanded }: IProps) => {
+export const ReviewNews = ({
+  news,
+  expanded,
+  setExpanded,
+}: IProps): ReactElement => {
   const id = "N" + news.name;
   return (
     <Accordion expanded={expanded === id} onChange={() => setExpanded(id)}>

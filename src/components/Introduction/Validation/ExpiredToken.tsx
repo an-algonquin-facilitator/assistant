@@ -1,9 +1,12 @@
 import { Box, Link, Typography } from "@mui/material";
 import { CenterOK } from "./CenterOK";
+import type { ReactElement } from "react";
+
 interface ExpiredTokenProps {
   onClose: () => void;
 }
-export const ExpiredToken = ({ onClose }: ExpiredTokenProps) => {
+
+export const ExpiredToken = ({ onClose }: ExpiredTokenProps): ReactElement => {
   return (
     <Box sx={{ maxWidth: "400px" }}>
       <Typography variant="h4">Expired Token</Typography>

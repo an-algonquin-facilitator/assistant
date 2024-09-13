@@ -1,7 +1,8 @@
 import { Link, List, ListItem, Typography } from "@mui/material";
 import { AcquireTokenCodeSnippet } from "./AcquireTokenCodeSnippet";
+import type { ReactElement } from "react";
 
-export const Instructions = () => {
+export const Instructions = (): ReactElement => {
   return (
     <>
       <Typography variant="h3">Let's setup your class</Typography>

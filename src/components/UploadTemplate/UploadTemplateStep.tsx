@@ -9,6 +9,7 @@ import {
   setTemplateNews,
   setTemplateQuizzes,
 } from "../../store/template";
+import type { ReactElement } from "react";
 import { useState } from "react";
 import { useFolders, useNews, useQuizzes } from "../../store/course";
 import { isValidTemplate, validateTemplate } from "./utils";
@@ -20,7 +21,10 @@ export interface UnvalidatedTemplate {
   news?: any[];
 }
 
-export const UploadTemplateStep = ({ previous, next }: PageProps) => {
+export const UploadTemplateStep = ({
+  previous,
+  next,
+}: PageProps): ReactElement => {
   const [ut, setUT] = useState<UnvalidatedTemplate | undefined>();
   const folders = useFolders();
   const quizzes = useQuizzes();
@@ -30,12 +34,12 @@ export const UploadTemplateStep = ({ previous, next }: PageProps) => {
   const validatedTemplate = validateTemplate(ut, folders, quizzes, news);
   const isValid = isValidTemplate(validatedTemplate);
 
-  const onPrevious = () => {
+  const onPrevious = (): void => {
     dispatch(resetTemplate());
     previous();
   };
 
-  const onNext = () => {
+  const onNext = (): void => {
     if (!isValid) return;
     dispatch(setTemplateAssignments(validatedTemplate.validAssignments));
     dispatch(setTemplateQuizzes(validatedTemplate.validQuizzes));

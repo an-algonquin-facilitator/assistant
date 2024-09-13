@@ -1,7 +1,8 @@
 import { Box, Card } from "@mui/material";
 import { Assistant } from "./components/Assistant/Assistant";
+import type { ReactElement } from "react";
 
-export function App() {
+export const App = (): ReactElement => {
   return (
     <Box
       sx={{
@@ -16,4 +17,4 @@ export function App() {
       </Card>
     </Box>
   );
-}
+};

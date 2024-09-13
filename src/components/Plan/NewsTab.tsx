@@ -15,16 +15,17 @@ import {
 } from "../../store/plan";
 import { useAppDispatch } from "../../store/hooks";
 import { NewsRow } from "./NewsRow";
+import type { ReactElement } from "react";
 
 interface NewsTabProps {
   news: INewsPlan[];
 }
 
-export const NewsTab = ({ news }: NewsTabProps) => {
+export const NewsTab = ({ news }: NewsTabProps): ReactElement => {
   const dispatch = useAppDispatch();
   const allPlanned = useIsAllNewsPlanned();
 
-  const onCheck = (_: unknown, checked: boolean) => {
+  const onCheck = (_: unknown, checked: boolean): void => {
     const f = checked ? addNewsPlan : removeNewsPlan;
     news.forEach((a) => dispatch(f(a)));
   };

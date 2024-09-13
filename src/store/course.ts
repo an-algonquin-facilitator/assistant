@@ -57,27 +57,28 @@ export const CurrentCourseSlice = createSlice({
 export const { setCourse, setFolders, setQuizzes, setNews, resetCourse } =
   CurrentCourseSlice.actions;
 
-export const useCourse = () => useAppSelector((s) => s.currentCourse.course);
+export const useCourse = (): APIRequest<Course> =>
+  useAppSelector((s) => s.currentCourse.course);
 
-export const useCourseId = () =>
+export const useCourseId = (): string =>
   useAppSelector((s) => s.currentCourse.course.data?.Identifier ?? "");
 
-export const useCourseName = () =>
+export const useCourseName = (): string =>
   useAppSelector((s) => s.currentCourse.course.data?.Name ?? "");
 
-export const useIsCourseLoading = () =>
+export const useIsCourseLoading = (): boolean =>
   useAppSelector((s) => {
     const c = s.currentCourse;
     return c.folders.loading || c.quizzes.loading || c.news.loading;
   });
 
-export const useCourseError = () =>
+export const useCourseError = (): any =>
   useAppSelector((s) => {
     const c = s.currentCourse;
     return c.folders.error ?? c.quizzes.error ?? c.news.error ?? undefined;
   });
 
-export const useIsCourseReady = () =>
+export const useIsCourseReady = (): boolean =>
   useAppSelector((s) => {
     const c = s.currentCourse;
     return (
@@ -91,18 +92,18 @@ export const useIsCourseReady = () =>
     );
   });
 
-export const useFolderCount = () =>
+export const useFolderCount = (): number =>
   useAppSelector((s) => s.currentCourse.folders.data?.length ?? 0);
-export const useQuizCount = () =>
+export const useQuizCount = (): number =>
   useAppSelector((s) => s.currentCourse.quizzes.data?.length ?? 0);
-export const useNewsCount = () =>
+export const useNewsCount = (): number =>
   useAppSelector((s) => s.currentCourse.news.data?.length ?? 0);
 
-export const useFolders = () =>
+export const useFolders = (): Folder[] =>
   useAppSelector((s) => s.currentCourse.folders.data ?? []);
-export const useQuizzes = () =>
+export const useQuizzes = (): Quiz[] =>
   useAppSelector((s) => s.currentCourse.quizzes.data ?? []);
-export const useNews = () =>
+export const useNews = (): News[] =>
   useAppSelector((s) => s.currentCourse.news.data ?? []);
 
 export const currentCourseReducer = CurrentCourseSlice.reducer;

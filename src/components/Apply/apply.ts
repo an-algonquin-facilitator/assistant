@@ -165,7 +165,7 @@ export const apply = async ({
   setStarted,
   setTasks,
   setComplete,
-}: ApplyArguments) => {
+}: ApplyArguments): Promise<void> => {
   const state = store.getState();
   const courseId = state.currentCourse.course.data?.Identifier;
   if (courseId === undefined) return;

@@ -1,12 +1,16 @@
 import { Box, Typography } from "@mui/material";
 import { WarningString } from "./WarningString";
+import type { ReactElement } from "react";
 
 interface IProps {
   warnings: string[];
   explanation: string;
 }
 
-export const ListWarnings = ({ warnings, explanation }: IProps) => {
+export const ListWarnings = ({
+  warnings,
+  explanation,
+}: IProps): ReactElement => {
   if (warnings.length === 0) return <></>;
   return (
     <Box sx={{ m: 2 }}>

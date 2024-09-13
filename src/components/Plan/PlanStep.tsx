@@ -1,5 +1,6 @@
 import { Box, Button, Tab, Tabs, Typography } from "@mui/material";
 import type { PageProps } from "../Assistant/Assistant";
+import type { ReactElement } from "react";
 import { useState } from "react";
 import { TabPanel } from "./TabPanel";
 import { AssignmentTab } from "./AssignmentTab";
@@ -24,7 +25,7 @@ import { QuizTab } from "./QuizTab";
 import { NewsTab } from "./NewsTab";
 import { useAppDispatch } from "../../store/hooks";
 
-export const PlanStep = ({ previous, next }: PageProps) => {
+export const PlanStep = ({ previous, next }: PageProps): ReactElement => {
   const [tab, setTab] = useState(0);
 
   const plannedAssignmentCount = usePlanedAssignmentCount();
@@ -47,7 +48,7 @@ export const PlanStep = ({ previous, next }: PageProps) => {
   const dispatch = useAppDispatch();
   const plan = processTemplate(template, course.data!, quizzes, folders);
 
-  const onPrevious = () => {
+  const onPrevious = (): void => {
     dispatch(resetPlan());
     previous();
   };

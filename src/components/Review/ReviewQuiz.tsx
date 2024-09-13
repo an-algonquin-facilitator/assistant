@@ -9,6 +9,7 @@ import {
 import type { IQuizPlan } from "../../store/plan";
 import { dateOffsetToString, formatDate } from "../Review/utils";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
+import type { ReactElement } from "react";
 
 interface ReviewQuizProps {
   quiz: IQuizPlan;
@@ -20,7 +21,7 @@ export const ReviewQuiz = ({
   quiz,
   expanded,
   setExpanded,
-}: ReviewQuizProps) => {
+}: ReviewQuizProps): ReactElement => {
   const id = "Q" + quiz.id;
   return (
     <>

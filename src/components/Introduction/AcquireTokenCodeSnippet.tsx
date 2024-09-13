@@ -1,4 +1,5 @@
 import { Paper, Tooltip, Typography } from "@mui/material";
+import type { ReactElement } from "react";
 import { useState } from "react";
 import SyntaxHighlighter from "react-syntax-highlighter";
 import { monokai } from "react-syntax-highlighter/dist/esm/styles/hljs";
@@ -7,10 +8,10 @@ import { monokai } from "react-syntax-highlighter/dist/esm/styles/hljs";
 // We can't auto copy to clipboard because of permission stuff.
 const code = `console.log(JSON.parse(localStorage["D2L.Fetch.Tokens"])["*:*:*"].access_token);`;
 
-export const AcquireTokenCodeSnippet = () => {
+export const AcquireTokenCodeSnippet = (): ReactElement => {
   const [open, setOpen] = useState(false);
 
-  const onClick = () => {
+  const onClick = (): void => {
     navigator.clipboard.writeText(code);
     setOpen(true);
   };

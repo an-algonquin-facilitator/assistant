@@ -10,11 +10,12 @@ import {
 import { dispatchFetches, sortClasses } from "./utils";
 import { ClassList } from "./ClassList";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
+import type { ReactElement } from "react";
 
-const Content = ({ myEnrollments, onClose }: IProps) => {
+const Content = ({ myEnrollments, onClose }: IProps): ReactElement => {
   const [recent, others] = sortClasses(myEnrollments);
 
-  const onClick = (courseId: string, name: string) => {
+  const onClick = (courseId: string, name: string): void => {
     dispatchFetches(courseId);
     onClose();
   };
@@ -43,7 +44,7 @@ const Content = ({ myEnrollments, onClose }: IProps) => {
 interface IProps extends IModalProps {
   myEnrollments: MyEnrollments;
 }
-export const SelectClassModal = (props: IProps) => {
+export const SelectClassModal = (props: IProps): ReactElement => {
   return (
     <Modal {...props}>
       <Content {...props} />

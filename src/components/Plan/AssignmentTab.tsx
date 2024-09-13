@@ -15,16 +15,19 @@ import {
 } from "../../store/plan";
 import { AssignmentRow } from "./AssignmentRow";
 import { useAppDispatch } from "../../store/hooks";
+import type { ReactElement } from "react";
 
 interface AssignmentTabProps {
   assignments: IAssignmentPlan[];
 }
 
-export const AssignmentTab = ({ assignments }: AssignmentTabProps) => {
+export const AssignmentTab = ({
+  assignments,
+}: AssignmentTabProps): ReactElement => {
   const dispatch = useAppDispatch();
   const allPlanned = useIsAllAssignmentPlanned();
 
-  const onCheck = (_: unknown, checked: boolean) => {
+  const onCheck = (_: unknown, checked: boolean): void => {
     const f = checked ? addAssignmentPlan : removeAssignmentPlan;
     assignments.forEach((a) => dispatch(f(a)));
   };

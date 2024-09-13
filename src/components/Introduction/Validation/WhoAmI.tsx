@@ -5,17 +5,18 @@ import { TokenTimeRemaining } from "./TokenTimeRemaining";
 import { useToken } from "../../../store/token";
 import { tokenExpiryDateUnix } from "../utils";
 import { NoWhoAmI } from "./NoWhoAmI";
+import type { ReactElement } from "react";
 
 interface WhoAmIProps {
   onValidate: (valid: boolean) => void;
 }
 
-export const WhoAmI = ({ onValidate }: WhoAmIProps) => {
+export const WhoAmI = ({ onValidate }: WhoAmIProps): ReactElement => {
   const token = useToken();
   const millisRemaining = tokenExpiryDateUnix(token);
   const { data: whoAmI, loading, error } = useWhoAmIQuery();
 
-  const onNotValid = () => onValidate(false);
+  const onNotValid = (): void => onValidate(false);
 
   if (loading) return <CircularProgress />;
   if (error) return <WhoAmIError onClose={onNotValid} />;

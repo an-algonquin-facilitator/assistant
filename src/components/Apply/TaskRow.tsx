@@ -9,11 +9,12 @@ import DoneIcon from "@mui/icons-material/Done";
 import ErrorOutlineIcon from "@mui/icons-material/ErrorOutline";
 import { TaskIcon } from "./TaskIcon";
 import type { Task } from "./Task";
+import type { ReactElement } from "react";
 interface TaskRowProps {
   task: Task;
 }
 
-export const TaskRow = ({ task }: TaskRowProps) => {
+export const TaskRow = ({ task }: TaskRowProps): ReactElement => {
   return (
     <TableRow>
       <TableCell>

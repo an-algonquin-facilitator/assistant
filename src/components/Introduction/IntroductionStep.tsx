@@ -1,4 +1,5 @@
 import { Box, Button } from "@mui/material";
+import type { ReactElement } from "react";
 import { useState } from "react";
 import { ValidateTokenModal } from "./Validation/ValidateTokenModal";
 import { AcceptRiskModal } from "../Risk/AcceptRiskModal";
@@ -8,12 +9,12 @@ import { Instructions } from "./Instructions";
 import { TokenField } from "./TokenField";
 import { useToken } from "../../store/token";
 
-export const IntroductionStep = ({ next }: PageProps) => {
+export const IntroductionStep = ({ next }: PageProps): ReactElement => {
   const token = useToken();
   const [openValidate, setOpenValidate] = useState(false);
   const [openAcceptRisk, setOpenAcceptRisk] = useState(ShouldWarn());
 
-  const onValidate = (valid: boolean) => {
+  const onValidate = (valid: boolean): void => {
     setOpenValidate(false);
     if (valid) {
       localStorage.setItem("token", token);
@@ -21,7 +22,7 @@ export const IntroductionStep = ({ next }: PageProps) => {
     }
   };
 
-  const onAcceptRisk = () => {
+  const onAcceptRisk = (): void => {
     setOpenAcceptRisk(false);
   };
 

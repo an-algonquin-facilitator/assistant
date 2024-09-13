@@ -21,7 +21,7 @@ export const calculateDate = (
   start: number,
   offset: DateOffset,
   startOfDay: boolean,
-) => {
+): number => {
   let d = dayjs(start);
   if (offset.weeks) d = d.add(offset.weeks, "week");
   if (offset.days) d = d.add(offset.days, "day");
@@ -39,7 +39,7 @@ export const calculateDateWithHoliday = (
   start: number,
   offset: DateOffset,
   targetDateType: TargetDateType,
-) => {
+): [number, number] => {
   let d = dayjs(start);
   if (offset.weeks) d = d.add(offset.weeks, "week");
   if (offset.days) d = d.add(offset.days, "day");
@@ -58,7 +58,7 @@ export const calculateDateWithHoliday = (
 const createMustacheView = (
   assignments: IAssignmentPlan[],
   quizzes: IQuizPlan[],
-) => {
+): MustacheView => {
   const createDateObject = (date: number) => ({
     iso8601: new Date(date).toISOString(),
     date: new Date(date).toDateString(),

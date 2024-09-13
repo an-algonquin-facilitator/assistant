@@ -4,15 +4,19 @@ import { ClassSelectionField } from "./ClassSelectionField";
 import { ClassSummary } from "./ClassSummary";
 import { resetCourse, useIsCourseReady } from "../../store/course";
 import { useAppDispatch } from "../../store/hooks";
+import type { ReactElement } from "react";
 
-export const ClassSelectionStep = ({ previous, next }: PageProps) => {
+export const ClassSelectionStep = ({
+  previous,
+  next,
+}: PageProps): ReactElement => {
   const ready = useIsCourseReady();
   const dispatch = useAppDispatch();
-  const onPrevious = () => {
+  const onPrevious = (): void => {
     dispatch(resetCourse());
     previous();
   };
-  const onNext = () => {
+  const onNext = (): void => {
     next();
   };
   return (

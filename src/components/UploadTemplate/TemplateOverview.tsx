@@ -4,12 +4,15 @@ import type { ValidatedTemplate } from "./utils";
 import { isValidTemplate } from "./utils";
 import { TemplateQuizzesOverview } from "./TemplateQuizzesOverview";
 import { TemplateNewsOverview } from "./TemplateNewsOverview";
+import type { ReactElement } from "react";
 
 interface TemplateOverviewProps {
   template: ValidatedTemplate;
 }
 
-export const TemplateOverview = ({ template }: TemplateOverviewProps) => {
+export const TemplateOverview = ({
+  template,
+}: TemplateOverviewProps): ReactElement => {
   const isValid = isValidTemplate(template);
 
   if (!isValid)

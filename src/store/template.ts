@@ -82,24 +82,25 @@ export const {
 
 export const templateReducer = templateSlice.reducer;
 
-export const useTemplateAssignments = () =>
+export const useTemplateAssignments = (): Assignment[] =>
   useAppSelector((s) => s.template.assignments);
 
-export const useTemplateQuizzes = () =>
+export const useTemplateQuizzes = (): Quiz[] =>
   useAppSelector((s) => s.template.quizzes);
 
-export const useTemplateNews = () => useAppSelector((s) => s.template.news);
+export const useTemplateNews = (): News[] =>
+  useAppSelector((s) => s.template.news);
 
-export const useTemplateAssignmentCount = () =>
+export const useTemplateAssignmentCount = (): number =>
   useAppSelector((s) => s.template.assignments.length);
 
-export const useTemplateQuizCount = () =>
+export const useTemplateQuizCount = (): number =>
   useAppSelector((s) => s.template.quizzes.length);
 
-export const useTemplateNewsCount = () =>
+export const useTemplateNewsCount = (): number =>
   useAppSelector((s) => s.template.news.length);
 
-export const useIsValidTemplate = () =>
+export const useIsValidTemplate = (): boolean =>
   useAppSelector(
     (s) =>
       s.template.assignments.length > 0 ||
@@ -107,4 +108,5 @@ export const useIsValidTemplate = () =>
       s.template.news.length > 0,
   );
 
-export const useTemplateLoaded = () => useAppSelector((s) => s.template.loaded);
+export const useTemplateLoaded = (): boolean =>
+  useAppSelector((s) => s.template.loaded);

@@ -23,6 +23,6 @@ export const tokenSlice = createSlice({
 // Action creators are generated for each case reducer function
 export const { setToken } = tokenSlice.actions;
 
-export const useToken = () => useAppSelector((s) => s.token.value);
+export const useToken = (): string => useAppSelector((s) => s.token.value);
 
 export const tokenReducer = tokenSlice.reducer;

@@ -170,7 +170,7 @@ export const updateFolder = async (
   course: string,
   folderId: string,
   folder: Folder,
-) => {
+): Promise<Response> => {
   return fetch(`${leBaseURL}/${course}/dropbox/folders/${folderId}`, {
     method: "PUT",
     headers: {
@@ -186,7 +186,7 @@ export const updateQuiz = async (
   course: string,
   quizId: string,
   quiz: Quiz,
-) => {
+): Promise<Response> => {
   return fetch(`${leBaseURL}/${course}/quizzes/${quizId}`, {
     method: "PUT",
     headers: {
@@ -330,7 +330,7 @@ export const updateNews = async (
   course: string,
   newsId: string,
   news: News,
-) => {
+): Promise<Response> => {
   return fetch(`${leBaseURL}/${course}/news/${newsId}`, {
     method: "PUT",
     headers: {
@@ -345,7 +345,7 @@ export const createNews = async (
   token: string,
   course: string,
   news: CreateNews,
-) => {
+): Promise<Response> => {
   return fetch(`${leBaseURL}/${course}/news/`, {
     method: "POST",
     headers: {
@@ -360,7 +360,7 @@ export const deleteNews = async (
   token: string,
   course: string,
   newsId: string,
-) => {
+): Promise<Response> => {
   return fetch(`${leBaseURL}/${course}/news/${newsId}`, {
     method: "DELETE",
     headers: {

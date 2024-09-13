@@ -1,4 +1,5 @@
 import { Modal as MuiModal, Paper } from "@mui/material";
+import type { ReactElement } from "react";
 
 export interface IModalProps {
   open: boolean;
@@ -18,7 +19,7 @@ const style = {
   borderRadius: 2,
   p: 4,
 };
-export const Modal = ({ children, open, onClose }: IProps) => {
+export const Modal = ({ children, open, onClose }: IProps): ReactElement => {
   return (
     <MuiModal open={open} onClose={onClose}>
       <Paper elevation={5} sx={style}>

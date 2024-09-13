@@ -2,6 +2,7 @@ import { Box, IconButton, Typography } from "@mui/material";
 import FileUploadIcon from "@mui/icons-material/FileUpload";
 import YAML from "yaml";
 import type { UnvalidatedTemplate } from "./UploadTemplateStep";
+import type { ReactElement } from "react";
 
 const parseFile = (
   f: File,
@@ -13,7 +14,7 @@ const parseFile = (
     } else {
       return YAML.parse(content);
     }
-  } catch (err) {
+  } catch {
     return undefined;
   }
 };
@@ -23,8 +24,13 @@ interface UploadTemplateFileProps {
   setUT: (ut: UnvalidatedTemplate) => void;
 }
 
-export const UploadTemplateFile = ({ ut, setUT }: UploadTemplateFileProps) => {
-  const onChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
+export const UploadTemplateFile = ({
+  ut,
+  setUT,
+}: UploadTemplateFileProps): ReactElement => {
+  const onChange = async (
+    e: React.ChangeEvent<HTMLInputElement>,
+  ): Promise<void> => {
     const f = e.target.files && e.target.files[0];
     if (!f) return;
     const fileContent = await f.text();

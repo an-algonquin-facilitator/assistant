@@ -1,4 +1,4 @@
-export const tokenExpiryDateUnix = (jwt: string) => {
+export const tokenExpiryDateUnix = (jwt: string): number => {
   try {
     return (
       new Date(JSON.parse(atob(jwt.split(".")[1])).exp * 1000).getTime() -
@@ -9,7 +9,7 @@ export const tokenExpiryDateUnix = (jwt: string) => {
   }
 };
 
-export const secondsToMinutes = (d: number) => {
+export const secondsToMinutes = (d: number): string => {
   const m = Math.floor((d % 3600000) / 60000);
   const s = Math.floor((d % 60000) / 1000);
   return `${m} minutes ${s} seconds`;

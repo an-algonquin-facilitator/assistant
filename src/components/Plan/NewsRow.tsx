@@ -15,18 +15,19 @@ import {
 import { useAppDispatch } from "../../store/hooks";
 import ArticleIcon from "@mui/icons-material/Article";
 import { Modal } from "../Modal";
+import type { ReactElement } from "react";
 import { useState } from "react";
 
 interface NewsRowProps {
   news: INewsPlan;
 }
 
-export const NewsRow = ({ news: n }: NewsRowProps) => {
+export const NewsRow = ({ news: n }: NewsRowProps): ReactElement => {
   const [open, setOpen] = useState(false);
   const isPlanned = useIsNewsPlanned(n.name);
   const dispatch = useAppDispatch();
 
-  const onChange = (_: unknown, checked: boolean) => {
+  const onChange = (_: unknown, checked: boolean): void => {
     dispatch(checked ? addNewsPlan(n) : removeNewsPlan(n));
   };
 

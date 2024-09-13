@@ -1,4 +1,4 @@
-import type { MyEnrollments } from "../../api/api";
+import type { Enrollment, MyEnrollments } from "../../api/api";
 import {
   fetchAllNews,
   fetchCourse,
@@ -8,7 +8,9 @@ import {
 import { setCourse, setFolders, setNews, setQuizzes } from "../../store/course";
 import { store } from "../../store/store";
 
-export const sortClasses = (enrollments: MyEnrollments) => {
+export const sortClasses = (
+  enrollments: MyEnrollments,
+): [Enrollment[], Enrollment[]] => {
   const facilitating = enrollments.Items.filter(
     (e) =>
       e.Access.ClasslistRoleName === "Facilitator" &&
@@ -26,7 +28,7 @@ export const sortClasses = (enrollments: MyEnrollments) => {
   return [recent, others];
 };
 
-export const dispatchFetches = (courseId: string) => {
+export const dispatchFetches = (courseId: string): void => {
   store.dispatch(
     setFolders({
       loading: true,

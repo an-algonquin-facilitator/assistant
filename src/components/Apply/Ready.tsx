@@ -1,10 +1,11 @@
 import { Box, Button, Typography } from "@mui/material";
+import type { ReactElement } from "react";
 
 interface ReadyProps {
   onClick: () => void;
 }
 
-export const Ready = ({ onClick }: ReadyProps) => {
+export const Ready = ({ onClick }: ReadyProps): ReactElement => {
   return (
     <>
       <Typography variant="h3">Ready to apply your plan?</Typography>

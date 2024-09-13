@@ -7,8 +7,9 @@ import {
   useNewsCount,
   useQuizCount,
 } from "../../store/course";
+import type { ReactElement } from "react";
 
-export const ClassSummary = () => {
+export const ClassSummary = (): ReactElement => {
   const course = useCourse();
   const isLoading = useIsCourseLoading();
   const error = useCourseError();

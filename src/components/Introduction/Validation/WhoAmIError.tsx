@@ -1,11 +1,12 @@
 import { Box, Typography } from "@mui/material";
 import { CenterOK } from "./CenterOK";
+import type { ReactElement } from "react";
 
 interface WhoAmIErrorProps {
   onClose: () => void;
 }
 
-export const WhoAmIError = ({ onClose }: WhoAmIErrorProps) => {
+export const WhoAmIError = ({ onClose }: WhoAmIErrorProps): ReactElement => {
   return (
     <Box sx={{ maxWidth: "400px" }}>
       <Typography variant="h4">Validation Error</Typography>

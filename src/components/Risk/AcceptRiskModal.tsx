@@ -2,12 +2,13 @@ import { Box, Button, Typography } from "@mui/material";
 import type { IModalProps } from "../Modal";
 import { Modal } from "../Modal";
 import { DoNotWarnCheckbox } from "./DoNotWarnCheckbox";
+import type { ReactElement } from "react";
 
 interface IProps extends IModalProps {
   onAccept: () => void;
 }
 
-const Content = ({ onAccept }: IProps) => {
+const Content = ({ onAccept }: IProps): ReactElement => {
   return (
     <>
       <Typography variant="h5">
@@ -41,7 +42,7 @@ const Content = ({ onAccept }: IProps) => {
   );
 };
 
-export const AcceptRiskModal = (props: IProps) => {
+export const AcceptRiskModal = (props: IProps): ReactElement => {
   return (
     <Modal {...props}>
       <Content {...props} />

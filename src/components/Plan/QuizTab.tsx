@@ -15,16 +15,17 @@ import {
 } from "../../store/plan";
 import { useAppDispatch } from "../../store/hooks";
 import { QuizRow } from "./QuizRow";
+import type { ReactElement } from "react";
 
 interface QuizTabProps {
   quizzes: IQuizPlan[];
 }
 
-export const QuizTab = ({ quizzes }: QuizTabProps) => {
+export const QuizTab = ({ quizzes }: QuizTabProps): ReactElement => {
   const dispatch = useAppDispatch();
   const allPlanned = useIsAllQuizPlanned();
 
-  const onCheck = (_: unknown, checked: boolean) => {
+  const onCheck = (_: unknown, checked: boolean): void => {
     const f = checked ? addQuizPlan : removeQuizPlan;
     quizzes.forEach((a) => dispatch(f(a)));
   };

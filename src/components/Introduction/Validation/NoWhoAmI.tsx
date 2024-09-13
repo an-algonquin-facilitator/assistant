@@ -1,10 +1,12 @@
 import { Typography } from "@mui/material";
 import { CenterOK } from "./CenterOK";
+import type { ReactElement } from "react";
+
 interface NoWhoAmIProps {
   onClose: () => void;
 }
 
-export const NoWhoAmI = ({ onClose }: NoWhoAmIProps) => {
+export const NoWhoAmI = ({ onClose }: NoWhoAmIProps): ReactElement => {
   return (
     <>
       <Typography variant="h4">Unknown Error</Typography>

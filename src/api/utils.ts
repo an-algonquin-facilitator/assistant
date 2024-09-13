@@ -28,7 +28,7 @@ export const makeFetch = <RET, ARG>(
 };
 
 export const makeQuery = <R, T>(baseURL: string, path: (t: T) => string) => {
-  return (t: T) => {
+  return (t: T): Response<R> => {
     const [resp, setResp] = useState<Response<R>>({ loading: true });
     const token = useToken();
     useEffect(() => {

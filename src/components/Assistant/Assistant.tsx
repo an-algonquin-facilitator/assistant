@@ -1,5 +1,5 @@
 import { Step, StepLabel, Stepper } from "@mui/material";
-import type { FC } from "react";
+import type { FC, ReactElement } from "react";
 import { useState } from "react";
 import { IntroductionStep } from "../Introduction/IntroductionStep";
 import { ClassSelectionStep } from "../ClassSelection/ClassSelectionStep";
@@ -27,7 +27,7 @@ const steps: AssistantStep[] = [
   { Label: "Apply", Page: ApplyStep },
 ];
 
-export const Assistant = () => {
+export const Assistant = (): ReactElement => {
   const [activeStep, setActiveStep] = useState(0);
 
   const CurrentPage = steps[activeStep].Page;

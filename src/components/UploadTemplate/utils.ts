@@ -20,7 +20,7 @@ export interface ValidatedTemplate {
   missingTemplateNews: TNews[];
 }
 
-export const isValidTemplate = (template: ValidatedTemplate) => {
+export const isValidTemplate = (template: ValidatedTemplate): boolean => {
   return (
     template.validAssignments.length > 0 ||
     template.validNews.length > 0 ||

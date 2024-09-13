@@ -107,38 +107,38 @@ export const {
   resetPlan,
 } = planSlice.actions;
 
-export const useIsAssignmentPlanned = (id: string) =>
+export const useIsAssignmentPlanned = (id: string): boolean =>
   useAppSelector((s) => s.plan.assignments.some((a) => a.id === id));
 
-export const useIsQuizPlanned = (id: string) =>
+export const useIsQuizPlanned = (id: string): boolean =>
   useAppSelector((s) => s.plan.quizzes.some((a) => a.id === id));
 
-export const useIsNewsPlanned = (name: string) =>
+export const useIsNewsPlanned = (name: string): boolean =>
   useAppSelector((s) => s.plan.news.some((a) => a.name === name));
 
-export const useIsAllAssignmentPlanned = () =>
+export const useIsAllAssignmentPlanned = (): boolean =>
   useAppSelector(
     (s) => s.plan.assignments.length === s.template.assignments.length ?? 0,
   );
 
-export const usePlanedAssignmentCount = () =>
+export const usePlanedAssignmentCount = (): number =>
   useAppSelector((s) => s.plan.assignments.length);
 
-export const useIsAllQuizPlanned = () =>
+export const useIsAllQuizPlanned = (): boolean =>
   useAppSelector(
     (s) => s.plan.quizzes.length === s.template.quizzes.length ?? 0,
   );
 
-export const useIsAllNewsPlanned = () =>
+export const useIsAllNewsPlanned = (): boolean =>
   useAppSelector((s) => s.plan.news.length === s.template.news.length ?? 0);
 
-export const usePlanedQuizCount = () =>
+export const usePlanedQuizCount = (): number =>
   useAppSelector((s) => s.plan.quizzes.length);
 
-export const usePlanedNewsCount = () =>
+export const usePlanedNewsCount = (): number =>
   useAppSelector((s) => s.plan.news.length);
 
-export const useIsAnythingPlanned = () =>
+export const useIsAnythingPlanned = (): boolean =>
   useAppSelector(
     (s) =>
       s.plan.assignments.length > 0 ||
@@ -146,9 +146,11 @@ export const useIsAnythingPlanned = () =>
       s.plan.news.length > 0,
   );
 
-export const usePlannedAssignments = () =>
+export const usePlannedAssignments = (): IAssignmentPlan[] =>
   useAppSelector((s) => s.plan.assignments);
-export const usePlannedQuizzes = () => useAppSelector((s) => s.plan.quizzes);
-export const usePlannedNews = () => useAppSelector((s) => s.plan.news);
+export const usePlannedQuizzes = (): IQuizPlan[] =>
+  useAppSelector((s) => s.plan.quizzes);
+export const usePlannedNews = (): INewsPlan[] =>
+  useAppSelector((s) => s.plan.news);
 
 export const planReducer = planSlice.reducer;

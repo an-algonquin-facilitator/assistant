@@ -1,12 +1,16 @@
 import { Button, List, ListItem } from "@mui/material";
 import type { Enrollment } from "../../api/api";
+import type { ReactElement } from "react";
 
 interface ClassListProps {
   classes: Enrollment[];
   onClick: (id: string, name: string) => void;
 }
 
-export const ClassList = ({ classes, onClick }: ClassListProps) => {
+export const ClassList = ({
+  classes,
+  onClick,
+}: ClassListProps): ReactElement => {
   return (
     <List>
       {classes.map((c) => (

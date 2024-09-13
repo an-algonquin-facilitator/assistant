@@ -1,6 +1,7 @@
 import { IconButton, Typography } from "@mui/material";
 import HelpOutlineIcon from "@mui/icons-material/HelpOutline";
 import { Modal } from "../Modal";
+import type { ReactElement } from "react";
 import { useState } from "react";
 import { ListWarnings } from "./ListWarnings";
 import type { ValidatedTemplate } from "./utils";
@@ -11,7 +12,7 @@ interface TemplateNewsOverviewProps {
 
 export const TemplateNewsOverview = ({
   template,
-}: TemplateNewsOverviewProps) => {
+}: TemplateNewsOverviewProps): ReactElement => {
   const [open, setOpen] = useState(false);
 
   const warningCount = template.missingBrightspaceNews.length;

@@ -7,16 +7,19 @@ import {
   useIsAssignmentPlanned,
 } from "../../store/plan";
 import { useAppDispatch } from "../../store/hooks";
+import type { ReactElement } from "react";
 
 interface AssignmentRowProps {
   assignment: IAssignmentPlan;
 }
 
-export const AssignmentRow = ({ assignment: a }: AssignmentRowProps) => {
+export const AssignmentRow = ({
+  assignment: a,
+}: AssignmentRowProps): ReactElement => {
   const isPlanned = useIsAssignmentPlanned(a.id);
   const dispatch = useAppDispatch();
 
-  const onChange = (_: unknown, checked: boolean) => {
+  const onChange = (_: unknown, checked: boolean): void => {
     dispatch(checked ? addAssignmentPlan(a) : removeAssignmentPlan(a));
   };
   return (

@@ -7,16 +7,17 @@ import {
   useIsQuizPlanned,
 } from "../../store/plan";
 import { useAppDispatch } from "../../store/hooks";
+import type { ReactElement } from "react";
 
 interface QuizRowProps {
   quiz: IQuizPlan;
 }
 
-export const QuizRow = ({ quiz: q }: QuizRowProps) => {
+export const QuizRow = ({ quiz: q }: QuizRowProps): ReactElement => {
   const isPlanned = useIsQuizPlanned(q.id);
   const dispatch = useAppDispatch();
 
-  const onChange = (_: unknown, checked: boolean) => {
+  const onChange = (_: unknown, checked: boolean): void => {
     dispatch(checked ? addQuizPlan(q) : removeQuizPlan(q));
   };
   return (

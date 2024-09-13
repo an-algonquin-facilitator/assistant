@@ -4,6 +4,7 @@ import DeleteIcon from "@mui/icons-material/Delete";
 import NotificationsActiveIcon from "@mui/icons-material/NotificationsActive";
 import type { OverridableComponent } from "@mui/material/OverridableComponent";
 import { TaskType } from "./Task";
+import type { ReactElement } from "react";
 
 interface TaskIconProps {
   taskType: TaskType;
@@ -16,7 +17,7 @@ const iconMap: Record<TaskType, OverridableComponent<any>> = {
   [TaskType.DELETE]: DeleteIcon,
 };
 
-export const TaskIcon = ({ taskType }: TaskIconProps) => {
+export const TaskIcon = ({ taskType }: TaskIconProps): ReactElement => {
   const C = iconMap[taskType];
   return <C />;
 };

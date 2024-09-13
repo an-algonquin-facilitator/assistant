@@ -9,6 +9,7 @@ import {
 import type { IAssignmentPlan } from "../../store/plan";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import { dateOffsetToString, formatDate } from "./utils";
+import type { ReactElement } from "react";
 
 interface IReviewAssignmentProps {
   assignment: IAssignmentPlan;
@@ -20,7 +21,7 @@ export const ReviewAssignment = ({
   assignment,
   expanded,
   setExpanded,
-}: IReviewAssignmentProps) => {
+}: IReviewAssignmentProps): ReactElement => {
   const id = "A" + assignment.id;
   return (
     <>
