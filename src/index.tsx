@@ -8,23 +8,27 @@ import { Provider } from "react-redux";
 import { LocalizationProvider } from "@mui/x-date-pickers";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 
-const root = ReactDOM.createRoot(document.getElementById("root")!);
-
 const darkTheme = createTheme({
   palette: {
     mode: "dark",
   },
 });
 
-root.render(
-  <React.StrictMode>
-    <ThemeProvider theme={darkTheme}>
-      <CssBaseline />
-      <Provider store={store}>
-        <LocalizationProvider dateAdapter={AdapterDayjs}>
-          <App />
-        </LocalizationProvider>
-      </Provider>
-    </ThemeProvider>
-  </React.StrictMode>,
-);
+((): void => {
+  const node = document.getElementById("root");
+  if (!node) throw new Error("root div not found");
+  const root = ReactDOM.createRoot(node);
+
+  root.render(
+    <React.StrictMode>
+      <ThemeProvider theme={darkTheme}>
+        <CssBaseline />
+        <Provider store={store}>
+          <LocalizationProvider dateAdapter={AdapterDayjs}>
+            <App />
+          </LocalizationProvider>
+        </Provider>
+      </ThemeProvider>
+    </React.StrictMode>,
+  );
+})();

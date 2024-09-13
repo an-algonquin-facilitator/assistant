@@ -7,7 +7,7 @@ export interface TokenState {
 }
 
 const initialState: TokenState = {
-  value: localStorage.getItem("token") || "",
+  value: localStorage.getItem("token") ?? "",
 };
 
 export const tokenSlice = createSlice({

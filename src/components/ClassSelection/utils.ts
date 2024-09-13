@@ -61,7 +61,7 @@ export const dispatchFetches = (courseId: string): void => {
         }),
       ),
     )
-    .catch((e) =>
+    .catch((e: unknown) =>
       store.dispatch(
         setFolders({
           loading: false,
@@ -79,7 +79,7 @@ export const dispatchFetches = (courseId: string): void => {
         }),
       ),
     )
-    .catch((e) =>
+    .catch((e: unknown) =>
       store.dispatch(
         setQuizzes({
           loading: false,
@@ -97,7 +97,7 @@ export const dispatchFetches = (courseId: string): void => {
         }),
       ),
     )
-    .catch((e) =>
+    .catch((e: unknown) =>
       store.dispatch(
         setNews({
           loading: false,
@@ -115,7 +115,7 @@ export const dispatchFetches = (courseId: string): void => {
         }),
       ),
     )
-    .catch((e) =>
+    .catch((e: unknown) =>
       store.dispatch(
         setCourse({
           loading: false,

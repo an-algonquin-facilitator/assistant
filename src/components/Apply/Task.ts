@@ -6,10 +6,10 @@ export interface Task {
 }
 
 export enum TaskType {
-  ASSIGNMENT,
-  QUIZ,
-  NEWS,
-  DELETE,
+  ASSIGNMENT = "ASSIGNMENT",
+  QUIZ = "QUIZ",
+  NEWS = "NEWS",
+  DELETE = "DELETE",
 }
 
 export interface APIError {

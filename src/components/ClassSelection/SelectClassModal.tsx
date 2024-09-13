@@ -15,7 +15,7 @@ import type { ReactElement } from "react";
 const Content = ({ myEnrollments, onClose }: IProps): ReactElement => {
   const [recent, others] = sortClasses(myEnrollments);
 
-  const onClick = (courseId: string, name: string): void => {
+  const onClick = (courseId: string): void => {
     dispatchFetches(courseId);
     onClose();
   };

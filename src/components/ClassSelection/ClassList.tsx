@@ -4,7 +4,7 @@ import type { ReactElement } from "react";
 
 interface ClassListProps {
   classes: Enrollment[];
-  onClick: (id: string, name: string) => void;
+  onClick: (id: string) => void;
 }
 
 export const ClassList = ({
@@ -18,7 +18,7 @@ export const ClassList = ({
           <Button
             sx={{ width: "100%", justifyContent: "start" }}
             onClick={() => {
-              onClick(c.OrgUnit.Id + "", c.OrgUnit.Name);
+              onClick(c.OrgUnit.Id + "");
             }}
           >
             {c.OrgUnit.Name}

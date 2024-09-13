@@ -3,6 +3,8 @@ import { useEffect, useState } from "react";
 import { useToken } from "../../../store/token";
 import { secondsToMinutes, tokenExpiryDateUnix } from "../utils";
 
+const msPerSecond = 1000;
+
 export const TokenTimeRemaining = (): ReactElement => {
   const token = useToken();
   const [timeLeft, setTimeLeft] = useState(
@@ -11,7 +13,7 @@ export const TokenTimeRemaining = (): ReactElement => {
   useEffect(() => {
     const interv = setInterval(
       () => setTimeLeft(secondsToMinutes(tokenExpiryDateUnix(token))),
-      1000,
+      msPerSecond,
     );
     return (): void => clearInterval(interv);
   }, [token]);

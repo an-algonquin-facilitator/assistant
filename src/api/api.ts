@@ -368,3 +368,5 @@ export const deleteNews = async (
     },
   });
 };
+
+export const StatusBadRequest = 400;

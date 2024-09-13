@@ -12,7 +12,7 @@ export const AcquireTokenCodeSnippet = (): ReactElement => {
   const [open, setOpen] = useState(false);
 
   const onClick = (): void => {
-    navigator.clipboard.writeText(code);
+    void navigator.clipboard.writeText(code);
     setOpen(true);
   };
 

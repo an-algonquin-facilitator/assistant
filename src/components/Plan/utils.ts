@@ -17,6 +17,10 @@ import type { Course, Folder, Quiz as BQuiz } from "../../api/api";
 import { isDefined } from "../Introduction/utils";
 import Mustache from "mustache";
 
+const dayLastHour = 23;
+const dayLastMinute = 59;
+const msPerSecond = 1000;
+
 export const calculateDate = (
   start: number,
   offset: DateOffset,
@@ -26,13 +30,14 @@ export const calculateDate = (
   if (offset.weeks) d = d.add(offset.weeks, "week");
   if (offset.days) d = d.add(offset.days, "day");
   if (startOfDay) d = d.startOf("day").add(1, "minute");
-  else d = d.startOf("day").add(23, "hour").add(59, "minute");
-  return d.unix() * 1000;
+  else
+    d = d.startOf("day").add(dayLastHour, "hour").add(dayLastMinute, "minute");
+  return d.unix() * msPerSecond;
 };
 
 export enum TargetDateType {
-  START,
-  END,
+  START = "START",
+  END = "END",
 }
 
 export const calculateDateWithHoliday = (
@@ -51,8 +56,8 @@ export const calculateDateWithHoliday = (
   if (targetDateType === TargetDateType.START)
     d = d.startOf("day").add(1, "minute");
   else if (targetDateType === TargetDateType.END)
-    d = d.startOf("day").add(23, "hour").add(59, "minute");
-  return [d.unix() * 1000, holidayOffset];
+    d = d.startOf("day").add(dayLastHour, "hour").add(dayLastMinute, "minute");
+  return [d.unix() * msPerSecond, holidayOffset];
 };
 
 const createMustacheView = (
@@ -99,7 +104,7 @@ const assignmentTemplateToPlan = (
   assignment: Assignment,
 ): IAssignmentPlan | undefined => {
   const a = assignment;
-  const f = folders.find((f) => f.Name === a.name);
+  const f = folders.find((fo) => fo.Name === a.name);
   if (!f) return undefined;
   const defaultEndOffset = {
     days: a.due.days ?? 0,
@@ -173,9 +178,10 @@ const newsTemplateToPlan = (
     weeks: n.start?.weeks ?? 0,
   };
 
+  const defaultWeekOffset = 2;
   const defaultDismissOffset = {
     days: n.start?.days ?? 0,
-    weeks: (n.start?.weeks ?? 0) + 2,
+    weeks: (n.start?.weeks ?? 0) + defaultWeekOffset,
   };
   return {
     name: n.name,
@@ -197,7 +203,7 @@ export const processTemplate = (
   quizzes: BQuiz[],
   folders: Folder[],
 ): ICoursePlan => {
-  const startDateUnixMS = dayjs(course.StartDate).unix() * 1000;
+  const startDateUnixMS = dayjs(course.StartDate).unix() * msPerSecond;
   const ass = template.assignments ?? [];
   const qu = template.quizzes ?? [];
   const ne = template.news ?? [];

@@ -5,6 +5,7 @@ import { TaskType } from "./Task";
 import { store } from "../../store/store";
 import type { CreateNews, News, RichText, RichTextInput } from "../../api/api";
 import {
+  StatusBadRequest,
   createNews,
   fetchFolder,
   fetchNews,
@@ -46,7 +47,7 @@ const applyAssignmentPlan = async (
   const prom = await updateFolder(token, courseId, assignment.id, folder);
   const resp = await prom.json();
   const error =
-    resp.status === 400
+    resp.status === StatusBadRequest
       ? { title: resp.title, detail: resp.detail }
       : undefined;
   return error;
@@ -81,7 +82,7 @@ const applyQuizPlan = async (
   const prom = await updateQuiz(token, courseId, qu.id, quiz);
   const resp = await prom.json();
   const error =
-    resp.status === 400
+    resp.status === StatusBadRequest
       ? { title: resp.title, detail: resp.detail }
       : undefined;
   return error;
@@ -109,7 +110,7 @@ const applyCreateNewsPlan = async (
   const prom = await createNews(token, courseId, createNewsPayload);
   const resp = await prom.json();
   const error =
-    resp.status === 400
+    resp.status === StatusBadRequest
       ? { title: resp.title, detail: resp.detail }
       : undefined;
   return error;
