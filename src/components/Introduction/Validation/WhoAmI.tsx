@@ -7,7 +7,7 @@ import { tokenExpiryDateUnix } from "../utils";
 import { NoWhoAmI } from "./NoWhoAmI";
 
 interface WhoAmIProps {
-  onValidate(valid: boolean): void;
+  onValidate: (valid: boolean) => void;
 }
 
 export const WhoAmI = ({ onValidate }: WhoAmIProps) => {

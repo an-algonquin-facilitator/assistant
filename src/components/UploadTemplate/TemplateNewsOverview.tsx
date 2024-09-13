@@ -3,7 +3,7 @@ import HelpOutlineIcon from "@mui/icons-material/HelpOutline";
 import { Modal } from "../Modal";
 import { useState } from "react";
 import { ListWarnings } from "./ListWarnings";
-import { ValidatedTemplate } from "./utils";
+import type { ValidatedTemplate } from "./utils";
 
 interface TemplateNewsOverviewProps {
   template: ValidatedTemplate;

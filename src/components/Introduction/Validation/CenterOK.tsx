@@ -1,7 +1,7 @@
 import { Box, Button } from "@mui/material";
 
 interface CenterOKProps {
-  onClick(): void;
+  onClick: () => void;
 }
 
 export const CenterOK = ({ onClick }: CenterOKProps) => {

@@ -6,14 +6,14 @@ import {
   Tooltip,
   Typography,
 } from "@mui/material";
-import { IAssignmentPlan } from "../../store/plan";
+import type { IAssignmentPlan } from "../../store/plan";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import { dateOffsetToString, formatDate } from "./utils";
 
 interface IReviewAssignmentProps {
   assignment: IAssignmentPlan;
   expanded: string;
-  setExpanded(id: string): void;
+  setExpanded: (id: string) => void;
 }
 
 export const ReviewAssignment = ({

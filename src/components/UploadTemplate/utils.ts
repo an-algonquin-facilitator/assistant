@@ -1,6 +1,10 @@
-import { Folder, News as BNews, Quiz as BQuiz } from "../../api/api";
-import { Assignment, Quiz as TQuiz, News as TNews } from "../../store/template";
-import { UnvalidatedTemplate } from "./UploadTemplateStep";
+import type { Folder, News as BNews, Quiz as BQuiz } from "../../api/api";
+import type {
+  Assignment,
+  Quiz as TQuiz,
+  News as TNews,
+} from "../../store/template";
+import type { UnvalidatedTemplate } from "./UploadTemplateStep";
 
 export interface ValidatedTemplate {
   validAssignments: Assignment[];

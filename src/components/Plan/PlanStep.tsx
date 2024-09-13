@@ -1,5 +1,5 @@
 import { Box, Button, Tab, Tabs, Typography } from "@mui/material";
-import { PageProps } from "../Assistant/Assistant";
+import type { PageProps } from "../Assistant/Assistant";
 import { useState } from "react";
 import { TabPanel } from "./TabPanel";
 import { AssignmentTab } from "./AssignmentTab";

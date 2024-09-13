@@ -1,4 +1,5 @@
-import { IModalProps, Modal } from "../../Modal";
+import type { IModalProps } from "../../Modal";
+import { Modal } from "../../Modal";
 import { tokenExpiryDateUnix } from "../utils";
 import { ExpiredToken } from "./ExpiredToken";
 import { useToken } from "../../../store/token";
@@ -14,7 +15,7 @@ const Content = ({ onValidate }: IProps) => {
 };
 
 interface IProps extends IModalProps {
-  onValidate(valid: boolean): void;
+  onValidate: (valid: boolean) => void;
 }
 export const ValidateTokenModal = (props: IProps) => {
   return (

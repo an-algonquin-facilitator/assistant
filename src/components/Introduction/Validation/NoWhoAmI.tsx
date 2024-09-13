@@ -1,7 +1,7 @@
 import { Typography } from "@mui/material";
 import { CenterOK } from "./CenterOK";
 interface NoWhoAmIProps {
-  onClose(): void;
+  onClose: () => void;
 }
 
 export const NoWhoAmI = ({ onClose }: NoWhoAmIProps) => {

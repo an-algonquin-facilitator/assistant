@@ -1,6 +1,7 @@
 import { Typography } from "@mui/material";
 import { TemplateAssignmentOverview } from "./TemplateAssignmentOverview";
-import { ValidatedTemplate, isValidTemplate } from "./utils";
+import type { ValidatedTemplate } from "./utils";
+import { isValidTemplate } from "./utils";
 import { TemplateQuizzesOverview } from "./TemplateQuizzesOverview";
 import { TemplateNewsOverview } from "./TemplateNewsOverview";
 

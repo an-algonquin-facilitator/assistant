@@ -11,7 +11,7 @@ export const makeFetch = <RET, ARG>(
   baseURL: string,
   path: (arg: ARG) => string,
 ): ((token: string, arg: ARG) => Promise<RET>) => {
-  return (token: string, arg: ARG): Promise<RET> => {
+  return async (token: string, arg: ARG): Promise<RET> => {
     return new Promise((res, rej) => {
       fetch(baseURL + path(arg), {
         headers: { Authorization: "Bearer " + token },

@@ -1,7 +1,7 @@
 import { Box, Link, Typography } from "@mui/material";
 import { CenterOK } from "./CenterOK";
 interface ExpiredTokenProps {
-  onClose(): void;
+  onClose: () => void;
 }
 export const ExpiredToken = ({ onClose }: ExpiredTokenProps) => {
   return (

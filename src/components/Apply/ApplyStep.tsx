@@ -1,7 +1,7 @@
 import { Box, Button, Table, TableBody, Typography } from "@mui/material";
-import { PageProps } from "../Assistant/Assistant";
+import type { PageProps } from "../Assistant/Assistant";
 import { useState } from "react";
-import { Task } from "./Task";
+import type { Task } from "./Task";
 import { Ready } from "./Ready";
 
 import { TaskRow } from "./TaskRow";
@@ -12,7 +12,7 @@ export const ApplyStep = ({ previous }: PageProps) => {
   const [complete, setComplete] = useState(false);
   const [tasks, setTasks] = useState<Task[]>([]);
 
-  const onClick = () =>
+  const onClick = async () =>
     apply({
       setStarted,
       setTasks,

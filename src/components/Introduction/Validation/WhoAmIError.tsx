@@ -2,7 +2,7 @@ import { Box, Typography } from "@mui/material";
 import { CenterOK } from "./CenterOK";
 
 interface WhoAmIErrorProps {
-  onClose(): void;
+  onClose: () => void;
 }
 
 export const WhoAmIError = ({ onClose }: WhoAmIErrorProps) => {

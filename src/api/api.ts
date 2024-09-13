@@ -165,7 +165,7 @@ export const fetchFolder = makeFetch<Folder, [string, string]>(
     `/${course}/dropbox/folders/${folder}`,
 );
 
-export const updateFolder = (
+export const updateFolder = async (
   token: string,
   course: string,
   folderId: string,
@@ -181,7 +181,7 @@ export const updateFolder = (
   });
 };
 
-export const updateQuiz = (
+export const updateQuiz = async (
   token: string,
   course: string,
   quizId: string,
@@ -325,7 +325,7 @@ export const fetchNews = makeFetch<News, [string, string]>(
   ([course, news]: [string, string]) => `/${course}/news/${news}`,
 );
 
-export const updateNews = (
+export const updateNews = async (
   token: string,
   course: string,
   newsId: string,
@@ -341,7 +341,11 @@ export const updateNews = (
   });
 };
 
-export const createNews = (token: string, course: string, news: CreateNews) => {
+export const createNews = async (
+  token: string,
+  course: string,
+  news: CreateNews,
+) => {
   return fetch(`${leBaseURL}/${course}/news/`, {
     method: "POST",
     headers: {
@@ -352,7 +356,11 @@ export const createNews = (token: string, course: string, news: CreateNews) => {
   });
 };
 
-export const deleteNews = (token: string, course: string, newsId: string) => {
+export const deleteNews = async (
+  token: string,
+  course: string,
+  newsId: string,
+) => {
   return fetch(`${leBaseURL}/${course}/news/${newsId}`, {
     method: "DELETE",
     headers: {

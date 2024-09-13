@@ -1,9 +1,10 @@
 import { Box, Button, Typography } from "@mui/material";
-import { IModalProps, Modal } from "../Modal";
+import type { IModalProps } from "../Modal";
+import { Modal } from "../Modal";
 import { DoNotWarnCheckbox } from "./DoNotWarnCheckbox";
 
 interface IProps extends IModalProps {
-  onAccept(): void;
+  onAccept: () => void;
 }
 
 const Content = ({ onAccept }: IProps) => {

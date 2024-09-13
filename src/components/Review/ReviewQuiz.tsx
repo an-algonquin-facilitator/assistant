@@ -6,14 +6,14 @@ import {
   Tooltip,
   Typography,
 } from "@mui/material";
-import { IQuizPlan } from "../../store/plan";
+import type { IQuizPlan } from "../../store/plan";
 import { dateOffsetToString, formatDate } from "../Review/utils";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 
 interface ReviewQuizProps {
   quiz: IQuizPlan;
   expanded: string;
-  setExpanded(id: string): void;
+  setExpanded: (id: string) => void;
 }
 
 export const ReviewQuiz = ({

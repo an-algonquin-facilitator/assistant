@@ -7,8 +7,8 @@ import {
   TableRow,
   Typography,
 } from "@mui/material";
+import type { IAssignmentPlan } from "../../store/plan";
 import {
-  IAssignmentPlan,
   addAssignmentPlan,
   removeAssignmentPlan,
   useIsAllAssignmentPlanned,

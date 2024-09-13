@@ -1,4 +1,4 @@
-import { DateOffset } from "../../store/template";
+import type { DateOffset } from "../../store/template";
 
 export const dateOffsetToString = (
   offset: DateOffset,

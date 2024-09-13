@@ -7,8 +7,8 @@ import {
   TableRow,
   Typography,
 } from "@mui/material";
+import type { INewsPlan } from "../../store/plan";
 import {
-  INewsPlan,
   addNewsPlan,
   removeNewsPlan,
   useIsAllNewsPlanned,

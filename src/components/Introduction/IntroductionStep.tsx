@@ -3,7 +3,7 @@ import { useState } from "react";
 import { ValidateTokenModal } from "./Validation/ValidateTokenModal";
 import { AcceptRiskModal } from "../Risk/AcceptRiskModal";
 import { ShouldWarn } from "../Risk/Risk";
-import { PageProps } from "../Assistant/Assistant";
+import type { PageProps } from "../Assistant/Assistant";
 import { Instructions } from "./Instructions";
 import { TokenField } from "./TokenField";
 import { useToken } from "../../store/token";

@@ -1,5 +1,5 @@
 import dayjs from "dayjs";
-import {
+import type {
   Assignment,
   DateOffset,
   News as TNews,
@@ -7,13 +7,13 @@ import {
   Template,
 } from "../../store/template";
 import { Holidays } from "../../holidays";
-import {
+import type {
   IAssignmentPlan,
   ICoursePlan,
   INewsPlan,
   IQuizPlan,
 } from "../../store/plan";
-import { Course, Folder, Quiz as BQuiz } from "../../api/api";
+import type { Course, Folder, Quiz as BQuiz } from "../../api/api";
 import { isDefined } from "../Introduction/utils";
 import Mustache from "mustache";
 

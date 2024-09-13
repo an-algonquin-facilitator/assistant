@@ -1,7 +1,7 @@
 import { Checkbox, TableCell, TableRow, Typography } from "@mui/material";
 import { PlannedDate } from "./PlannedDate";
+import type { IQuizPlan } from "../../store/plan";
 import {
-  IQuizPlan,
   addQuizPlan,
   removeQuizPlan,
   useIsQuizPlanned,

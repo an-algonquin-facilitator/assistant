@@ -6,8 +6,8 @@ import {
   Typography,
 } from "@mui/material";
 import { PlannedDate } from "./PlannedDate";
+import type { INewsPlan } from "../../store/plan";
 import {
-  INewsPlan,
   addNewsPlan,
   removeNewsPlan,
   useIsNewsPlanned,

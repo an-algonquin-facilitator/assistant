@@ -1,7 +1,7 @@
 import { Box, Button, Typography } from "@mui/material";
 
 interface ReadyProps {
-  onClick(): void;
+  onClick: () => void;
 }
 
 export const Ready = ({ onClick }: ReadyProps) => {

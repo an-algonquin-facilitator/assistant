@@ -1,6 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit";
 import type { PayloadAction } from "@reduxjs/toolkit";
-import { DateOffset } from "./template";
+import type { DateOffset } from "./template";
 import { useAppSelector } from "./hooks";
 
 export interface PlanState {
@@ -118,7 +118,7 @@ export const useIsNewsPlanned = (name: string) =>
 
 export const useIsAllAssignmentPlanned = () =>
   useAppSelector(
-    (s) => s.plan.assignments.length === s.template.assignments?.length ?? 0,
+    (s) => s.plan.assignments.length === s.template.assignments.length ?? 0,
   );
 
 export const usePlanedAssignmentCount = () =>
@@ -126,11 +126,11 @@ export const usePlanedAssignmentCount = () =>
 
 export const useIsAllQuizPlanned = () =>
   useAppSelector(
-    (s) => s.plan.quizzes.length === s.template.quizzes?.length ?? 0,
+    (s) => s.plan.quizzes.length === s.template.quizzes.length ?? 0,
   );
 
 export const useIsAllNewsPlanned = () =>
-  useAppSelector((s) => s.plan.news.length === s.template.news?.length ?? 0);
+  useAppSelector((s) => s.plan.news.length === s.template.news.length ?? 0);
 
 export const usePlanedQuizCount = () =>
   useAppSelector((s) => s.plan.quizzes.length);

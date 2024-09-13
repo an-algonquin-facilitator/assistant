@@ -1,7 +1,7 @@
 import { Box, Button } from "@mui/material";
 import { UploadTemplateFile } from "./UploadTemplateFile";
 import { TemplateOverview } from "./TemplateOverview";
-import { PageProps } from "../Assistant/Assistant";
+import type { PageProps } from "../Assistant/Assistant";
 import { useAppDispatch } from "../../store/hooks";
 import {
   resetTemplate,

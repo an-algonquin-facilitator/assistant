@@ -1,5 +1,5 @@
+import type { MyEnrollments } from "../../api/api";
 import {
-  MyEnrollments,
   fetchAllNews,
   fetchCourse,
   fetchFolders,
@@ -9,20 +9,20 @@ import { setCourse, setFolders, setNews, setQuizzes } from "../../store/course";
 import { store } from "../../store/store";
 
 export const sortClasses = (enrollments: MyEnrollments) => {
-  const facilitating = enrollments?.Items.filter(
+  const facilitating = enrollments.Items.filter(
     (e) =>
       e.Access.ClasslistRoleName === "Facilitator" &&
       e.OrgUnit.Type.Code === "Course Offering",
   );
 
-  const maxDate = facilitating?.reduce(
+  const maxDate = facilitating.reduce(
     (date, f) =>
       f.Access.StartDate.localeCompare(date) ? f.Access.StartDate : date,
     "",
   );
 
-  const recent = facilitating?.filter((f) => f.Access.StartDate === maxDate);
-  const others = facilitating?.filter((f) => f.Access.StartDate !== maxDate);
+  const recent = facilitating.filter((f) => f.Access.StartDate === maxDate);
+  const others = facilitating.filter((f) => f.Access.StartDate !== maxDate);
   return [recent, others];
 };
 

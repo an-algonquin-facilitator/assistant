@@ -1,7 +1,7 @@
 import { Box, IconButton, Typography } from "@mui/material";
 import FileUploadIcon from "@mui/icons-material/FileUpload";
 import YAML from "yaml";
-import { UnvalidatedTemplate } from "./UploadTemplateStep";
+import type { UnvalidatedTemplate } from "./UploadTemplateStep";
 
 const parseFile = (
   f: File,
@@ -20,7 +20,7 @@ const parseFile = (
 
 interface UploadTemplateFileProps {
   ut?: UnvalidatedTemplate;
-  setUT(ut: UnvalidatedTemplate): void;
+  setUT: (ut: UnvalidatedTemplate) => void;
 }
 
 export const UploadTemplateFile = ({ ut, setUT }: UploadTemplateFileProps) => {

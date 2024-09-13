@@ -7,8 +7,8 @@ import {
   TableRow,
   Typography,
 } from "@mui/material";
+import type { IQuizPlan } from "../../store/plan";
 import {
-  IQuizPlan,
   addQuizPlan,
   removeQuizPlan,
   useIsAllQuizPlanned,

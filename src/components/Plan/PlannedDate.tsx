@@ -1,5 +1,5 @@
 import { Tooltip, Typography } from "@mui/material";
-import { DateOffset } from "../../store/template";
+import type { DateOffset } from "../../store/template";
 import { dateOffsetToString, formatDate } from "../Review/utils";
 
 interface PlannedDateProps {

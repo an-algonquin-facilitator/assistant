@@ -1,6 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit";
 import type { PayloadAction } from "@reduxjs/toolkit";
-import { Course, Folder, News, Quiz } from "../api/api";
+import type { Course, Folder, News, Quiz } from "../api/api";
 import { useAppSelector } from "./hooks";
 
 export interface CurrentCourseState {
@@ -81,7 +81,7 @@ export const useIsCourseReady = () =>
   useAppSelector((s) => {
     const c = s.currentCourse;
     return (
-      c.course?.data?.Identifier !== "" &&
+      c.course.data?.Identifier !== "" &&
       !c.folders.loading &&
       !c.folders.error &&
       !c.quizzes.loading &&

@@ -8,7 +8,7 @@ import {
 import DoneIcon from "@mui/icons-material/Done";
 import ErrorOutlineIcon from "@mui/icons-material/ErrorOutline";
 import { TaskIcon } from "./TaskIcon";
-import { Task } from "./Task";
+import type { Task } from "./Task";
 interface TaskRowProps {
   task: Task;
 }

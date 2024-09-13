@@ -1,12 +1,10 @@
-import { Dispatch, SetStateAction } from "react";
-import { APIError, Task, TaskType } from "./Task";
+import type { Dispatch, SetStateAction } from "react";
+import type { APIError, Task } from "./Task";
+import { TaskType } from "./Task";
 
 import { store } from "../../store/store";
+import type { CreateNews, News, RichText, RichTextInput } from "../../api/api";
 import {
-  CreateNews,
-  News,
-  RichText,
-  RichTextInput,
   createNews,
   fetchFolder,
   fetchNews,
@@ -15,7 +13,7 @@ import {
   updateNews,
   updateQuiz,
 } from "../../api/api";
-import { IAssignmentPlan, INewsPlan, IQuizPlan } from "../../store/plan";
+import type { IAssignmentPlan, INewsPlan, IQuizPlan } from "../../store/plan";
 
 const toRichTextInput = (rt: RichText): RichTextInput => {
   return {
@@ -158,7 +156,7 @@ const applyNewsPlan = async (
 };
 
 interface ApplyArguments {
-  setStarted(b: boolean): void;
+  setStarted: (b: boolean) => void;
   setTasks: Dispatch<SetStateAction<Task[]>>;
   setComplete: Dispatch<SetStateAction<boolean>>;
 }
@@ -172,7 +170,7 @@ export const apply = async ({
   const courseId = state.currentCourse.course.data?.Identifier;
   if (courseId === undefined) return;
   const token = state.token.value;
-  const plan = state.plan;
+  const { plan } = state;
   const news = state.currentCourse.news.data;
   if (!news) return;
 

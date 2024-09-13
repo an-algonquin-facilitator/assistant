@@ -1,9 +1,9 @@
 import { Button, List, ListItem } from "@mui/material";
-import { Enrollment } from "../../api/api";
+import type { Enrollment } from "../../api/api";
 
 interface ClassListProps {
   classes: Enrollment[];
-  onClick(id: string, name: string): void;
+  onClick: (id: string, name: string) => void;
 }
 
 export const ClassList = ({ classes, onClick }: ClassListProps) => {

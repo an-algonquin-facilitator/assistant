@@ -1,5 +1,5 @@
 import { Box, Button, Typography } from "@mui/material";
-import { PageProps } from "../Assistant/Assistant";
+import type { PageProps } from "../Assistant/Assistant";
 import {
   usePlannedAssignments,
   usePlannedNews,

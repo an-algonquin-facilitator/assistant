@@ -1,5 +1,5 @@
 import { Box, Button } from "@mui/material";
-import { PageProps } from "../Assistant/Assistant";
+import type { PageProps } from "../Assistant/Assistant";
 import { ClassSelectionField } from "./ClassSelectionField";
 import { ClassSummary } from "./ClassSummary";
 import { resetCourse, useIsCourseReady } from "../../store/course";

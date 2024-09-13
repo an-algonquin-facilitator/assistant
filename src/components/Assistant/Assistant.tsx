@@ -1,5 +1,6 @@
 import { Step, StepLabel, Stepper } from "@mui/material";
-import { FC, useState } from "react";
+import type { FC } from "react";
+import { useState } from "react";
 import { IntroductionStep } from "../Introduction/IntroductionStep";
 import { ClassSelectionStep } from "../ClassSelection/ClassSelectionStep";
 import { UploadTemplateStep } from "../UploadTemplate/UploadTemplateStep";
@@ -13,8 +14,8 @@ interface AssistantStep {
 }
 
 export interface PageProps {
-  previous(): void;
-  next(): void;
+  previous: () => void;
+  next: () => void;
 }
 
 const steps: AssistantStep[] = [
