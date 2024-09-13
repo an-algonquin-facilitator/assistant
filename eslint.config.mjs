@@ -57,6 +57,10 @@ export default [
           format: ["camelCase", "PascalCase"],
         },
       ],
+      "@typescript-eslint/no-confusing-void-expression": [
+        "error",
+        { ignoreArrowShorthand: true },
+      ],
 
       // These need to be turned back on.
       "@typescript-eslint/no-unsafe-member-access": "off",
