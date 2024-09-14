@@ -3,8 +3,12 @@ import { fetchAllNews } from "../../api/news";
 import { fetchQuizzes } from "../../api/quiz";
 import { fetchCourse } from "../../api/course";
 import { fetchFolders } from "../../api/folder";
-import { setCourse, setFolders, setNews, setQuizzes } from "../../store/course";
 import { store } from "../../store/store";
+import type { Response } from "../../api/utils";
+import type { Course } from "../../api/course";
+import type { Folder } from "../../api/folder";
+import type { Quiz } from "../../api/quiz";
+import type { News } from "../../api/news";
 
 export const sortClasses = (
   enrollments: Enrollment[],
@@ -26,106 +30,90 @@ export const sortClasses = (
   return [recent, others];
 };
 
-const unknownError = (e: unknown): Error => {
+const unknownError = (e: unknown): string => {
   if (e instanceof Error) {
-    return e;
+    return e.message;
   }
-  return new Error(String(e));
+  return String(e);
 };
 
-export const dispatchFetches = (courseId: string): void => {
-  store.dispatch(
-    setFolders({
-      loading: true,
-    }),
-  );
-  store.dispatch(
-    setQuizzes({
-      loading: true,
-    }),
-  );
-  store.dispatch(
-    setNews({
-      loading: true,
-    }),
-  );
+export const dispatchFetches = (
+  courseId: string,
+  setCourse: (resp: Response<Course>) => void,
+  setFolders: (resp: Response<Folder[]>) => void,
+  setQuizzes: (resp: Response<Quiz[]>) => void,
+  setNews: (resp: Response<News[]>) => void,
+): void => {
+  setFolders({
+    loading: true,
+  });
 
-  store.dispatch(
-    setCourse({
-      loading: true,
-    }),
-  );
+  setQuizzes({
+    loading: true,
+  });
+
+  setNews({
+    loading: true,
+  });
+
+  setCourse({
+    loading: true,
+  });
 
   const token = store.getState().token.value;
   fetchFolders(token, courseId)
     .then((f) =>
-      store.dispatch(
-        setFolders({
-          data: f,
-          loading: false,
-        }),
-      ),
+      setFolders({
+        data: f,
+        loading: false,
+      }),
     )
     .catch((e: unknown) =>
-      store.dispatch(
-        setFolders({
-          loading: false,
-          error: unknownError(e),
-        }),
-      ),
+      setFolders({
+        loading: false,
+        error: unknownError(e),
+      }),
     );
 
   fetchQuizzes(token, courseId)
     .then((f) =>
-      store.dispatch(
-        setQuizzes({
-          data: f.Objects,
-          loading: false,
-        }),
-      ),
+      setQuizzes({
+        data: f.Objects,
+        loading: false,
+      }),
     )
     .catch((e: unknown) =>
-      store.dispatch(
-        setQuizzes({
-          loading: false,
-          error: unknownError(e),
-        }),
-      ),
+      setQuizzes({
+        loading: false,
+        error: unknownError(e),
+      }),
     );
 
   fetchAllNews(token, courseId)
     .then((f) =>
-      store.dispatch(
-        setNews({
-          data: f,
-          loading: false,
-        }),
-      ),
+      setNews({
+        data: f,
+        loading: false,
+      }),
     )
     .catch((e: unknown) =>
-      store.dispatch(
-        setNews({
-          loading: false,
-          error: unknownError(e),
-        }),
-      ),
+      setNews({
+        loading: false,
+        error: unknownError(e),
+      }),
     );
 
   fetchCourse(token, courseId)
     .then((f) =>
-      store.dispatch(
-        setCourse({
-          data: f,
-          loading: false,
-        }),
-      ),
+      setCourse({
+        data: f,
+        loading: false,
+      }),
     )
     .catch((e: unknown) =>
-      store.dispatch(
-        setCourse({
-          loading: false,
-          error: unknownError(e),
-        }),
-      ),
+      setCourse({
+        loading: false,
+        error: unknownError(e),
+      }),
     );
 };

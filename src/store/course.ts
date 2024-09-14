@@ -7,10 +7,10 @@ import type { Folder } from "../api/folder";
 import { useAppSelector } from "./hooks";
 
 export interface CurrentCourseState {
-  course: APIRequest<Course>;
-  folders: APIRequest<Folder[]>;
-  quizzes: APIRequest<Quiz[]>;
-  news: APIRequest<News[]>;
+  course: Course;
+  folders: Folder[];
+  quizzes: Quiz[];
+  news: News[];
 }
 
 export interface APIRequest<T> {
@@ -21,17 +21,37 @@ export interface APIRequest<T> {
 
 const initialState: CurrentCourseState = {
   course: {
-    loading: false,
+    Identifier: "",
+    Name: "",
+    Code: "",
+    IsActive: false,
+    CanSelfRegister: false,
+    Description: {
+      Text: "",
+      Html: "",
+    },
+    Path: "",
+    StartDate: "",
+    EndDate: "",
+    CourseTemplate: {
+      Identifier: "",
+      Name: "",
+      Code: "",
+    },
+    Semester: {
+      Identifier: "",
+      Name: "",
+      Code: "",
+    },
+    Department: {
+      Identifier: "",
+      Name: "",
+      Code: "",
+    },
   },
-  folders: {
-    loading: false,
-  },
-  quizzes: {
-    loading: false,
-  },
-  news: {
-    loading: false,
-  },
+  folders: [],
+  quizzes: [],
+  news: [],
 };
 
 export const CurrentCourseSlice = createSlice({
@@ -41,16 +61,16 @@ export const CurrentCourseSlice = createSlice({
     resetCourse(state) {
       Object.assign(state, initialState);
     },
-    setCourse(state, action: PayloadAction<APIRequest<Course>>) {
+    setCourse(state, action: PayloadAction<Course>) {
       state.course = action.payload;
     },
-    setFolders(state, action: PayloadAction<APIRequest<Folder[]>>) {
+    setFolders(state, action: PayloadAction<Folder[]>) {
       state.folders = action.payload;
     },
-    setQuizzes(state, action: PayloadAction<APIRequest<Quiz[]>>) {
+    setQuizzes(state, action: PayloadAction<Quiz[]>) {
       state.quizzes = action.payload;
     },
-    setNews(state, action: PayloadAction<APIRequest<News[]>>) {
+    setNews(state, action: PayloadAction<News[]>) {
       state.news = action.payload;
     },
   },
@@ -60,53 +80,27 @@ export const CurrentCourseSlice = createSlice({
 export const { setCourse, setFolders, setQuizzes, setNews, resetCourse } =
   CurrentCourseSlice.actions;
 
-export const useCourse = (): APIRequest<Course> =>
+export const useCourse = (): Course =>
   useAppSelector((s) => s.currentCourse.course);
 
 export const useCourseId = (): string =>
-  useAppSelector((s) => s.currentCourse.course.data?.Identifier ?? "");
+  useAppSelector((s) => s.currentCourse.course.Identifier);
 
 export const useCourseName = (): string =>
-  useAppSelector((s) => s.currentCourse.course.data?.Name ?? "");
-
-export const useIsCourseLoading = (): boolean =>
-  useAppSelector((s) => {
-    const c = s.currentCourse;
-    return c.folders.loading || c.quizzes.loading || c.news.loading;
-  });
-
-export const useCourseError = (): Error | undefined =>
-  useAppSelector((s) => {
-    const c = s.currentCourse;
-    return c.folders.error ?? c.quizzes.error ?? c.news.error ?? undefined;
-  });
-
-export const useIsCourseReady = (): boolean =>
-  useAppSelector((s) => {
-    const c = s.currentCourse;
-    return (
-      c.course.data?.Identifier !== "" &&
-      !c.folders.loading &&
-      c.folders.error == null &&
-      !c.quizzes.loading &&
-      c.quizzes.error == null &&
-      !c.news.loading &&
-      c.news.error == null
-    );
-  });
+  useAppSelector((s) => s.currentCourse.course.Name);
 
 export const useFolderCount = (): number =>
-  useAppSelector((s) => s.currentCourse.folders.data?.length ?? 0);
+  useAppSelector((s) => s.currentCourse.folders.length);
 export const useQuizCount = (): number =>
-  useAppSelector((s) => s.currentCourse.quizzes.data?.length ?? 0);
+  useAppSelector((s) => s.currentCourse.quizzes.length);
 export const useNewsCount = (): number =>
-  useAppSelector((s) => s.currentCourse.news.data?.length ?? 0);
+  useAppSelector((s) => s.currentCourse.news.length);
 
 export const useFolders = (): Folder[] =>
-  useAppSelector((s) => s.currentCourse.folders.data ?? []);
+  useAppSelector((s) => s.currentCourse.folders);
 export const useQuizzes = (): Quiz[] =>
-  useAppSelector((s) => s.currentCourse.quizzes.data ?? []);
+  useAppSelector((s) => s.currentCourse.quizzes);
 export const useNews = (): News[] =>
-  useAppSelector((s) => s.currentCourse.news.data ?? []);
+  useAppSelector((s) => s.currentCourse.news);
 
 export const currentCourseReducer = CurrentCourseSlice.reducer;

@@ -46,8 +46,7 @@ export const PlanStep = ({ previous, next }: PageProps): ReactElement => {
   const folders = useFolders();
   const isAnythingPlanned = useIsAnythingPlanned();
   const dispatch = useAppDispatch();
-  if (!course.data) return <>Error: course.data was not loaded</>;
-  const plan = processTemplate(template, course.data, quizzes, folders);
+  const plan = processTemplate(template, course, quizzes, folders);
 
   const onPrevious = (): void => {
     dispatch(resetPlan());

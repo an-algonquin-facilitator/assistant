@@ -1,32 +1,55 @@
 import { Box, CircularProgress, Typography } from "@mui/material";
-import {
-  useCourse,
-  useCourseError,
-  useFolderCount,
-  useIsCourseLoading,
-  useNewsCount,
-  useQuizCount,
-} from "../../store/course";
 import type { ReactElement } from "react";
+import type { Response } from "../../api/utils";
+import type { Course } from "../../api/course";
+import type { Folder } from "../../api/folder";
+import type { Quiz } from "../../api/quiz";
+import type { News } from "../../api/news";
+import { isDefined } from "../Introduction/utils";
 
-export const ClassSummary = (): ReactElement => {
-  const course = useCourse();
-  const isLoading = useIsCourseLoading();
-  const error = useCourseError();
-  const folderCount = useFolderCount();
-  const quizzesCount = useQuizCount();
-  const newsCount = useNewsCount();
+interface ClassSummaryProps {
+  course: Response<Course>;
+  folders: Response<Folder[]>;
+  quizzes: Response<Quiz[]>;
+  news: Response<News[]>;
+}
 
-  if (!course.data) return <></>;
-  if (error != null)
-    return <Typography>Error loading course: {error.message}</Typography>;
+export const ClassSummary = ({
+  course,
+  folders,
+  quizzes,
+  news,
+}: ClassSummaryProps): ReactElement => {
+  const notSelected =
+    course.data === undefined && !course.loading && course.error === undefined;
+  if (notSelected) return <></>;
+
+  const isLoading =
+    course.loading || folders.loading || quizzes.loading || news.loading;
   if (isLoading) return <CircularProgress />;
+
+  const errors = [
+    course.error ?? undefined,
+    folders.error ?? undefined,
+    quizzes.error ?? undefined,
+    news.error ?? undefined,
+  ].filter(isDefined);
+  if (errors.length > 0) {
+    return (
+      <Box sx={{ mt: 4 }}>
+        {errors.map((e) => (
+          <Typography>{e}</Typography>
+        ))}
+      </Box>
+    );
+  }
+
   return (
     <Box sx={{ mt: 4 }}>
       <Typography variant="h5">This class contains the following:</Typography>
-      <Typography>{folderCount} assignments</Typography>
-      <Typography>{quizzesCount} quizzes</Typography>
-      <Typography>{newsCount} announcements</Typography>
+      <Typography>{folders.data?.length ?? 0} assignments</Typography>
+      <Typography>{quizzes.data?.length ?? 0} quizzes</Typography>
+      <Typography>{news.data?.length ?? 0} announcements</Typography>
     </Box>
   );
 };

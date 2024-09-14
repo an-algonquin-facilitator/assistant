@@ -174,12 +174,10 @@ export const apply = async ({
   setComplete,
 }: ApplyArguments): Promise<void> => {
   const state = store.getState();
-  const courseId = state.currentCourse.course.data?.Identifier;
-  if (courseId === undefined) return;
+  const courseId = state.currentCourse.course.Identifier;
   const token = state.token.value;
   const { plan } = state;
-  const news = state.currentCourse.news.data;
-  if (!news) return;
+  const { news } = state.currentCourse;
 
   setStarted(true);
 
