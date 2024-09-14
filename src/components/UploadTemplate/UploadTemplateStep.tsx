@@ -3,6 +3,7 @@ import { UploadTemplateFile } from "./UploadTemplateFile";
 import { TemplateOverview } from "./TemplateOverview";
 import type { PageProps } from "../Assistant/Assistant";
 import { useAppDispatch } from "../../store/hooks";
+import type { Template } from "../../store/template";
 import {
   resetTemplate,
   setTemplateAssignments,
@@ -14,18 +15,15 @@ import { useState } from "react";
 import { useFolders, useNews, useQuizzes } from "../../store/course";
 import { isValidTemplate, validateTemplate } from "./utils";
 
-export interface UnvalidatedTemplate {
+export type TemplateFile = {
   filename?: string;
-  assignments?: any[];
-  quizzes?: any[];
-  news?: any[];
-}
+} & Template;
 
 export const UploadTemplateStep = ({
   previous,
   next,
 }: PageProps): ReactElement => {
-  const [ut, setUT] = useState<UnvalidatedTemplate | undefined>();
+  const [ut, setUT] = useState<TemplateFile | undefined>();
   const folders = useFolders();
   const quizzes = useQuizzes();
   const news = useNews();

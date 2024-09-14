@@ -1,10 +1,8 @@
-import type { Enrollment } from "../../api/api";
-import {
-  fetchAllNews,
-  fetchCourse,
-  fetchFolders,
-  fetchQuizzes,
-} from "../../api/api";
+import type { Enrollment } from "../../api/enrollment";
+import { fetchAllNews } from "../../api/news";
+import { fetchQuizzes } from "../../api/quiz";
+import { fetchCourse } from "../../api/course";
+import { fetchFolders } from "../../api/folder";
 import { setCourse, setFolders, setNews, setQuizzes } from "../../store/course";
 import { store } from "../../store/store";
 

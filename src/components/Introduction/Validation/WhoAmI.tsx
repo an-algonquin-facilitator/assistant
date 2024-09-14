@@ -1,5 +1,5 @@
 import { Box, Button, CircularProgress, Typography } from "@mui/material";
-import { useWhoAmIQuery } from "../../../api/api";
+import { useWhoAmIQuery } from "../../../api/whoAmI";
 import { WhoAmIError } from "./WhoAmIError";
 import { TokenTimeRemaining } from "./TokenTimeRemaining";
 import { useToken } from "../../../store/token";

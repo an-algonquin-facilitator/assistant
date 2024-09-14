@@ -3,18 +3,16 @@ import type { APIError, Task } from "./Task";
 import { TaskType } from "./Task";
 
 import { store } from "../../store/store";
-import type { CreateNews, News, RichText, RichTextInput } from "../../api/api";
-import {
-  StatusBadRequest,
-  createNews,
-  fetchFolder,
-  fetchNews,
-  fetchQuiz,
-  updateFolder,
-  updateNews,
-  updateQuiz,
-} from "../../api/api";
+import type { RichText, RichTextInput } from "../../api/api";
+import { StatusOK } from "../../api/api";
+import type { InputFolder } from "../../api/folder";
+import { updateFolder } from "../../api/folder";
+import { fetchFolder } from "../../api/folder";
 import type { IAssignmentPlan, INewsPlan, IQuizPlan } from "../../store/plan";
+import type { InputQuiz } from "../../api/quiz";
+import { fetchQuiz, updateQuiz } from "../../api/quiz";
+import type { CreateNews, News } from "../../api/news";
+import { createNews, updateNews } from "../../api/news";
 
 const toRichTextInput = (rt: RichText): RichTextInput => {
   return {
@@ -29,28 +27,27 @@ const applyAssignmentPlan = async (
   assignment: IAssignmentPlan,
 ): Promise<APIError | undefined> => {
   const folder = await fetchFolder(token, [courseId, assignment.id]);
-  if (!folder.Availability) {
-    folder.Availability = {
-      StartDate: "",
-      EndDate: "",
+  const inputFolder: InputFolder = {
+    ...folder,
+    Availability: {
+      StartDate: new Date(assignment.start).toISOString(),
+      EndDate: new Date(assignment.end).toISOString(),
+    },
+    DueDate: new Date(assignment.due).toISOString(),
+    IsHidden: false,
+    DisplayInCalendar: false,
+    CustomInstructions: toRichTextInput(folder.CustomInstructions),
+  };
+  // We have to convert to RichTextInput for the API to not delete the assignment description.
+  const prom = await updateFolder(token, courseId, assignment.id, inputFolder);
+  if (prom.status !== StatusOK) {
+    const text = await prom.text();
+    return {
+      title: prom.statusText,
+      detail: text,
     };
   }
-  folder.Availability.StartDate = new Date(assignment.start).toISOString();
-  folder.DueDate = new Date(assignment.due).toISOString();
-  folder.Availability.EndDate = new Date(assignment.end).toISOString();
-  folder.IsHidden = false;
-  folder.DisplayInCalendar = false;
-  // We have to convert to RichTextInput for the API to not delete the assignment description.
-  (folder as any).CustomInstructions = toRichTextInput(
-    folder.CustomInstructions,
-  );
-  const prom = await updateFolder(token, courseId, assignment.id, folder);
-  const resp = await prom.json();
-  const error =
-    resp.status === StatusBadRequest
-      ? { title: resp.title, detail: resp.detail }
-      : undefined;
-  return error;
+  return undefined;
 };
 
 const applyQuizPlan = async (
@@ -59,33 +56,44 @@ const applyQuizPlan = async (
   qu: IQuizPlan,
 ): Promise<APIError | undefined> => {
   const quiz = await fetchQuiz(token, [courseId, qu.id]);
+  const attempts = quiz.AttemptsAllowed.NumberOfAttemptsAllowed;
+  const inputQuiz: InputQuiz = {
+    ...quiz,
+    StartDate: new Date(qu.start).toISOString(),
+    DueDate: new Date(qu.due).toISOString(),
+    EndDate: new Date(qu.end).toISOString(),
+    IsActive: true,
+    DisplayInCalendar: false,
+    NumberOfAttemptsAllowed: attempts,
+    Instructions: {
+      Text: toRichTextInput(quiz.Instructions.Text),
+      IsDisplayed: quiz.Instructions.IsDisplayed,
+    },
+    Description: {
+      Text: toRichTextInput(quiz.Description.Text),
+      IsDisplayed: quiz.Description.IsDisplayed,
+    },
 
-  quiz.StartDate = new Date(qu.start).toISOString();
-  quiz.DueDate = new Date(qu.due).toISOString();
-  quiz.EndDate = new Date(qu.end).toISOString();
-  quiz.IsActive = true;
-  quiz.DisplayInCalendar = false;
-  {
-    // The body for a PUT request is a little different. Seems like a bug tbh.
-    const attempts = quiz.AttemptsAllowed.NumberOfAttemptsAllowed;
-    const aQuiz = quiz as any;
-    delete aQuiz.QuizId;
-    delete aQuiz.AttemptsAllowed;
-    delete aQuiz.ActivityId;
-    aQuiz.NumberOfAttemptsAllowed = attempts;
-    aQuiz.Instructions.Text = toRichTextInput(quiz.Instructions.Text);
-    aQuiz.Description.Text = toRichTextInput(quiz.Description.Text);
-    aQuiz.Header.Text = toRichTextInput(quiz.Header.Text);
-    aQuiz.Footer.Text = toRichTextInput(quiz.Footer.Text);
+    Header: {
+      Text: toRichTextInput(quiz.Header.Text),
+      IsDisplayed: quiz.Header.IsDisplayed,
+    },
+
+    Footer: {
+      Text: toRichTextInput(quiz.Footer.Text),
+      IsDisplayed: quiz.Footer.IsDisplayed,
+    },
+  };
+
+  const prom = await updateQuiz(token, courseId, qu.id, inputQuiz);
+  if (prom.status !== StatusOK) {
+    const text = await prom.text();
+    return {
+      title: prom.statusText,
+      detail: text,
+    };
   }
-
-  const prom = await updateQuiz(token, courseId, qu.id, quiz);
-  const resp = await prom.json();
-  const error =
-    resp.status === StatusBadRequest
-      ? { title: resp.title, detail: resp.detail }
-      : undefined;
-  return error;
+  return undefined;
 };
 
 const applyCreateNewsPlan = async (
@@ -108,12 +116,14 @@ const applyCreateNewsPlan = async (
     IsPinned: false,
   };
   const prom = await createNews(token, courseId, createNewsPayload);
-  const resp = await prom.json();
-  const error =
-    resp.status === StatusBadRequest
-      ? { title: resp.title, detail: resp.detail }
-      : undefined;
-  return error;
+  if (prom.status !== StatusOK) {
+    const text = await prom.text();
+    return {
+      title: prom.statusText,
+      detail: text,
+    };
+  }
+  return undefined;
 };
 
 const applyUpdateNewsPlan = async (
@@ -122,25 +132,21 @@ const applyUpdateNewsPlan = async (
   existing: News,
   ne: INewsPlan,
 ): Promise<APIError | undefined> => {
-  const bNews = await fetchNews(token, [courseId, existing.Id + ""]);
-  {
-    const aNews = bNews as any;
-    aNews.Body = { Text: "", Html: ne.content };
-    delete aNews.Id;
-    delete aNews.IsHidden;
-    delete aNews.Attachments;
-    delete aNews.CreatedBy;
-    delete aNews.CreatedDate;
-    delete aNews.LastModifiedBy;
-    delete aNews.LastModifiedDate;
-    delete aNews.IsStartDateShown;
-    delete aNews.SortOrder;
-  }
-  bNews.IsPublished = true;
-  bNews.IsAuthorInfoShown = false;
-  bNews.StartDate = new Date(ne.open).toISOString();
-  bNews.EndDate = new Date(ne.dismiss).toISOString();
-  await updateNews(token, courseId, existing.Id + "", bNews);
+  const updateNewsPayload: CreateNews = {
+    Body: {
+      Text: "",
+      Html: ne.content,
+    },
+    StartDate: new Date(ne.open).toISOString(),
+    EndDate: new Date(ne.dismiss).toISOString(),
+    Title: ne.name,
+    IsPublished: true,
+    IsAuthorInfoShown: false,
+    IsGlobal: false,
+    ShowOnlyInCourseOfferings: false,
+    IsPinned: false,
+  };
+  await updateNews(token, courseId, existing.Id + "", updateNewsPayload);
   // this is not a mistake, the API doesn't return anything.
   return undefined;
 };

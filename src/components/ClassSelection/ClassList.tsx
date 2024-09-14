@@ -1,5 +1,5 @@
 import { Button, List, ListItem } from "@mui/material";
-import type { Enrollment } from "../../api/api";
+import type { Enrollment } from "../../api/enrollment";
 import type { ReactElement } from "react";
 
 interface ClassListProps {

@@ -1,6 +1,6 @@
 import { Button, CircularProgress, Tooltip } from "@mui/material";
 import { SelectClassModal } from "./SelectClassModal";
-import { useEnrollmentsQuery } from "../../api/api";
+import { useEnrollmentsQuery } from "../../api/enrollment";
 import type { ReactElement } from "react";
 import { useState } from "react";
 

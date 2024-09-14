@@ -63,6 +63,20 @@ export default [
       ],
       // Conflicts with api.ts
       "@typescript-eslint/no-invalid-void-type": ["off"],
+
+      // some variables need to be unused.
+      "@typescript-eslint/no-unused-vars": [
+        "error",
+        {
+          args: "all",
+          argsIgnorePattern: "^_",
+          caughtErrors: "all",
+          caughtErrorsIgnorePattern: "^_",
+          destructuredArrayIgnorePattern: "^_",
+          varsIgnorePattern: "^_",
+          ignoreRestSiblings: true,
+        },
+      ],
     },
   },
 ];

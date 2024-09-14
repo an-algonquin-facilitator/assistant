@@ -1,34 +1,25 @@
-import { hasProperty, isObject } from "../../validator/validate";
+import { isLeft } from "fp-ts/lib/Either";
+import * as t from "io-ts";
 
 const msPerSecond = 1000;
 const msPerMinutes = 60000;
 const msPerHour = 3600000;
 
-interface JWTPayload {
-  exp: number;
-  // aud: string;
-  // azp: string;
-  // iss: string;
-  // jti: string;
-  // nbf: number;
-  // scope: string;
-  // sub: string;
-  // tenantid: string;
-}
-
-const isJWTPayload = (v: unknown): v is JWTPayload =>
-  v != null &&
-  isObject(v) &&
-  hasProperty(v, "exp") &&
-  typeof v.exp === "number";
+const JWTPayloadValidator = t.exact(
+  t.type({
+    exp: t.number,
+  }),
+);
 
 export const tokenExpiryDateUnix = (jwt: string): number => {
   try {
     const [, payloadB64] = jwt.split(".");
     const payloadRaw = atob(payloadB64);
     const payload: unknown = JSON.parse(payloadRaw);
-    if (!isJWTPayload(payload)) return -1;
-    return new Date(payload.exp * msPerSecond).getTime() - Date.now();
+    const decoded = JWTPayloadValidator.decode(payload);
+    if (isLeft(decoded)) return -1;
+    const { exp } = decoded.right;
+    return new Date(exp * msPerSecond).getTime() - Date.now();
   } catch {
     return -1;
   }

@@ -13,7 +13,9 @@ import type {
   INewsPlan,
   IQuizPlan,
 } from "../../store/plan";
-import type { Course, Folder, Quiz as BQuiz } from "../../api/api";
+import type { Quiz as BQuiz } from "../../api/quiz";
+import type { Course } from "../../api/course";
+import type { Folder } from "../../api/folder";
 import { isDefined } from "../Introduction/utils";
 import Mustache from "mustache";
 

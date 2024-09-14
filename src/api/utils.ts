@@ -8,7 +8,7 @@ export interface Response<T> {
   loading: boolean;
 }
 
-const unknownError = (e: unknown): Error => {
+export const unknownError = (e: unknown): Error => {
   if (e instanceof Error) {
     return e;
   } else {

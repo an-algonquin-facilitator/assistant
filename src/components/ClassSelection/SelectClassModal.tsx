@@ -1,6 +1,6 @@
 import type { IModalProps } from "../Modal";
 import { Modal } from "../Modal";
-import type { Enrollment } from "../../api/api";
+import type { Enrollment } from "../../api/enrollment";
 import {
   Accordion,
   AccordionDetails,

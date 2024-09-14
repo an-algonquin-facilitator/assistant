@@ -1,6 +1,9 @@
 import { createSlice } from "@reduxjs/toolkit";
 import type { PayloadAction } from "@reduxjs/toolkit";
-import type { Course, Folder, News, Quiz } from "../api/api";
+import type { News } from "../api/news";
+import type { Quiz } from "../api/quiz";
+import type { Course } from "../api/course";
+import type { Folder } from "../api/folder";
 import { useAppSelector } from "./hooks";
 
 export interface CurrentCourseState {

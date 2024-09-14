@@ -1,10 +1,12 @@
-import type { Folder, News as BNews, Quiz as BQuiz } from "../../api/api";
+import type { News as BNews } from "../../api/news";
+import type { Quiz as BQuiz } from "../../api/quiz";
+import type { Folder } from "../../api/folder";
 import type {
   Assignment,
   Quiz as TQuiz,
   News as TNews,
 } from "../../store/template";
-import type { UnvalidatedTemplate } from "./UploadTemplateStep";
+import type { TemplateFile } from "./UploadTemplateStep";
 
 export interface ValidatedTemplate {
   validAssignments: Assignment[];
@@ -29,7 +31,7 @@ export const isValidTemplate = (template: ValidatedTemplate): boolean => {
 };
 
 export const validateTemplate = (
-  ut: UnvalidatedTemplate | undefined,
+  ut: TemplateFile | undefined,
   folders: Folder[],
   quizzes: BQuiz[],
   news: BNews[],
