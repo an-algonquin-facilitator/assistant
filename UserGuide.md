@@ -1,4 +1,4 @@
-# ACO class setup assistant
+# ACO course setup assistant
 
 This will guide you through using the ACO assistant. This tool can setup dates for all assignments, quizzes, and announcements. It can also auto generate content for announcement using a template system that means your announcement dates are always perfect.
 
@@ -18,19 +18,19 @@ Then we paste the token in the text field on the login screen and click validate
 
 ![](./doc/0003_valid.png)
 
-Next we select which class we want to setup.
+Next we select which course we want to setup.
 
-![](./doc/0004_class_select.png)
+![](./doc/0004_course_select.png)
 
 Click on `Select`
 
 ![](./doc/0005_select_modal.png)
 
-Then pick the class you're setting up. The assistant attempts to figure out which class you're likely to setup but if the class you want isn't in that list click on "Older classes you were facilitating". You can see what kind of content is in the class. Click next.
+Then pick the course you're setting up. The assistant attempts to figure out which course you're likely to setup but if the course you want isn't in that list click on "Older courses you were facilitating". You can see what kind of content is in the course. Click next.
 
-![](./doc/0006_class_selected.png)
+![](./doc/0006_course_selected.png)
 
-Next were going to upload our class template. For more information on how to make those see the [template guide](./TemplateGuide.md)
+Next were going to upload our course template. For more information on how to make those see the [template guide](./TemplateGuide.md)
 
 ![](./doc/0007_template.png)
 
@@ -75,4 +75,4 @@ If everything goes well your screen should look like this.
 
 ![](./doc/0017_success.png)
 
-Congrats on setting up your class.
+Congrats on setting up your course.

@@ -49,9 +49,9 @@ export const validateTemplate = (
       missingTemplateNews: [],
     };
 
-  const templateAssignments = ut.assignments ?? [];
-  const templateQuizzes = ut.quizzes ?? [];
-  const templateNews = ut.news ?? [];
+  const templateAssignments = ut.template.assignments ?? [];
+  const templateQuizzes = ut.template.quizzes ?? [];
+  const templateNews = ut.template.news ?? [];
 
   // in brightspace but not template
   const missingBrightspaceAssignments = folders.filter(

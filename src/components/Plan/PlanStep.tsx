@@ -5,14 +5,7 @@ import { useState } from "react";
 import { TabPanel } from "./TabPanel";
 import { AssignmentTab } from "./AssignmentTab";
 import { processTemplate } from "./utils";
-import {
-  useTemplateAssignmentCount,
-  useTemplateAssignments,
-  useTemplateNews,
-  useTemplateNewsCount,
-  useTemplateQuizCount,
-  useTemplateQuizzes,
-} from "../../store/template";
+import { useTemplate } from "../../store/template";
 import { useCourse, useFolders, useQuizzes } from "../../store/course";
 import {
   resetPlan,
@@ -27,20 +20,16 @@ import { useAppDispatch } from "../../store/hooks";
 
 export const PlanStep = ({ previous, next }: PageProps): ReactElement => {
   const [tab, setTab] = useState(0);
+  const template = useTemplate();
 
   const plannedAssignmentCount = usePlanedAssignmentCount();
-  const templateAssignmentCount = useTemplateAssignmentCount();
+  const templateAssignmentCount = template.assignments.length; // ;
 
   const plannedQuizCount = usePlanedQuizCount();
-  const templateQuizCount = useTemplateQuizCount();
+  const templateQuizCount = template.quizzes.length; // ;
 
   const plannedNewsCount = usePlanedNewsCount();
-  const templateNewsCount = useTemplateNewsCount();
-  const template = {
-    assignments: useTemplateAssignments(),
-    quizzes: useTemplateQuizzes(),
-    news: useTemplateNews(),
-  };
+  const templateNewsCount = template.news.length; // ;
   const course = useCourse();
   const quizzes = useQuizzes();
   const folders = useFolders();

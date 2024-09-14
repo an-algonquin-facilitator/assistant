@@ -3,17 +3,17 @@ import type { Enrollment } from "../../api/enrollment";
 import type { ReactElement } from "react";
 
 interface ClassListProps {
-  classes: Enrollment[];
+  courses: Enrollment[];
   onClick: (id: string) => void;
 }
 
 export const ClassList = ({
-  classes,
+  courses,
   onClick,
 }: ClassListProps): ReactElement => {
   return (
     <List>
-      {classes.map((c) => (
+      {courses.map((c) => (
         <ListItem key={c.OrgUnit.Id}>
           <Button
             sx={{ width: "100%", justifyContent: "start" }}

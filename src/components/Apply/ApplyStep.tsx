@@ -44,7 +44,7 @@ export const ApplyStep = ({ previous }: PageProps): ReactElement => {
           }}
         >
           <Typography variant="h4">Success</Typography>
-          <Typography>Refresh the page to setup another class.</Typography>
+          <Typography>Refresh the page to setup another course.</Typography>
         </Box>
       )}
       {!started && (

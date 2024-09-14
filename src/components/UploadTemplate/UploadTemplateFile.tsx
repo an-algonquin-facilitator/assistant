@@ -55,9 +55,7 @@ export const UploadTemplateFile = ({
     }
     setUT({
       filename: f.name,
-      assignments: template.assignments ?? [],
-      quizzes: template.quizzes ?? [],
-      news: template.news ?? [],
+      template,
     });
   };
 

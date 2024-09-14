@@ -4,20 +4,16 @@ import { TemplateOverview } from "./TemplateOverview";
 import type { PageProps } from "../Assistant/Assistant";
 import { useAppDispatch } from "../../store/hooks";
 import type { Template } from "../../store/template";
-import {
-  resetTemplate,
-  setTemplateAssignments,
-  setTemplateNews,
-  setTemplateQuizzes,
-} from "../../store/template";
+import { resetTemplate, setTemplate } from "../../store/template";
 import type { ReactElement } from "react";
 import { useState } from "react";
 import { useFolders, useNews, useQuizzes } from "../../store/course";
 import { isValidTemplate, validateTemplate } from "./utils";
 
-export type TemplateFile = {
-  filename?: string;
-} & Template;
+export interface TemplateFile {
+  filename: string;
+  template: Template;
+}
 
 export const UploadTemplateStep = ({
   previous,
@@ -38,10 +34,16 @@ export const UploadTemplateStep = ({
   };
 
   const onNext = (): void => {
+    if (!ut) return;
     if (!isValid) return;
-    dispatch(setTemplateAssignments(validatedTemplate.validAssignments));
-    dispatch(setTemplateQuizzes(validatedTemplate.validQuizzes));
-    dispatch(setTemplateNews(validatedTemplate.validNews));
+    dispatch(
+      setTemplate({
+        courseCode: ut.template.courseCode,
+        assignments: validatedTemplate.validAssignments,
+        quizzes: validatedTemplate.validQuizzes,
+        news: validatedTemplate.validNews,
+      }),
+    );
     next();
   };
 

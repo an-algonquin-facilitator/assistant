@@ -31,40 +31,31 @@ export interface News {
 }
 
 export interface Template {
+  courseCode: string;
   assignments?: Assignment[];
   quizzes?: Quiz[];
   news?: News[];
 }
 
 export interface TemplateState {
-  loaded: boolean;
-  assignments: Assignment[];
-  quizzes: Quiz[];
-  news: News[];
+  value: Required<Template>;
 }
 
 const initialState: TemplateState = {
-  loaded: false,
-  assignments: [],
-  quizzes: [],
-  news: [],
+  value: {
+    courseCode: "",
+    assignments: [],
+    quizzes: [],
+    news: [],
+  },
 };
 
 export const templateSlice = createSlice({
   name: "template",
   initialState,
   reducers: {
-    setTemplateAssignments(state, action: PayloadAction<Assignment[]>) {
-      state.loaded = true;
-      state.assignments = action.payload;
-    },
-    setTemplateQuizzes(state, action: PayloadAction<Quiz[]>) {
-      state.loaded = true;
-      state.quizzes = action.payload;
-    },
-    setTemplateNews(state, action: PayloadAction<News[]>) {
-      state.loaded = true;
-      state.news = action.payload;
+    setTemplate(state, action: PayloadAction<Required<Template>>) {
+      state.value = action.payload;
     },
     resetTemplate(state) {
       Object.assign(state, initialState);
@@ -73,40 +64,18 @@ export const templateSlice = createSlice({
 });
 
 // Action creators are generated for each case reducer function
-export const {
-  setTemplateAssignments,
-  setTemplateQuizzes,
-  setTemplateNews,
-  resetTemplate,
-} = templateSlice.actions;
+export const { setTemplate, resetTemplate } = templateSlice.actions;
 
 export const templateReducer = templateSlice.reducer;
 
-export const useTemplateAssignments = (): Assignment[] =>
-  useAppSelector((s) => s.template.assignments);
-
-export const useTemplateQuizzes = (): Quiz[] =>
-  useAppSelector((s) => s.template.quizzes);
-
-export const useTemplateNews = (): News[] =>
-  useAppSelector((s) => s.template.news);
+export const useTemplate = (): Required<Template> =>
+  useAppSelector((s) => s.template.value);
 
 export const useTemplateAssignmentCount = (): number =>
-  useAppSelector((s) => s.template.assignments.length);
+  useAppSelector((s) => s.template.value.assignments.length);
 
 export const useTemplateQuizCount = (): number =>
-  useAppSelector((s) => s.template.quizzes.length);
+  useAppSelector((s) => s.template.value.quizzes.length);
 
 export const useTemplateNewsCount = (): number =>
-  useAppSelector((s) => s.template.news.length);
-
-export const useIsValidTemplate = (): boolean =>
-  useAppSelector(
-    (s) =>
-      s.template.assignments.length > 0 ||
-      s.template.quizzes.length > 0 ||
-      s.template.news.length > 0,
-  );
-
-export const useTemplateLoaded = (): boolean =>
-  useAppSelector((s) => s.template.loaded);
+  useAppSelector((s) => s.template.value.news.length);

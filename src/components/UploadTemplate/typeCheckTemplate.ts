@@ -76,14 +76,19 @@ const NewsValidator = t.exact(
 type News = t.TypeOf<typeof NewsValidator>;
 
 export const TemplateFileValidator = t.exact(
-  t.partial(
-    {
-      assignments: t.array(AssignmentValidator),
-      quizzes: t.array(QuizValidator),
-      news: t.array(NewsValidator),
-    },
-    "Template",
-  ),
+  t.intersection([
+    t.type({
+      courseCode: t.string,
+    }),
+    t.partial(
+      {
+        assignments: t.array(AssignmentValidator),
+        quizzes: t.array(QuizValidator),
+        news: t.array(NewsValidator),
+      },
+      "Template",
+    ),
+  ]),
 );
 
 type Template = t.TypeOf<typeof TemplateFileValidator>;

@@ -29,7 +29,7 @@ export const ClassSelectionButton = (
       ) : (
         <Tooltip title={error + "" || ""}>
           <Button disabled={error != null} onClick={() => setOpen(true)}>
-            Select class
+            Select course
           </Button>
         </Tooltip>
       )}

@@ -5,7 +5,7 @@ import type { ReactElement } from "react";
 export const Instructions = (): ReactElement => {
   return (
     <>
-      <Typography variant="h3">Let's setup your class</Typography>
+      <Typography variant="h3">Let's setup your course</Typography>
       <Typography>
         First, we need your brightspace token. Here's how to do get it:
       </Typography>

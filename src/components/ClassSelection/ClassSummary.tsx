@@ -46,7 +46,7 @@ export const ClassSummary = ({
 
   return (
     <Box sx={{ mt: 4 }}>
-      <Typography variant="h5">This class contains the following:</Typography>
+      <Typography variant="h5">This course contains the following:</Typography>
       <Typography>{folders.data?.length ?? 0} assignments</Typography>
       <Typography>{quizzes.data?.length ?? 0} quizzes</Typography>
       <Typography>{news.data?.length ?? 0} announcements</Typography>
