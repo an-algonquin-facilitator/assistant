@@ -2,7 +2,7 @@ import { createSlice } from "@reduxjs/toolkit";
 import type { PayloadAction } from "@reduxjs/toolkit";
 import { useAppSelector } from "./hooks";
 
-export interface TokenState {
+interface TokenState {
   value: string;
 }
 
@@ -10,7 +10,7 @@ const initialState: TokenState = {
   value: localStorage.getItem("token") ?? "",
 };
 
-export const tokenSlice = createSlice({
+const tokenSlice = createSlice({
   name: "token",
   initialState,
   reducers: {

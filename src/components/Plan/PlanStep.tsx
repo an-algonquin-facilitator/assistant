@@ -19,20 +19,21 @@ import { NewsTab } from "./NewsTab";
 import { useAppDispatch } from "../../store/hooks";
 
 export const PlanStep = ({ previous, next }: PageProps): ReactElement => {
+  const dispatch = useAppDispatch();
   const [tab, setTab] = useState(0);
   const template = useTemplate();
   const course = useCourse();
 
-  const plannedAssignmentCount = usePlanedAssignmentCount();
-  const templateAssignmentCount = template.assignments.length;
-
-  const plannedQuizCount = usePlanedQuizCount();
-  const templateQuizCount = template.quizzes.length;
-
-  const plannedNewsCount = usePlanedNewsCount();
-  const templateNewsCount = template.news.length;
   const isAnythingPlanned = useIsAnythingPlanned();
-  const dispatch = useAppDispatch();
+
+  const plannedAssignmentCount = usePlanedAssignmentCount();
+  const plannedQuizCount = usePlanedQuizCount();
+  const plannedNewsCount = usePlanedNewsCount();
+
+  const templateAssignmentCount = template.assignments.length;
+  const templateQuizCount = template.quizzes.length;
+  const templateNewsCount = template.news.length;
+
   const plan = processTemplate(template, course);
 
   const onPrevious = (): void => {

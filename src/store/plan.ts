@@ -107,8 +107,6 @@ export const {
   resetPlan,
 } = planSlice.actions;
 
-export const usePlan = (): PlanState => useAppSelector((s) => s.plan);
-
 export const useIsAssignmentPlanned = (id: string): boolean =>
   useAppSelector((s) => s.plan.assignments.some((a) => a.id === id));
 
