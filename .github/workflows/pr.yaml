@@ -1,0 +1,41 @@
+name: PR
+
+on:
+  pull_request:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+      - uses: actions/checkout@v4
+      - uses: actions/configure-pages@v4
+      - run: npm ci
+      - run: npm run build
+  lint:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+      - uses: actions/checkout@v4
+      - uses: actions/configure-pages@v4
+      - run: npm ci
+      - run: npm run lint
+  format:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+      - uses: actions/checkout@v4
+      - uses: actions/configure-pages@v4
+      - run: npm ci
+      - run: npm run format-check

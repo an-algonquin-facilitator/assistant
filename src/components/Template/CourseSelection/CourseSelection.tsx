@@ -4,9 +4,9 @@ import type { Course } from "../../../api/course";
 import type { Folder } from "../../../api/folder";
 import type { Quiz } from "../../../api/quiz";
 import type { News } from "../../../api/news";
-import { ClassSelectionField } from "./ClassSelectionField";
+import { CourseSelectionField } from "./CourseSelectionField";
 import type { Enrollment } from "../../../api/enrollment";
-import { dispatchFetches, sortClasses } from "./utils";
+import { dispatchFetches, sortCourses } from "./utils";
 import type { SelectedCourse } from "../../../store/course";
 
 interface CourseSelectionProps {
@@ -16,7 +16,7 @@ interface CourseSelectionProps {
 }
 
 export const CourseSelection = (props: CourseSelectionProps): ReactElement => {
-  const [recent, others] = sortClasses(props.enrollments);
+  const [recent, others] = sortCourses(props.enrollments);
 
   const [course, setCourse] = useState<Response<Course>>({ loading: false });
   const [folders, setFolders] = useState<Response<Folder[]>>({
@@ -65,7 +65,7 @@ export const CourseSelection = (props: CourseSelectionProps): ReactElement => {
   }, [course, folders, quizzes, news]);
 
   return (
-    <ClassSelectionField
+    <CourseSelectionField
       courseName={course.data?.Name ?? "None"}
       recent={recent}
       others={others}

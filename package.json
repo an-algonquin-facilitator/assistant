@@ -28,6 +28,7 @@
   "scripts": {
     "lint": "npx eslint .",
     "format": "npx prettier . --write",
+    "format-check": "npx prettier . --check",
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",

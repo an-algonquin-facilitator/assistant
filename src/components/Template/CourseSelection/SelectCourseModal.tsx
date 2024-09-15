@@ -7,7 +7,7 @@ import {
   AccordionSummary,
   Typography,
 } from "@mui/material";
-import { ClassList } from "./ClassList";
+import { CourseList } from "./CourseList";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import type { ReactElement } from "react";
 
@@ -31,13 +31,13 @@ const Content = ({
         I have detected that you are facilitating the following courses. Here
         are the most recent ones. Select the one would you like to modify:
       </Typography>
-      <ClassList courses={recent} onClick={onClick} />
+      <CourseList courses={recent} onClick={onClick} />
       <Accordion>
         <AccordionSummary expandIcon={<ExpandMoreIcon />}>
           Older courses you were facilitating
         </AccordionSummary>
         <AccordionDetails>
-          <ClassList courses={others} onClick={onClick} />
+          <CourseList courses={others} onClick={onClick} />
         </AccordionDetails>
       </Accordion>
     </>
@@ -49,7 +49,7 @@ interface IProps extends IModalProps {
   others: Enrollment[];
   onCourseSelected: (courseId: string) => void;
 }
-export const SelectClassModal = (props: IProps): ReactElement => {
+export const SelectCourseModal = (props: IProps): ReactElement => {
   return (
     <Modal {...props}>
       <Content {...props} />

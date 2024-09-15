@@ -10,7 +10,7 @@ import type { Folder } from "../../../api/folder";
 import type { Quiz } from "../../../api/quiz";
 import type { News } from "../../../api/news";
 
-export const sortClasses = (
+export const sortCourses = (
   enrollments: Enrollment[],
 ): [Enrollment[], Enrollment[]] => {
   const facilitating = enrollments.filter(

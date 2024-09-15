@@ -62,14 +62,49 @@ const calculateDateWithHoliday = (
   return [d.unix() * msPerSecond, holidayOffset];
 };
 
+const weekDays = [
+  "Sunday",
+  "Monday",
+  "Tuesday",
+  "Wednesday",
+  "Thursday",
+  "Friday",
+  "Saturday",
+];
+
+const months = [
+  "January",
+  "February",
+  "March",
+  "April",
+  "May",
+  "June",
+  "July",
+  "August",
+  "September",
+  "October",
+  "November",
+  "December",
+];
+
 const createMustacheView = (
   assignments: AssignmentPlan[],
   quizzes: QuizPlan[],
 ): MustacheView => {
-  const createDateObject = (date: number): MustacheDate => ({
-    iso8601: new Date(date).toISOString(),
-    date: new Date(date).toDateString(),
-  });
+  const createDateObject = (date: number): MustacheDate => {
+    const d = new Date(date);
+    const shortLength = 3;
+    return {
+      monthDate: d.getDate(),
+      month: months[d.getMonth()],
+      monthShort: months[d.getMonth()].slice(0, shortLength),
+      weekDays: weekDays[d.getDay()],
+      weekDaysShort: weekDays[d.getDay()].slice(0, shortLength),
+      year: d.getFullYear(),
+      iso8601: d.toISOString(),
+      date: d.toDateString(),
+    };
+  };
 
   const createMustacheEvent = (e: AssignmentPlan | QuizPlan): MustacheEvent => {
     return {
@@ -170,6 +205,12 @@ interface MustacheView {
 }
 
 interface MustacheDate {
+  year: number;
+  monthDate: number;
+  month: string;
+  monthShort: string;
+  weekDays: string;
+  weekDaysShort: string;
   iso8601: string;
   date: string;
 }

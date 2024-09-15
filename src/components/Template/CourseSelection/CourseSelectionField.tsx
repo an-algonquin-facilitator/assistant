@@ -1,17 +1,17 @@
 import { Box, Typography } from "@mui/material";
-import { ClassSelectionButton } from "./ClassSelectionButton";
+import { CourseSelectionButton } from "./ClassSelectionButton";
 import type { ReactElement } from "react";
 import type { Enrollment } from "../../../api/enrollment";
 
-interface ClassSelectionFieldProps {
+interface CourseSelectionFieldProps {
   courseName: string;
   recent: Enrollment[];
   others: Enrollment[];
   onCourseSelected: (courseId: string) => void;
 }
 
-export const ClassSelectionField = (
-  props: ClassSelectionFieldProps,
+export const CourseSelectionField = (
+  props: CourseSelectionFieldProps,
 ): ReactElement => {
   const { courseName } = props;
   return (
@@ -25,7 +25,7 @@ export const ClassSelectionField = (
     >
       <Typography>Selected Class:</Typography>
       <Typography>{courseName}</Typography>
-      <ClassSelectionButton {...props} />
+      <CourseSelectionButton {...props} />
     </Box>
   );
 };

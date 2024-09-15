@@ -48,6 +48,7 @@ interface News {
 }
 
 interface Template {
+  courseCode: string; // [A-Z]{3}[0-9]{4}, e.g. CST8259
   assignments?: Assignment[];
   quizzes?: Quiz[];
   news?: News[];
@@ -58,13 +59,21 @@ Additionally the mustache view sent to the announcement template follows this st
 
 ```ts
 interface FlexibleDate {
+  year: number; // 2024
+  monthDate: number; // 15
+  month: string; // January
+  monthShort: string; // Jan
+  weekDays: string; // Monday
+  weekDaysShort: string; // Mon
   iso8601: string; // ex: 2024-08-28T23:14:53Z
   date: string; // ex: Wed Aug 28 2024
 }
 
 interface Element {
   name: string;
+  start: FlexibleDate;
   due: FlexibleDate;
+  end: FlexibleDate;
 }
 
 interface MustacheView {
@@ -95,13 +104,14 @@ news:
 quizzes:
   - name: Midterm Exam
     id: midterm
-    due:
-      weeks: 7
     start:
       weeks: 5
+    due:
+      weeks: 7
 assignments:
   - name: Assignment 1 – Serverless Application Design Proposal & Feasibility Study
     id: a1
     due:
       weeks: 6
+      days: 2
 ```
