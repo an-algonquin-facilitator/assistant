@@ -1,4 +1,4 @@
-import { Box, Button, CircularProgress, Typography } from "@mui/material";
+import { Box, Button, Typography } from "@mui/material";
 import { useWhoAmIQuery } from "../../../api/whoAmI";
 import { WhoAmIError } from "./WhoAmIError";
 import { TokenTimeRemaining } from "./TokenTimeRemaining";
@@ -6,6 +6,7 @@ import { useToken } from "../../../store/token";
 import { tokenExpiryDateUnix } from "../utils";
 import { NoWhoAmI } from "./NoWhoAmI";
 import type { ReactElement } from "react";
+import { Loading } from "../../Loading";
 
 interface WhoAmIProps {
   onValidate: (valid: boolean) => void;
@@ -18,7 +19,7 @@ export const WhoAmI = ({ onValidate }: WhoAmIProps): ReactElement => {
 
   const onNotValid = (): void => onValidate(false);
 
-  if (loading) return <CircularProgress />;
+  if (loading) return <Loading />;
   if (error != null) return <WhoAmIError onClose={onNotValid} />;
   if (!whoAmI) return <NoWhoAmI onClose={onNotValid} />;
 

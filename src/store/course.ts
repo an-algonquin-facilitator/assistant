@@ -73,11 +73,4 @@ export const { setCourse, resetCourse } = currentCourseSlice.actions;
 export const useCourse = (): SelectedCourse =>
   useAppSelector((s) => s.currentCourse.selected);
 
-export const useFolders = (): Folder[] =>
-  useAppSelector((s) => s.currentCourse.selected.folders);
-export const useQuizzes = (): Quiz[] =>
-  useAppSelector((s) => s.currentCourse.selected.quizzes);
-export const useNews = (): News[] =>
-  useAppSelector((s) => s.currentCourse.selected.news);
-
 export const currentCourseReducer = currentCourseSlice.reducer;

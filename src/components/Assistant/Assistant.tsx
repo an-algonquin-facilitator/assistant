@@ -2,8 +2,7 @@ import { Step, StepLabel, Stepper } from "@mui/material";
 import type { FC, ReactElement } from "react";
 import { useState } from "react";
 import { IntroductionStep } from "../Introduction/IntroductionStep";
-import { ClassSelectionStep } from "../ClassSelection/ClassSelectionStep";
-import { UploadTemplateStep } from "../UploadTemplate/UploadTemplateStep";
+import { TemplateStep } from "../Template/TemplateStep";
 import { PlanStep } from "../Plan/PlanStep";
 import { ReviewStep } from "../Review/ReviewStep";
 import { ApplyStep } from "../Apply/ApplyStep";
@@ -20,8 +19,7 @@ export interface PageProps {
 
 const steps: AssistantStep[] = [
   { Label: "Setup", Page: IntroductionStep },
-  { Label: "Select Class", Page: ClassSelectionStep },
-  { Label: "Upload Template", Page: UploadTemplateStep },
+  { Label: "Template", Page: TemplateStep },
   { Label: "Plan", Page: PlanStep },
   { Label: "Review", Page: ReviewStep },
   { Label: "Apply", Page: ApplyStep },

@@ -1,7 +1,8 @@
 import { Box, IconButton, List, ListItem, Typography } from "@mui/material";
 import FileUploadIcon from "@mui/icons-material/FileUpload";
 import YAML from "yaml";
-import type { TemplateFile } from "./UploadTemplateStep";
+import type { TemplateFile } from "./TemplateStep";
+import type { Dispatch, SetStateAction } from "react";
 import { useState, type ReactElement } from "react";
 import { TemplateFileValidator } from "./typeCheckTemplate";
 import { unknownError } from "../../api/utils";
@@ -29,13 +30,13 @@ const parseFile = (
 };
 
 interface UploadTemplateFileProps {
-  ut?: TemplateFile;
-  setUT: (ut: TemplateFile) => void;
+  templateFile?: TemplateFile;
+  setTemplateFile: Dispatch<SetStateAction<TemplateFile | undefined>>;
 }
 
 export const UploadTemplateFile = ({
-  ut,
-  setUT,
+  templateFile,
+  setTemplateFile,
 }: UploadTemplateFileProps): ReactElement => {
   const [open, setOpen] = useState(false);
   const [error, setError] = useState<string[]>([]);
@@ -50,10 +51,11 @@ export const UploadTemplateFile = ({
     const [template, err] = parseFile(f, fileContent);
     if (err) {
       setError(err);
+      setTemplateFile(undefined);
       setOpen(true);
       return;
     }
-    setUT({
+    setTemplateFile({
       filename: f.name,
       template,
     });
@@ -68,7 +70,7 @@ export const UploadTemplateFile = ({
       }}
     >
       <Typography>Select Template:</Typography>
-      <Typography>{ut?.filename ?? "None"}</Typography>
+      <Typography>{templateFile?.filename ?? "None"}</Typography>
       <IconButton sx={{ m: 2 }} component="label">
         <FileUploadIcon />
         <input
@@ -86,8 +88,8 @@ export const UploadTemplateFile = ({
             There is an error in your template:
           </Typography>
           <List>
-            {error.map((e) => (
-              <ListItem>
+            {error.map((e, i) => (
+              <ListItem key={i}>
                 <Typography>{e}</Typography>
               </ListItem>
             ))}

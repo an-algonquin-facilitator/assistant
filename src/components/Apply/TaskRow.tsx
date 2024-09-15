@@ -1,15 +1,10 @@
-import {
-  CircularProgress,
-  TableCell,
-  TableRow,
-  Tooltip,
-  Typography,
-} from "@mui/material";
+import { TableCell, TableRow, Tooltip, Typography } from "@mui/material";
 import DoneIcon from "@mui/icons-material/Done";
 import ErrorOutlineIcon from "@mui/icons-material/ErrorOutline";
 import { TaskIcon } from "./TaskIcon";
 import type { Task } from "./Task";
 import type { ReactElement } from "react";
+import { Loading } from "../Loading";
 interface TaskRowProps {
   task: Task;
 }
@@ -18,7 +13,7 @@ export const TaskRow = ({ task }: TaskRowProps): ReactElement => {
   return (
     <TableRow>
       <TableCell>
-        {task.loading && <CircularProgress size={20} />}
+        {task.loading && <Loading size={20} />}
         {!task.loading && !task.error && <DoneIcon sx={{ color: "green" }} />}
         {task.error && (
           <Tooltip

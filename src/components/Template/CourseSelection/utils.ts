@@ -1,14 +1,14 @@
-import type { Enrollment } from "../../api/enrollment";
-import { fetchAllNews } from "../../api/news";
-import { fetchQuizzes } from "../../api/quiz";
-import { fetchCourse } from "../../api/course";
-import { fetchFolders } from "../../api/folder";
-import { store } from "../../store/store";
-import type { Response } from "../../api/utils";
-import type { Course } from "../../api/course";
-import type { Folder } from "../../api/folder";
-import type { Quiz } from "../../api/quiz";
-import type { News } from "../../api/news";
+import type { Enrollment } from "../../../api/enrollment";
+import { fetchAllNews } from "../../../api/news";
+import { fetchQuizzes } from "../../../api/quiz";
+import { fetchCourse } from "../../../api/course";
+import { fetchFolders } from "../../../api/folder";
+import { store } from "../../../store/store";
+import type { Response } from "../../../api/utils";
+import type { Course } from "../../../api/course";
+import type { Folder } from "../../../api/folder";
+import type { Quiz } from "../../../api/quiz";
+import type { News } from "../../../api/news";
 
 export const sortClasses = (
   enrollments: Enrollment[],

@@ -32,8 +32,8 @@ export const TemplateAssignmentOverview = ({
             {" "}
             {warningCount} warnings
           </Typography>
-          <IconButton onClick={() => setOpen(true)} color="info">
-            <HelpOutlineIcon />
+          <IconButton onClick={() => setOpen(true)}>
+            <HelpOutlineIcon sx={{ color: "orange" }} />
           </IconButton>
           <Modal open={open} onClose={() => setOpen(false)}>
             <>

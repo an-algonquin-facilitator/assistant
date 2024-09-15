@@ -6,7 +6,8 @@ import type {
   QuizTemplate as TQuiz,
   NewsTemplate as TNews,
 } from "../../store/template";
-import type { TemplateFile } from "./UploadTemplateStep";
+import type { TemplateFile } from "./TemplateStep";
+import type { SelectedCourse } from "../../store/course";
 
 export interface ValidatedTemplate {
   validAssignments: AssignmentTemplate[];
@@ -32,11 +33,9 @@ export const isValidTemplate = (template: ValidatedTemplate): boolean => {
 
 export const validateTemplate = (
   ut: TemplateFile | undefined,
-  folders: Folder[],
-  quizzes: BQuiz[],
-  news: BNews[],
+  course: SelectedCourse | undefined,
 ): ValidatedTemplate => {
-  if (!ut)
+  if (!ut || !course)
     return {
       validAssignments: [],
       missingBrightspaceAssignments: [],
@@ -54,13 +53,13 @@ export const validateTemplate = (
   const templateNews = ut.template.news ?? [];
 
   // in brightspace but not template
-  const missingBrightspaceAssignments = folders.filter(
+  const missingBrightspaceAssignments = course.folders.filter(
     (f) => !templateAssignments.some((a) => a.name === f.Name),
   );
 
   // in template but not brightspace
   const missingTemplateAssignments = templateAssignments.filter(
-    (f) => !folders.some((a) => a.Name === f.name),
+    (f) => !course.folders.some((a) => a.Name === f.name),
   );
 
   const validAssignments = templateAssignments.filter(
@@ -68,12 +67,12 @@ export const validateTemplate = (
   );
 
   // in brightspace but not template
-  const missingBrightspaceQuizzes = quizzes.filter(
+  const missingBrightspaceQuizzes = course.quizzes.filter(
     (b) => !templateQuizzes.some((q) => q.name === b.Name),
   );
   // in template but not brightspace
   const missingTemplateQuizzes = templateQuizzes.filter(
-    (q) => !quizzes.some((b) => b.Name === q.name),
+    (q) => !course.quizzes.some((b) => b.Name === q.name),
   );
 
   const validQuizzes = templateQuizzes.filter(
@@ -81,13 +80,13 @@ export const validateTemplate = (
   );
 
   // in brightspace but not template
-  const missingBrightspaceNews = news.filter(
+  const missingBrightspaceNews = course.news.filter(
     (b) => !templateNews.some((q) => q.name === b.Title),
   );
 
   // in template but not brightspace
   const missingTemplateNews = templateNews.filter(
-    (q) => !news.some((b) => b.Title === q.name),
+    (q) => !course.news.some((b) => b.Title === q.name),
   );
 
   return {

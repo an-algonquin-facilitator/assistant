@@ -1,24 +1,19 @@
 import { Box, Typography } from "@mui/material";
 import { ClassSelectionButton } from "./ClassSelectionButton";
 import type { ReactElement } from "react";
-import type { Course } from "../../api/course";
-import type { Response } from "../../api/utils";
-import type { Folder } from "../../api/folder";
-import type { Quiz } from "../../api/quiz";
-import type { News } from "../../api/news";
+import type { Enrollment } from "../../../api/enrollment";
 
 interface ClassSelectionFieldProps {
-  course: Response<Course>;
-  setCourse: (resp: Response<Course>) => void;
-  setFolders: (resp: Response<Folder[]>) => void;
-  setQuizzes: (resp: Response<Quiz[]>) => void;
-  setNews: (resp: Response<News[]>) => void;
+  courseName: string;
+  recent: Enrollment[];
+  others: Enrollment[];
+  onCourseSelected: (courseId: string) => void;
 }
 
 export const ClassSelectionField = (
   props: ClassSelectionFieldProps,
 ): ReactElement => {
-  const { course } = props;
+  const { courseName } = props;
   return (
     <Box
       sx={{
@@ -29,7 +24,7 @@ export const ClassSelectionField = (
       }}
     >
       <Typography>Selected Class:</Typography>
-      <Typography>{course.data?.Name ?? "None"}</Typography>
+      <Typography>{courseName}</Typography>
       <ClassSelectionButton {...props} />
     </Box>
   );
