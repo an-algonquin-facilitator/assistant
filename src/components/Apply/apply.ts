@@ -8,7 +8,7 @@ import { StatusOK } from "../../api/api";
 import type { InputFolder } from "../../api/folder";
 import { updateFolder } from "../../api/folder";
 import { fetchFolder } from "../../api/folder";
-import type { IAssignmentPlan, INewsPlan, IQuizPlan } from "../../store/plan";
+import type { AssignmentPlan, NewsPlan, QuizPlan } from "../../store/plan";
 import type { InputQuiz } from "../../api/quiz";
 import { fetchQuiz, updateQuiz } from "../../api/quiz";
 import type { CreateNews, News } from "../../api/news";
@@ -24,7 +24,7 @@ const toRichTextInput = (rt: RichText): RichTextInput => {
 const applyAssignmentPlan = async (
   token: string,
   courseId: string,
-  assignment: IAssignmentPlan,
+  assignment: AssignmentPlan,
 ): Promise<APIError | undefined> => {
   const folder = await fetchFolder(token, [courseId, assignment.id]);
   const inputFolder: InputFolder = {
@@ -53,7 +53,7 @@ const applyAssignmentPlan = async (
 const applyQuizPlan = async (
   token: string,
   courseId: string,
-  qu: IQuizPlan,
+  qu: QuizPlan,
 ): Promise<APIError | undefined> => {
   const quiz = await fetchQuiz(token, [courseId, qu.id]);
   const attempts = quiz.AttemptsAllowed.NumberOfAttemptsAllowed;
@@ -99,7 +99,7 @@ const applyQuizPlan = async (
 const applyCreateNewsPlan = async (
   token: string,
   courseId: string,
-  ne: INewsPlan,
+  ne: NewsPlan,
 ): Promise<APIError | undefined> => {
   const createNewsPayload: CreateNews = {
     Body: {
@@ -130,7 +130,7 @@ const applyUpdateNewsPlan = async (
   token: string,
   courseId: string,
   existing: News,
-  ne: INewsPlan,
+  ne: NewsPlan,
 ): Promise<APIError | undefined> => {
   const updateNewsPayload: CreateNews = {
     Body: {
@@ -155,7 +155,7 @@ const applyNewsPlan = async (
   token: string,
   courseId: string,
   allNews: News[],
-  ne: INewsPlan,
+  ne: NewsPlan,
 ): Promise<APIError | undefined> => {
   const existing = allNews.find((n) => n.Title === ne.name);
   if (!existing) return applyCreateNewsPlan(token, courseId, ne);
@@ -174,10 +174,10 @@ export const apply = async ({
   setComplete,
 }: ApplyArguments): Promise<void> => {
   const state = store.getState();
-  const courseId = state.currentCourse.course.Identifier;
+  const courseId = state.currentCourse.selected.course.Identifier;
   const token = state.token.value;
   const { plan } = state;
-  const { news } = state.currentCourse;
+  const { news } = state.currentCourse.selected;
 
   setStarted(true);
 

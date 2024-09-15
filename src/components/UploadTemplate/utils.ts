@@ -2,16 +2,16 @@ import type { News as BNews } from "../../api/news";
 import type { Quiz as BQuiz } from "../../api/quiz";
 import type { Folder } from "../../api/folder";
 import type {
-  Assignment,
-  Quiz as TQuiz,
-  News as TNews,
+  AssignmentTemplate,
+  QuizTemplate as TQuiz,
+  NewsTemplate as TNews,
 } from "../../store/template";
 import type { TemplateFile } from "./UploadTemplateStep";
 
 export interface ValidatedTemplate {
-  validAssignments: Assignment[];
+  validAssignments: AssignmentTemplate[];
   missingBrightspaceAssignments: Folder[];
-  missingTemplateAssignments: Assignment[];
+  missingTemplateAssignments: AssignmentTemplate[];
 
   validQuizzes: TQuiz[];
   missingBrightspaceQuizzes: BQuiz[];

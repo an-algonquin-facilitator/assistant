@@ -7,7 +7,7 @@ export interface DateOffset {
   days?: number;
 }
 
-export interface Assignment {
+export interface AssignmentTemplate {
   id?: string;
   name: string;
   start?: DateOffset;
@@ -15,7 +15,7 @@ export interface Assignment {
   end?: DateOffset;
 }
 
-export interface Quiz {
+export interface QuizTemplate {
   id?: string;
   name: string;
   start?: DateOffset;
@@ -23,25 +23,25 @@ export interface Quiz {
   end?: DateOffset;
 }
 
-export interface News {
+export interface NewsTemplate {
   name: string;
   content: string;
   start?: DateOffset;
   end?: DateOffset;
 }
 
-export interface Template {
+export interface CourseTemplate {
   courseCode: string;
-  assignments?: Assignment[];
-  quizzes?: Quiz[];
-  news?: News[];
+  assignments?: AssignmentTemplate[];
+  quizzes?: QuizTemplate[];
+  news?: NewsTemplate[];
 }
 
-export interface TemplateState {
-  value: Required<Template>;
+interface CourseTemplateState {
+  value: Required<CourseTemplate>;
 }
 
-const initialState: TemplateState = {
+const initialState: CourseTemplateState = {
   value: {
     courseCode: "",
     assignments: [],
@@ -50,11 +50,11 @@ const initialState: TemplateState = {
   },
 };
 
-export const templateSlice = createSlice({
+const templateSlice = createSlice({
   name: "template",
   initialState,
   reducers: {
-    setTemplate(state, action: PayloadAction<Required<Template>>) {
+    setTemplate(state, action: PayloadAction<Required<CourseTemplate>>) {
       state.value = action.payload;
     },
     resetTemplate(state) {
@@ -68,14 +68,5 @@ export const { setTemplate, resetTemplate } = templateSlice.actions;
 
 export const templateReducer = templateSlice.reducer;
 
-export const useTemplate = (): Required<Template> =>
+export const useTemplate = (): Required<CourseTemplate> =>
   useAppSelector((s) => s.template.value);
-
-export const useTemplateAssignmentCount = (): number =>
-  useAppSelector((s) => s.template.value.assignments.length);
-
-export const useTemplateQuizCount = (): number =>
-  useAppSelector((s) => s.template.value.quizzes.length);
-
-export const useTemplateNewsCount = (): number =>
-  useAppSelector((s) => s.template.value.news.length);

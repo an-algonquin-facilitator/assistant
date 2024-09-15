@@ -7,7 +7,7 @@ import {
   TableRow,
   Typography,
 } from "@mui/material";
-import type { INewsPlan } from "../../store/plan";
+import type { NewsPlan } from "../../store/plan";
 import {
   addNewsPlan,
   removeNewsPlan,
@@ -18,7 +18,7 @@ import { NewsRow } from "./NewsRow";
 import type { ReactElement } from "react";
 
 interface NewsTabProps {
-  news: INewsPlan[];
+  news: NewsPlan[];
 }
 
 export const NewsTab = ({ news }: NewsTabProps): ReactElement => {

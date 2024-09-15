@@ -8,12 +8,12 @@ import { unknownError } from "../../api/utils";
 import { isLeft } from "fp-ts/lib/Either";
 import { PathReporter } from "io-ts/lib/PathReporter";
 import { Modal } from "../Modal";
-import type { Template } from "../../store/template";
+import type { CourseTemplate } from "../../store/template";
 
 const parseFile = (
   f: File,
   content: string,
-): [Template, undefined] | [undefined, string[]] => {
+): [CourseTemplate, undefined] | [undefined, string[]] => {
   try {
     const parsed: unknown = f.name.endsWith(".json")
       ? JSON.parse(content)

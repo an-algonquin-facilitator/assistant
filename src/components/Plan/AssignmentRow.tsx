@@ -1,6 +1,6 @@
 import { Checkbox, TableCell, TableRow, Typography } from "@mui/material";
 import { PlannedDate } from "./PlannedDate";
-import type { IAssignmentPlan } from "../../store/plan";
+import type { AssignmentPlan } from "../../store/plan";
 import {
   addAssignmentPlan,
   removeAssignmentPlan,
@@ -10,7 +10,7 @@ import { useAppDispatch } from "../../store/hooks";
 import type { ReactElement } from "react";
 
 interface AssignmentRowProps {
-  assignment: IAssignmentPlan;
+  assignment: AssignmentPlan;
 }
 
 export const AssignmentRow = ({

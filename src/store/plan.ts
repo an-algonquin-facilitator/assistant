@@ -3,10 +3,10 @@ import type { PayloadAction } from "@reduxjs/toolkit";
 import type { DateOffset } from "./template";
 import { useAppSelector } from "./hooks";
 
-export interface PlanState {
-  assignments: IAssignmentPlan[];
-  quizzes: IQuizPlan[];
-  news: INewsPlan[];
+interface PlanState {
+  assignments: AssignmentPlan[];
+  quizzes: QuizPlan[];
+  news: NewsPlan[];
 }
 
 const initialState: PlanState = {
@@ -15,7 +15,7 @@ const initialState: PlanState = {
   news: [],
 };
 
-export interface IAssignmentPlan {
+export interface AssignmentPlan {
   id: string;
   templateId?: string;
   name: string;
@@ -29,7 +29,7 @@ export interface IAssignmentPlan {
   endOffset: DateOffset;
 }
 
-export interface IQuizPlan {
+export interface QuizPlan {
   id: string;
   templateId?: string;
   name: string;
@@ -43,7 +43,7 @@ export interface IQuizPlan {
   endOffset: DateOffset;
 }
 
-export interface INewsPlan {
+export interface NewsPlan {
   name: string;
   content: string;
   open: number;
@@ -52,40 +52,40 @@ export interface INewsPlan {
   dismissOffset: DateOffset;
 }
 
-export interface ICoursePlan {
-  assignments: IAssignmentPlan[];
-  quizzes: IQuizPlan[];
-  news: INewsPlan[];
+export interface CoursePlan {
+  assignments: AssignmentPlan[];
+  quizzes: QuizPlan[];
+  news: NewsPlan[];
 }
 
-export const planSlice = createSlice({
+const planSlice = createSlice({
   name: "plan",
   initialState,
   reducers: {
-    addAssignmentPlan(state, action: PayloadAction<IAssignmentPlan>) {
+    addAssignmentPlan(state, action: PayloadAction<AssignmentPlan>) {
       if (state.assignments.some((a) => a.id === action.payload.id)) return;
       state.assignments.push(action.payload);
     },
-    removeAssignmentPlan(state, action: PayloadAction<IAssignmentPlan>) {
+    removeAssignmentPlan(state, action: PayloadAction<AssignmentPlan>) {
       const i = state.assignments.findIndex((a) => a.id === action.payload.id);
       if (i === -1) return;
       state.assignments.splice(i, 1);
     },
-    addQuizPlan(state, action: PayloadAction<IQuizPlan>) {
+    addQuizPlan(state, action: PayloadAction<QuizPlan>) {
       if (state.quizzes.some((a) => a.id === action.payload.id)) return;
       state.quizzes.push(action.payload);
     },
-    removeQuizPlan(state, action: PayloadAction<IQuizPlan>) {
+    removeQuizPlan(state, action: PayloadAction<QuizPlan>) {
       const i = state.quizzes.findIndex((a) => a.id === action.payload.id);
       if (i === -1) return;
       state.quizzes.splice(i, 1);
     },
 
-    addNewsPlan(state, action: PayloadAction<INewsPlan>) {
+    addNewsPlan(state, action: PayloadAction<NewsPlan>) {
       if (state.news.some((a) => a.name === action.payload.name)) return;
       state.news.push(action.payload);
     },
-    removeNewsPlan(state, action: PayloadAction<INewsPlan>) {
+    removeNewsPlan(state, action: PayloadAction<NewsPlan>) {
       const i = state.news.findIndex((a) => a.name === action.payload.name);
       if (i === -1) return;
       state.news.splice(i, 1);
@@ -106,6 +106,8 @@ export const {
   removeNewsPlan,
   resetPlan,
 } = planSlice.actions;
+
+export const usePlan = (): PlanState => useAppSelector((s) => s.plan);
 
 export const useIsAssignmentPlanned = (id: string): boolean =>
   useAppSelector((s) => s.plan.assignments.some((a) => a.id === id));
@@ -146,11 +148,11 @@ export const useIsAnythingPlanned = (): boolean =>
       s.plan.news.length > 0,
   );
 
-export const usePlannedAssignments = (): IAssignmentPlan[] =>
+export const usePlannedAssignments = (): AssignmentPlan[] =>
   useAppSelector((s) => s.plan.assignments);
-export const usePlannedQuizzes = (): IQuizPlan[] =>
+export const usePlannedQuizzes = (): QuizPlan[] =>
   useAppSelector((s) => s.plan.quizzes);
-export const usePlannedNews = (): INewsPlan[] =>
+export const usePlannedNews = (): NewsPlan[] =>
   useAppSelector((s) => s.plan.news);
 
 export const planReducer = planSlice.reducer;

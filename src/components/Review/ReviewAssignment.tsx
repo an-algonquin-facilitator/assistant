@@ -6,13 +6,13 @@ import {
   Tooltip,
   Typography,
 } from "@mui/material";
-import type { IAssignmentPlan } from "../../store/plan";
+import type { AssignmentPlan } from "../../store/plan";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import { dateOffsetToString, formatDate } from "./utils";
 import type { ReactElement } from "react";
 
 interface IReviewAssignmentProps {
-  assignment: IAssignmentPlan;
+  assignment: AssignmentPlan;
   expanded: string;
   setExpanded: (id: string) => void;
 }

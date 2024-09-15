@@ -7,7 +7,7 @@ import {
   TableRow,
   Typography,
 } from "@mui/material";
-import type { IAssignmentPlan } from "../../store/plan";
+import type { AssignmentPlan } from "../../store/plan";
 import {
   addAssignmentPlan,
   removeAssignmentPlan,
@@ -18,7 +18,7 @@ import { useAppDispatch } from "../../store/hooks";
 import type { ReactElement } from "react";
 
 interface AssignmentTabProps {
-  assignments: IAssignmentPlan[];
+  assignments: AssignmentPlan[];
 }
 
 export const AssignmentTab = ({

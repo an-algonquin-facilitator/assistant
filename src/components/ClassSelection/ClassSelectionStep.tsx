@@ -10,12 +10,7 @@ import type { Course } from "../../api/course";
 import type { Folder } from "../../api/folder";
 import type { Quiz } from "../../api/quiz";
 import type { News } from "../../api/news";
-import {
-  setCourse as dSetCourse,
-  setFolders as dSetFolders,
-  setQuizzes as dSetQuizzes,
-  setNews as dSetNews,
-} from "../../store/course";
+import { setCourse as dSetCourse } from "../../store/course";
 
 export const ClassSelectionStep = ({
   previous,
@@ -50,10 +45,14 @@ export const ClassSelectionStep = ({
 
   const onNext = (): void => {
     if (!course.data || !folders.data || !quizzes.data || !news.data) return;
-    dispatch(dSetCourse(course.data));
-    dispatch(dSetFolders(folders.data));
-    dispatch(dSetQuizzes(quizzes.data));
-    dispatch(dSetNews(news.data));
+    dispatch(
+      dSetCourse({
+        course: course.data,
+        folders: folders.data,
+        quizzes: quizzes.data,
+        news: news.data,
+      }),
+    );
     next();
   };
 

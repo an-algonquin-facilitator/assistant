@@ -1,10 +1,10 @@
 import * as t from "io-ts";
 import type {
   DateOffset as TDateOffset,
-  Assignment as TAssignment,
-  Quiz as TQuiz,
-  News as TNews,
-  Template as TTemplate,
+  AssignmentTemplate as TAssignment,
+  QuizTemplate as TQuiz,
+  NewsTemplate as TNews,
+  CourseTemplate as TTemplate,
 } from "../../store/template";
 
 const DateOffsetValidator = t.exact(

@@ -6,13 +6,13 @@ import {
   Tooltip,
   Typography,
 } from "@mui/material";
-import type { IQuizPlan } from "../../store/plan";
+import type { QuizPlan } from "../../store/plan";
 import { dateOffsetToString, formatDate } from "../Review/utils";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import type { ReactElement } from "react";
 
 interface ReviewQuizProps {
-  quiz: IQuizPlan;
+  quiz: QuizPlan;
   expanded: string;
   setExpanded: (id: string) => void;
 }

@@ -7,13 +7,13 @@ import {
   Tooltip,
   Typography,
 } from "@mui/material";
-import type { INewsPlan } from "../../store/plan";
+import type { NewsPlan } from "../../store/plan";
 import { dateOffsetToString, formatDate } from "./utils";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import type { ReactElement } from "react";
 
 interface IProps {
-  news: INewsPlan;
+  news: NewsPlan;
   expanded: string;
   setExpanded: (id: string) => void;
 }

@@ -7,7 +7,7 @@ import {
   TableRow,
   Typography,
 } from "@mui/material";
-import type { IQuizPlan } from "../../store/plan";
+import type { QuizPlan } from "../../store/plan";
 import {
   addQuizPlan,
   removeQuizPlan,
@@ -18,7 +18,7 @@ import { QuizRow } from "./QuizRow";
 import type { ReactElement } from "react";
 
 interface QuizTabProps {
-  quizzes: IQuizPlan[];
+  quizzes: QuizPlan[];
 }
 
 export const QuizTab = ({ quizzes }: QuizTabProps): ReactElement => {

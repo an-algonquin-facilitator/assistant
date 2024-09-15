@@ -6,7 +6,7 @@ import {
   Typography,
 } from "@mui/material";
 import { PlannedDate } from "./PlannedDate";
-import type { INewsPlan } from "../../store/plan";
+import type { NewsPlan } from "../../store/plan";
 import {
   addNewsPlan,
   removeNewsPlan,
@@ -19,7 +19,7 @@ import type { ReactElement } from "react";
 import { useState } from "react";
 
 interface NewsRowProps {
-  news: INewsPlan;
+  news: NewsPlan;
 }
 
 export const NewsRow = ({ news: n }: NewsRowProps): ReactElement => {

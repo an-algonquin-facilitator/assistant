@@ -1,6 +1,6 @@
 import { Checkbox, TableCell, TableRow, Typography } from "@mui/material";
 import { PlannedDate } from "./PlannedDate";
-import type { IQuizPlan } from "../../store/plan";
+import type { QuizPlan } from "../../store/plan";
 import {
   addQuizPlan,
   removeQuizPlan,
@@ -10,7 +10,7 @@ import { useAppDispatch } from "../../store/hooks";
 import type { ReactElement } from "react";
 
 interface QuizRowProps {
-  quiz: IQuizPlan;
+  quiz: QuizPlan;
 }
 
 export const QuizRow = ({ quiz: q }: QuizRowProps): ReactElement => {

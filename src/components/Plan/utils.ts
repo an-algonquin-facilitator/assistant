@@ -1,23 +1,23 @@
 import dayjs from "dayjs";
 import type {
-  Assignment,
+  AssignmentTemplate,
   DateOffset,
-  News as TNews,
-  Quiz as TQuiz,
-  Template,
+  NewsTemplate as TNews,
+  QuizTemplate as TQuiz,
+  CourseTemplate,
 } from "../../store/template";
 import { isHoliday } from "../../holidays";
 import type {
-  IAssignmentPlan,
-  ICoursePlan,
-  INewsPlan,
-  IQuizPlan,
+  AssignmentPlan,
+  CoursePlan,
+  NewsPlan,
+  QuizPlan,
 } from "../../store/plan";
 import type { Quiz as BQuiz } from "../../api/quiz";
-import type { Course } from "../../api/course";
 import type { Folder } from "../../api/folder";
 import { isDefined } from "../Introduction/utils";
 import Mustache from "mustache";
+import type { SelectedCourse } from "../../store/course";
 
 const dayLastHour = 23;
 const dayLastMinute = 59;
@@ -63,17 +63,15 @@ export const calculateDateWithHoliday = (
 };
 
 const createMustacheView = (
-  assignments: IAssignmentPlan[],
-  quizzes: IQuizPlan[],
+  assignments: AssignmentPlan[],
+  quizzes: QuizPlan[],
 ): MustacheView => {
   const createDateObject = (date: number): MustacheDate => ({
     iso8601: new Date(date).toISOString(),
     date: new Date(date).toDateString(),
   });
 
-  const createMustacheEvent = (
-    e: IAssignmentPlan | IQuizPlan,
-  ): MustacheEvent => {
+  const createMustacheEvent = (e: AssignmentPlan | QuizPlan): MustacheEvent => {
     return {
       name: e.name,
       start: createDateObject(e.start),
@@ -105,8 +103,8 @@ const createMustacheView = (
 const assignmentTemplateToPlan = (
   startDateUnixMS: number,
   folders: Folder[],
-  assignment: Assignment,
-): IAssignmentPlan | undefined => {
+  assignment: AssignmentTemplate,
+): AssignmentPlan | undefined => {
   const a = assignment;
   const f = folders.find((fo) => fo.Name === a.name);
   if (!f) return undefined;
@@ -138,7 +136,7 @@ const quizTemplateToPlan = (
   startDateUnixMS: number,
   quizzes: BQuiz[],
   quiz: TQuiz,
-): IQuizPlan | undefined => {
+): QuizPlan | undefined => {
   const q = quiz;
   const bQ = quizzes.find((b) => b.Name === q.name);
   if (!bQ) return undefined;
@@ -187,7 +185,7 @@ const newsTemplateToPlan = (
   startDateUnixMS: number,
   news: TNews,
   view: MustacheView,
-): INewsPlan => {
+): NewsPlan => {
   const n = news;
   const defaultOpenOffset = {
     days: n.start?.days ?? 0,
@@ -214,11 +212,10 @@ const newsTemplateToPlan = (
 };
 
 export const processTemplate = (
-  template: Template,
-  course: Course,
-  quizzes: BQuiz[],
-  folders: Folder[],
-): ICoursePlan => {
+  template: CourseTemplate,
+  selectedCourse: SelectedCourse,
+): CoursePlan => {
+  const { course, folders, quizzes } = selectedCourse;
   const startDateUnixMS = dayjs(course.StartDate).unix() * msPerSecond;
   const ass = template.assignments ?? [];
   const qu = template.quizzes ?? [];

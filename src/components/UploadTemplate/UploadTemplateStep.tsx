@@ -3,7 +3,7 @@ import { UploadTemplateFile } from "./UploadTemplateFile";
 import { TemplateOverview } from "./TemplateOverview";
 import type { PageProps } from "../Assistant/Assistant";
 import { useAppDispatch } from "../../store/hooks";
-import type { Template } from "../../store/template";
+import type { CourseTemplate } from "../../store/template";
 import { resetTemplate, setTemplate } from "../../store/template";
 import type { ReactElement } from "react";
 import { useState } from "react";
@@ -12,7 +12,7 @@ import { isValidTemplate, validateTemplate } from "./utils";
 
 export interface TemplateFile {
   filename: string;
-  template: Template;
+  template: CourseTemplate;
 }
 
 export const UploadTemplateStep = ({
