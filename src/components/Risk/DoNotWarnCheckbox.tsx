@@ -2,8 +2,6 @@ import { Checkbox, FormControlLabel } from "@mui/material";
 import { SetDoNotWarn } from "./Risk";
 import type { ReactElement } from "react";
 
-export const DoNotWarnLocalStorageKey = "DO_NOT_WARN";
-
 export const DoNotWarnCheckbox = (): ReactElement => {
   const onCheckboxClick = (_: unknown, checked: boolean): void => {
     SetDoNotWarn(checked);

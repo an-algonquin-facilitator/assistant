@@ -23,7 +23,7 @@ const dayLastHour = 23;
 const dayLastMinute = 59;
 const msPerSecond = 1000;
 
-export const calculateDate = (
+const calculateDate = (
   start: number,
   offset: DateOffset,
   startOfDay: boolean,
@@ -37,12 +37,12 @@ export const calculateDate = (
   return d.unix() * msPerSecond;
 };
 
-export enum TargetDateType {
+enum TargetDateType {
   START = "START",
   END = "END",
 }
 
-export const calculateDateWithHoliday = (
+const calculateDateWithHoliday = (
   start: number,
   offset: DateOffset,
   targetDateType: TargetDateType,
