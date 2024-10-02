@@ -6,8 +6,10 @@ interface TokenState {
   value: string;
 }
 
+export const localStorageTokenKey = "token";
+
 const initialState: TokenState = {
-  value: localStorage.getItem("token") ?? "",
+  value: localStorage.getItem(localStorageTokenKey) ?? "",
 };
 
 const tokenSlice = createSlice({

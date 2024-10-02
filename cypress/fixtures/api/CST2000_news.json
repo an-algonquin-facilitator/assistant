@@ -1,0 +1,23 @@
+[
+  {
+    "Id": 1000001,
+    "IsHidden": false,
+    "Attachments": [],
+    "CreatedBy": 123456,
+    "CreatedDate": "2024-06-01T00:00:00.000Z",
+    "LastModifiedBy": null,
+    "LastModifiedDate": "2024-06-01T00:00:00.000Z",
+    "Title": "Late Policy",
+    "Body": {
+      "Text": "If you are TYPO. You are not TYPO.",
+      "Html": "<p>If you are TYPO. You are not TYPO.</p>"
+    },
+    "StartDate": "2024-06-01T00:00:00.000Z",
+    "EndDate": null,
+    "IsGlobal": false,
+    "IsPublished": true,
+    "ShowOnlyInCourseOfferings": false,
+    "IsAuthorInfoShown": true,
+    "IsPinned": false
+  }
+]

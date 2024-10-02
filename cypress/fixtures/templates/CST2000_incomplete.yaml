@@ -1,0 +1,44 @@
+---
+courseCode: CST2000
+news:
+  - name: Welcome to CST2000
+    content: |
+      CST2000 is a class about nothing because it doesn't exists. Why are you reading fixture data?
+      This is a demo of the templating system:
+      {{assignments.lab1.due.monthDate}}
+      {{assignments.lab1.due.month}}
+      {{assignments.lab1.due.monthShort}}
+      {{assignments.lab1.due.weekDays}}
+      {{assignments.lab1.due.weekDaysShort}}
+      {{assignments.lab1.due.iso8601}}
+      {{assignments.lab1.due.date}}
+      {{quizzes.lab1.due.monthDate}}
+      {{quizzes.lab1.due.month}}
+      {{quizzes.lab1.due.monthShort}}
+      {{quizzes.lab1.due.weekDays}}
+      {{quizzes.lab1.due.weekDaysShort}}
+      {{quizzes.lab1.due.iso8601}}
+      {{quizzes.lab1.due.date}}
+    start:
+      weeks: 1
+      days: 1
+assignments:
+  - name: Lab 2
+    due:
+      weeks: 3
+  - name: Lab 3
+    due:
+      weeks: 4
+quizzes:
+  - name: Quiz 1
+    id: quiz1
+    start:
+      weeks: 1
+    due:
+      days: 1
+      weeks: 2
+    end:
+      weeks: 9
+  - name: Quiz 3
+    due:
+      weeks: 4

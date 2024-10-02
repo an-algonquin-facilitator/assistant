@@ -1,0 +1,76 @@
+{
+  "courseCode": "CST2000",
+  "assignments": [
+    {
+      "name": "Lab 1",
+      "id": "lab1",
+      "start": {
+        "weeks": 1
+      },
+      "due": {
+        "days": 1,
+        "weeks": 2
+      },
+      "end": {
+        "weeks": 9
+      }
+    },
+    {
+      "name": "Lab 2",
+      "due": {
+        "weeks": 3
+      }
+    },
+    {
+      "name": "Lab 3",
+      "due": {
+        "weeks": 4
+      }
+    }
+  ],
+  "quizzes": [
+    {
+      "name": "Quiz 1",
+      "id": "quiz1",
+      "start": {
+        "weeks": 1
+      },
+      "due": {
+        "days": 1,
+        "weeks": 2
+      },
+      "end": {
+        "weeks": 9
+      }
+    },
+    {
+      "name": "Quiz 2",
+      "due": {
+        "weeks": 3
+      }
+    },
+    {
+      "name": "Quiz 3",
+      "due": {
+        "weeks": 4
+      }
+    }
+  ],
+  "news": [
+    {
+      "name": "Welcome to CST2000",
+      "content": "CST2000 is a class about nothing because it doesn't exists. Why are you reading fixture data?\nThis is a demo of the templating system:\n{{assignments.lab1.due.monthDate}}\n{{assignments.lab1.due.month}}\n{{assignments.lab1.due.monthShort}}\n{{assignments.lab1.due.weekDays}}\n{{assignments.lab1.due.weekDaysShort}}\n{{assignments.lab1.due.iso8601}}\n{{assignments.lab1.due.date}}\n{{quizzes.lab1.due.monthDate}}\n{{quizzes.lab1.due.month}}\n{{quizzes.lab1.due.monthShort}}\n{{quizzes.lab1.due.weekDays}}\n{{quizzes.lab1.due.weekDaysShort}}\n{{quizzes.lab1.due.iso8601}}\n{{quizzes.lab1.due.date}}\n",
+      "start": {
+        "weeks": 1,
+        "days": 1
+      }
+    },
+    {
+      "name": "Late Policy",
+      "content": "If you are late. You are not early.\n",
+      "end": {
+        "weeks": 15
+      }
+    }
+  ]
+}

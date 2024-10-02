@@ -1,0 +1,164 @@
+{
+  "Objects": [
+    {
+      "QuizId": 100001,
+      "Name": "Quiz 1",
+      "AutoExportToGrades": true,
+      "IsActive": false,
+      "GradeItemId": 1000001,
+      "IsAutoSetGraded": true,
+      "Instructions": {
+        "Text": { "Text": "", "Html": "" },
+        "IsDisplayed": false
+      },
+      "Description": {
+        "Text": {
+          "Text": "Week 2 Quiz",
+          "Html": "<p>Week 2 Quiz</p>"
+        },
+        "IsDisplayed": true
+      },
+      "Header": { "Text": { "Text": "", "Html": "" }, "IsDisplayed": true },
+      "Footer": { "Text": { "Text": "", "Html": "" }, "IsDisplayed": true },
+      "StartDate": "2024-01-01T00:00:00.000Z",
+      "EndDate": "2024-01-01T00:00:00.000Z",
+      "DueDate": "2024-01-01T00:00:00.000Z",
+      "DisplayInCalendar": true,
+      "SortOrder": 2,
+      "SubmissionTimeLimit": {
+        "IsEnforced": true,
+        "ShowClock": true,
+        "TimeLimitValue": 20
+      },
+      "SubmissionGracePeriod": 0,
+      "LateSubmissionInfo": {
+        "LateSubmissionOption": 2,
+        "LateLimitMinutes": null
+      },
+      "AttemptsAllowed": { "IsUnlimited": false, "NumberOfAttemptsAllowed": 1 },
+      "Password": null,
+      "AllowHints": false,
+      "DisableRightClick": false,
+      "DisablePagerAndAlerts": false,
+      "RestrictIPAddressRange": [],
+      "NotificationEmail": null,
+      "CalcTypeId": 1,
+      "CategoryId": null,
+      "PreventMovingBackwards": false,
+      "Shuffle": false,
+      "ActivityId": "https://ids.brightspace.com/activities/quiz/ABCD1234-ABCD-1234-ABCD-1234ABCD1234-0000001",
+      "AllowOnlyUsersWithSpecialAccess": false,
+      "IsRetakeIncorrectOnly": false,
+      "PagingTypeId": 0,
+      "IsSynchronous": false,
+      "DeductionPercentage": null
+    },
+    {
+      "QuizId": 100002,
+      "Name": "Quiz 2",
+      "AutoExportToGrades": true,
+      "IsActive": false,
+      "GradeItemId": 1000002,
+      "IsAutoSetGraded": true,
+      "Instructions": {
+        "Text": { "Text": "", "Html": "" },
+        "IsDisplayed": false
+      },
+      "Description": {
+        "Text": {
+          "Text": "Week 3 Quiz",
+          "Html": "<p>Week 3 Quiz</p>"
+        },
+        "IsDisplayed": true
+      },
+      "Header": { "Text": { "Text": "", "Html": "" }, "IsDisplayed": true },
+      "Footer": { "Text": { "Text": "", "Html": "" }, "IsDisplayed": true },
+      "StartDate": "2024-01-01T00:00:00.000Z",
+      "EndDate": "2024-01-01T00:00:00.000Z",
+      "DueDate": "2024-01-01T00:00:00.000Z",
+      "DisplayInCalendar": true,
+      "SortOrder": 3,
+      "SubmissionTimeLimit": {
+        "IsEnforced": true,
+        "ShowClock": true,
+        "TimeLimitValue": 20
+      },
+      "SubmissionGracePeriod": 0,
+      "LateSubmissionInfo": {
+        "LateSubmissionOption": 2,
+        "LateLimitMinutes": null
+      },
+      "AttemptsAllowed": { "IsUnlimited": false, "NumberOfAttemptsAllowed": 1 },
+      "Password": null,
+      "AllowHints": false,
+      "DisableRightClick": false,
+      "DisablePagerAndAlerts": false,
+      "RestrictIPAddressRange": [],
+      "NotificationEmail": null,
+      "CalcTypeId": 1,
+      "CategoryId": null,
+      "PreventMovingBackwards": false,
+      "Shuffle": false,
+      "ActivityId": "https://ids.brightspace.com/activities/quiz/ABCD1234-ABCD-1234-ABCD-1234ABCD1234-0000002",
+      "AllowOnlyUsersWithSpecialAccess": false,
+      "IsRetakeIncorrectOnly": false,
+      "PagingTypeId": 0,
+      "IsSynchronous": false,
+      "DeductionPercentage": null
+    },
+    {
+      "QuizId": 100003,
+      "Name": "Quiz 3",
+      "AutoExportToGrades": true,
+      "IsActive": false,
+      "GradeItemId": 1000003,
+      "IsAutoSetGraded": true,
+      "Instructions": {
+        "Text": { "Text": "", "Html": "" },
+        "IsDisplayed": false
+      },
+      "Description": {
+        "Text": {
+          "Text": "Week 4 Quiz",
+          "Html": "<p>Week 4 Quiz</p>"
+        },
+        "IsDisplayed": true
+      },
+      "Header": { "Text": { "Text": "", "Html": "" }, "IsDisplayed": true },
+      "Footer": { "Text": { "Text": "", "Html": "" }, "IsDisplayed": true },
+      "StartDate": "2024-01-01T00:00:00.000Z",
+      "EndDate": "2024-01-01T00:00:00.000Z",
+      "DueDate": "2024-01-01T00:00:00.000Z",
+      "DisplayInCalendar": true,
+      "SortOrder": 4,
+      "SubmissionTimeLimit": {
+        "IsEnforced": true,
+        "ShowClock": true,
+        "TimeLimitValue": 20
+      },
+      "SubmissionGracePeriod": 0,
+      "LateSubmissionInfo": {
+        "LateSubmissionOption": 2,
+        "LateLimitMinutes": null
+      },
+      "AttemptsAllowed": { "IsUnlimited": false, "NumberOfAttemptsAllowed": 1 },
+      "Password": null,
+      "AllowHints": false,
+      "DisableRightClick": false,
+      "DisablePagerAndAlerts": false,
+      "RestrictIPAddressRange": [],
+      "NotificationEmail": null,
+      "CalcTypeId": 1,
+      "CategoryId": null,
+      "PreventMovingBackwards": false,
+      "Shuffle": false,
+      "ActivityId": "https://ids.brightspace.com/activities/quiz/ABCD1234-ABCD-1234-ABCD-1234ABCD1234-0000003",
+      "AllowOnlyUsersWithSpecialAccess": false,
+      "IsRetakeIncorrectOnly": false,
+      "PagingTypeId": 0,
+      "IsSynchronous": false,
+      "DeductionPercentage": null
+    }
+  ],
+  "Next": null
+}

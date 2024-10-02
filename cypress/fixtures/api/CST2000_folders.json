@@ -1,0 +1,128 @@
+[
+  {
+    "Id": 100001,
+    "CategoryId": null,
+    "Name": "Lab 1",
+    "CustomInstructions": { "Text": "", "Html": "" },
+    "Attachments": [
+      { "FileId": 10000001, "FileName": "CST2000_lab1.pdf", "Size": 1024 }
+    ],
+    "TotalFiles": 0,
+    "UnreadFiles": 0,
+    "FlaggedFiles": 0,
+    "TotalUsers": 0,
+    "TotalUsersWithSubmissions": 0,
+    "TotalUsersWithFeedback": 0,
+    "Availability": {
+      "StartDate": "2024-01-01T00:00:00.000Z",
+      "EndDate": "2024-01-01T00:00:00.000Z",
+      "StartDateAvailabilityType": 0,
+      "EndDateAvailabilityType": 0
+    },
+    "IsHidden": false,
+    "AllowTextSubmission": false,
+    "Assessment": {
+      "ScoreDenominator": 10.0,
+      "Rubrics": []
+    },
+    "DropboxType": 2,
+    "GroupTypeId": null,
+    "DueDate": "2024-01-01T00:00:00.000Z",
+    "DisplayInCalendar": false,
+    "NotificationEmail": null,
+    "LinkAttachments": [],
+    "ActivityId": "https://ids.brightspace.com/activities/dropbox/ABCD1234-ABCD-1234-ABCD-1234ABCD1234-0000001",
+    "IsAnonymous": false,
+    "SubmissionType": 0,
+    "CompletionType": 0,
+    "AllowableFileType": 0,
+    "CustomAllowableFileTypes": null,
+    "GradeItemId": 1000001,
+    "AllowOnlyUsersWithSpecialAccess": false,
+    "AiHumanOrigin": 0
+  },
+  {
+    "Id": 100002,
+    "CategoryId": null,
+    "Name": "Lab 2",
+    "CustomInstructions": { "Text": "", "Html": "" },
+    "Attachments": [
+      { "FileId": 10000002, "FileName": "CST2000_lab2.pdf", "Size": 1024 }
+    ],
+    "TotalFiles": 0,
+    "UnreadFiles": 0,
+    "FlaggedFiles": 0,
+    "TotalUsers": 0,
+    "TotalUsersWithSubmissions": 0,
+    "TotalUsersWithFeedback": 0,
+    "Availability": {
+      "StartDate": "2024-01-01T00:00:00.000Z",
+      "EndDate": "2024-01-01T00:00:59.000Z",
+      "StartDateAvailabilityType": 0,
+      "EndDateAvailabilityType": 0
+    },
+    "IsHidden": false,
+    "AllowTextSubmission": false,
+    "Assessment": {
+      "ScoreDenominator": 10.0,
+      "Rubrics": []
+    },
+    "DropboxType": 2,
+    "GroupTypeId": null,
+    "DueDate": "2024-01-01T00:00:59.000Z",
+    "DisplayInCalendar": false,
+    "NotificationEmail": null,
+    "LinkAttachments": [],
+    "ActivityId": "https://ids.brightspace.com/activities/dropbox/ABCD1234-ABCD-1234-ABCD-1234ABCD1234-0000002",
+    "IsAnonymous": false,
+    "SubmissionType": 0,
+    "CompletionType": 0,
+    "AllowableFileType": 0,
+    "CustomAllowableFileTypes": null,
+    "GradeItemId": 1000002,
+    "AllowOnlyUsersWithSpecialAccess": false,
+    "AiHumanOrigin": 0
+  },
+  {
+    "Id": 100003,
+    "CategoryId": null,
+    "Name": "Lab 3",
+    "CustomInstructions": { "Text": "", "Html": "" },
+    "Attachments": [
+      { "FileId": 10000003, "FileName": "CST2000_lab3.pdf", "Size": 1024 }
+    ],
+    "TotalFiles": 0,
+    "UnreadFiles": 10,
+    "FlaggedFiles": 0,
+    "TotalUsers": 0,
+    "TotalUsersWithSubmissions": 0,
+    "TotalUsersWithFeedback": 0,
+    "Availability": {
+      "StartDate": "2024-01-01T00:00:00.000Z",
+      "EndDate": "2024-01-01T00:00:00.000Z",
+      "StartDateAvailabilityType": 0,
+      "EndDateAvailabilityType": 0
+    },
+    "IsHidden": false,
+    "AllowTextSubmission": false,
+    "Assessment": {
+      "ScoreDenominator": 10.0,
+      "Rubrics": []
+    },
+    "DropboxType": 2,
+    "GroupTypeId": null,
+    "DueDate": "2024-01-01T00:00:00.000Z",
+    "DisplayInCalendar": false,
+    "NotificationEmail": null,
+    "LinkAttachments": [],
+    "ActivityId": "https://ids.brightspace.com/activities/dropbox/ABCD1234-ABCD-1234-ABCD-1234ABCD1234-0000003",
+    "IsAnonymous": false,
+    "SubmissionType": 0,
+    "CompletionType": 0,
+    "AllowableFileType": 0,
+    "CustomAllowableFileTypes": null,
+    "GradeItemId": 1000003,
+    "AllowOnlyUsersWithSpecialAccess": false,
+    "AiHumanOrigin": 0
+  }
+]

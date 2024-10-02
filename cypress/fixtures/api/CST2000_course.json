@@ -1,0 +1,22 @@
+{
+  "Identifier": "1016",
+  "Name": "24F_CST2000_000 Intermediate testing",
+  "Code": "24F_CST2000_000",
+  "IsActive": true,
+  "CanSelfRegister": false,
+  "Description": { "Text": "", "Html": "" },
+  "Path": "/content/enforced/1016-24F_CST2000_000/",
+  "StartDate": "2024-09-10T04:00:00.000Z",
+  "EndDate": "2024-12-18T05:00:00.000Z",
+  "CourseTemplate": {
+    "Identifier": "123456",
+    "Name": "CST2000",
+    "Code": "AOTE_CST2000"
+  },
+  "Semester": { "Identifier": "123456", "Name": "2024 Fall", "Code": "2024F" },
+  "Department": {
+    "Identifier": "123456",
+    "Name": "AO Advanced Technology",
+    "Code": "AOTE"
+  }
+}

@@ -39,3 +39,12 @@ jobs:
       - uses: actions/configure-pages@v4
       - run: npm ci
       - run: npm run format-check
+  cypress-run:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+      - name: Cypress run
+        uses: cypress-io/github-action@v6
+        with:
+          component: true

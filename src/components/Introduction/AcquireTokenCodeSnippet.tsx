@@ -5,7 +5,7 @@ import { useState } from "react";
 
 // Code that you can paste in ACO to print the token.
 // We can't auto copy to clipboard because of permission stuff.
-const code = `console.log(JSON.parse(localStorage["D2L.Fetch.Tokens"])["*:*:*"].access_token);`;
+export const CopyTokenJS = `console.log(JSON.parse(localStorage["D2L.Fetch.Tokens"])["*:*:*"].access_token);`;
 
 const T = (props: TypographyProps & { col: string }): ReactElement => {
   return (
@@ -23,7 +23,7 @@ export const AcquireTokenCodeSnippet = (): ReactElement => {
   const [open, setOpen] = useState(false);
 
   const onClick = (): void => {
-    void navigator.clipboard.writeText(code);
+    void navigator.clipboard.writeText(CopyTokenJS);
     setOpen(true);
   };
 

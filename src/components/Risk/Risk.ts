@@ -1,10 +1,10 @@
-const localStorageKey = "DO_NOT_WARN";
+export const localStorageDoNotWarnKey = "DO_NOT_WARN";
 
 export const SetDoNotWarn = (doNotWarn: boolean): void => {
-  localStorage.setItem(localStorageKey, doNotWarn + "");
+  localStorage.setItem(localStorageDoNotWarnKey, doNotWarn + "");
 };
 
 export const ShouldWarn = (): boolean => {
   // localstorage value will either be `null`, `"false"`, or `"true"`
-  return localStorage.getItem(localStorageKey) !== "true";
+  return localStorage.getItem(localStorageDoNotWarnKey) !== "true";
 };

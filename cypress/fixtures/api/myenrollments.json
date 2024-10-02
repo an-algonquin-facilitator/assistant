@@ -1,0 +1,577 @@
+{
+  "PagingInfo": { "Bookmark": "123456", "HasMoreItems": false },
+  "Items": [
+    {
+      "OrgUnit": {
+        "Id": 1001,
+        "Type": { "Id": 1, "Code": "Organization", "Name": "Organization" },
+        "Name": "Algonquin College",
+        "Code": null
+      },
+      "Access": {
+        "IsActive": true,
+        "StartDate": null,
+        "EndDate": null,
+        "CanAccess": true,
+        "ClasslistRoleName": "Facilitator",
+        "LISRoles": [
+          "urn:lti:instrole:ims/lis/Faculty",
+          "urn:lti:instrole:ims/lis/Instructor"
+        ],
+        "LastAccessed": "2024-06-01T00:00:00.000Z"
+      }
+    },
+    {
+      "OrgUnit": {
+        "Id": 1000,
+        "Type": {
+          "Id": 3,
+          "Code": "Course Offering",
+          "Name": "Course Offering"
+        },
+        "Name": "AC Online Facilitator Hub",
+        "Code": "AAA-AAAA0000A-A00"
+      },
+      "Access": {
+        "IsActive": true,
+        "StartDate": null,
+        "EndDate": null,
+        "CanAccess": true,
+        "ClasslistRoleName": "Learner",
+        "LISRoles": [
+          "urn:lti:instrole:ims/lis/Student",
+          "urn:lti:instrole:ims/lis/Learner"
+        ],
+        "LastAccessed": "2024-06-01T00:00:00.000Z"
+      }
+    },
+    {
+      "OrgUnit": {
+        "Id": 1002,
+        "Type": {
+          "Id": 3,
+          "Code": "Course Offering",
+          "Name": "Course Offering"
+        },
+        "Name": "00A_AAA0000_AAA Brightspace Essentials (AC Online)",
+        "Code": "00A_AAA0000_AAA"
+      },
+      "Access": {
+        "IsActive": true,
+        "StartDate": null,
+        "EndDate": null,
+        "CanAccess": true,
+        "ClasslistRoleName": "Learner",
+        "LISRoles": [
+          "urn:lti:instrole:ims/lis/Student",
+          "urn:lti:instrole:ims/lis/Learner"
+        ],
+        "LastAccessed": "2024-06-01T00:00:00.000Z"
+      }
+    },
+    {
+      "OrgUnit": {
+        "Id": 1003,
+        "Type": { "Id": 4, "Code": "Group", "Name": "Group" },
+        "Name": "F24 Facilitators",
+        "Code": "Group_0000_00"
+      },
+      "Access": {
+        "IsActive": true,
+        "StartDate": null,
+        "EndDate": null,
+        "CanAccess": true,
+        "ClasslistRoleName": "Learner",
+        "LISRoles": [
+          "urn:lti:instrole:ims/lis/Student",
+          "urn:lti:instrole:ims/lis/Learner"
+        ],
+        "LastAccessed": null
+      }
+    },
+    {
+      "OrgUnit": {
+        "Id": 1004,
+        "Type": { "Id": 4, "Code": "Group", "Name": "Group" },
+        "Name": "S24 Semester Faciliators (No FLP)",
+        "Code": "Group_0000_00"
+      },
+      "Access": {
+        "IsActive": true,
+        "StartDate": null,
+        "EndDate": null,
+        "CanAccess": true,
+        "ClasslistRoleName": "Learner",
+        "LISRoles": [
+          "urn:lti:instrole:ims/lis/Student",
+          "urn:lti:instrole:ims/lis/Learner"
+        ],
+        "LastAccessed": null
+      }
+    },
+    {
+      "OrgUnit": {
+        "Id": 1005,
+        "Type": {
+          "Id": 3,
+          "Code": "Course Offering",
+          "Name": "Course Offering"
+        },
+        "Name": "24W_CST1000_000 Introduction to Testing",
+        "Code": "24W_CST1000_000"
+      },
+      "Access": {
+        "IsActive": true,
+        "StartDate": "2024-01-16T05:00:00.000Z",
+        "EndDate": "2024-04-24T04:00:00.000Z",
+        "CanAccess": true,
+        "ClasslistRoleName": "Facilitator",
+        "LISRoles": [
+          "urn:lti:instrole:ims/lis/Faculty",
+          "urn:lti:instrole:ims/lis/Instructor"
+        ],
+        "LastAccessed": "2024-06-01T00:00:00.000Z"
+      }
+    },
+    {
+      "OrgUnit": {
+        "Id": 1006,
+        "Type": { "Id": 4, "Code": "Group", "Name": "Group" },
+        "Name": "CST1000  000",
+        "Code": "24W_CST1000_000.1"
+      },
+      "Access": {
+        "IsActive": true,
+        "StartDate": null,
+        "EndDate": null,
+        "CanAccess": true,
+        "ClasslistRoleName": "Facilitator",
+        "LISRoles": [
+          "urn:lti:instrole:ims/lis/Faculty",
+          "urn:lti:instrole:ims/lis/Instructor"
+        ],
+        "LastAccessed": null
+      }
+    },
+    {
+      "OrgUnit": {
+        "Id": 1007,
+        "Type": { "Id": 4, "Code": "Group", "Name": "Group" },
+        "Name": "CST1000 001",
+        "Code": "24W_CST1000_001.1"
+      },
+      "Access": {
+        "IsActive": true,
+        "StartDate": null,
+        "EndDate": null,
+        "CanAccess": true,
+        "ClasslistRoleName": "Facilitator",
+        "LISRoles": [
+          "urn:lti:instrole:ims/lis/Faculty",
+          "urn:lti:instrole:ims/lis/Instructor"
+        ],
+        "LastAccessed": null
+      }
+    },
+    {
+      "OrgUnit": {
+        "Id": 1008,
+        "Type": { "Id": 4, "Code": "Group", "Name": "Group" },
+        "Name": "S24 SEM ALG only",
+        "Code": "Group_0000_00"
+      },
+      "Access": {
+        "IsActive": true,
+        "StartDate": null,
+        "EndDate": null,
+        "CanAccess": true,
+        "ClasslistRoleName": "Learner",
+        "LISRoles": [
+          "urn:lti:instrole:ims/lis/Student",
+          "urn:lti:instrole:ims/lis/Learner"
+        ],
+        "LastAccessed": null
+      }
+    },
+    {
+      "OrgUnit": {
+        "Id": 1009,
+        "Type": {
+          "Id": 3,
+          "Code": "Course Offering",
+          "Name": "Course Offering"
+        },
+        "Name": "24S_CST1000_000 Introduction to Testing",
+        "Code": "24S_CST1000_000"
+      },
+      "Access": {
+        "IsActive": true,
+        "StartDate": "2024-05-14T04:00:00.000Z",
+        "EndDate": "2024-08-21T04:00:00.000Z",
+        "CanAccess": true,
+        "ClasslistRoleName": "Facilitator",
+        "LISRoles": [
+          "urn:lti:instrole:ims/lis/Faculty",
+          "urn:lti:instrole:ims/lis/Instructor"
+        ],
+        "LastAccessed": "2024-06-01T00:00:00.000Z"
+      }
+    },
+    {
+      "OrgUnit": {
+        "Id": 1010,
+        "Type": {
+          "Id": 3,
+          "Code": "Course Offering",
+          "Name": "Course Offering"
+        },
+        "Name": "24S_CST2000_000 Intermediate testing",
+        "Code": "24S_CST2000_000"
+      },
+      "Access": {
+        "IsActive": true,
+        "StartDate": "2024-05-14T04:00:00.000Z",
+        "EndDate": "2024-08-21T04:00:00.000Z",
+        "CanAccess": true,
+        "ClasslistRoleName": "Facilitator",
+        "LISRoles": [
+          "urn:lti:instrole:ims/lis/Faculty",
+          "urn:lti:instrole:ims/lis/Instructor"
+        ],
+        "LastAccessed": "2024-06-01T00:00:00.000Z"
+      }
+    },
+    {
+      "OrgUnit": {
+        "Id": 1011,
+        "Type": { "Id": 4, "Code": "Group", "Name": "Group" },
+        "Name": "CST1000  000",
+        "Code": "24S_CST1000_000.1"
+      },
+      "Access": {
+        "IsActive": true,
+        "StartDate": null,
+        "EndDate": null,
+        "CanAccess": true,
+        "ClasslistRoleName": "Facilitator",
+        "LISRoles": [
+          "urn:lti:instrole:ims/lis/Faculty",
+          "urn:lti:instrole:ims/lis/Instructor"
+        ],
+        "LastAccessed": null
+      }
+    },
+    {
+      "OrgUnit": {
+        "Id": 1012,
+        "Type": { "Id": 4, "Code": "Group", "Name": "Group" },
+        "Name": "CST2000  000",
+        "Code": "24S_CST2000_000.1"
+      },
+      "Access": {
+        "IsActive": true,
+        "StartDate": null,
+        "EndDate": null,
+        "CanAccess": true,
+        "ClasslistRoleName": "Facilitator",
+        "LISRoles": [
+          "urn:lti:instrole:ims/lis/Faculty",
+          "urn:lti:instrole:ims/lis/Instructor"
+        ],
+        "LastAccessed": null
+      }
+    },
+    {
+      "OrgUnit": {
+        "Id": 1013,
+        "Type": { "Id": 4, "Code": "Group", "Name": "Group" },
+        "Name": "CST1000 001",
+        "Code": "24S_CST1000_001.1"
+      },
+      "Access": {
+        "IsActive": true,
+        "StartDate": null,
+        "EndDate": null,
+        "CanAccess": true,
+        "ClasslistRoleName": "Facilitator",
+        "LISRoles": [
+          "urn:lti:instrole:ims/lis/Faculty",
+          "urn:lti:instrole:ims/lis/Instructor"
+        ],
+        "LastAccessed": null
+      }
+    },
+    {
+      "OrgUnit": {
+        "Id": 1014,
+        "Type": { "Id": 4, "Code": "Group", "Name": "Group" },
+        "Name": "CST2000 001",
+        "Code": "24S_CST2000_001.1"
+      },
+      "Access": {
+        "IsActive": true,
+        "StartDate": null,
+        "EndDate": null,
+        "CanAccess": true,
+        "ClasslistRoleName": "Facilitator",
+        "LISRoles": [
+          "urn:lti:instrole:ims/lis/Faculty",
+          "urn:lti:instrole:ims/lis/Instructor"
+        ],
+        "LastAccessed": null
+      }
+    },
+    {
+      "OrgUnit": {
+        "Id": 1015,
+        "Type": {
+          "Id": 3,
+          "Code": "Course Offering",
+          "Name": "Course Offering"
+        },
+        "Name": "24F_CST3000_000 Advance testing practices",
+        "Code": "24F_CST3000_000"
+      },
+      "Access": {
+        "IsActive": true,
+        "StartDate": "2024-09-10T04:00:00.000Z",
+        "EndDate": "2024-12-18T05:00:00.000Z",
+        "CanAccess": true,
+        "ClasslistRoleName": "Facilitator",
+        "LISRoles": [
+          "urn:lti:instrole:ims/lis/Faculty",
+          "urn:lti:instrole:ims/lis/Instructor"
+        ],
+        "LastAccessed": "2024-06-01T00:00:00.000Z"
+      }
+    },
+    {
+      "OrgUnit": {
+        "Id": 1016,
+        "Type": {
+          "Id": 3,
+          "Code": "Course Offering",
+          "Name": "Course Offering"
+        },
+        "Name": "24F_CST2000_000 Intermediate testing",
+        "Code": "24F_CST2000_000"
+      },
+      "Access": {
+        "IsActive": true,
+        "StartDate": "2024-09-10T04:00:00.000Z",
+        "EndDate": "2024-12-18T05:00:00.000Z",
+        "CanAccess": true,
+        "ClasslistRoleName": "Facilitator",
+        "LISRoles": [
+          "urn:lti:instrole:ims/lis/Faculty",
+          "urn:lti:instrole:ims/lis/Instructor"
+        ],
+        "LastAccessed": "2024-06-01T00:00:00.000Z"
+      }
+    },
+    {
+      "OrgUnit": {
+        "Id": 1017,
+        "Type": { "Id": 4, "Code": "Group", "Name": "Group" },
+        "Name": "CST3000  000",
+        "Code": "24F_CST3000_000.1"
+      },
+      "Access": {
+        "IsActive": true,
+        "StartDate": null,
+        "EndDate": null,
+        "CanAccess": true,
+        "ClasslistRoleName": "Facilitator",
+        "LISRoles": [
+          "urn:lti:instrole:ims/lis/Faculty",
+          "urn:lti:instrole:ims/lis/Instructor"
+        ],
+        "LastAccessed": null
+      }
+    },
+    {
+      "OrgUnit": {
+        "Id": 1018,
+        "Type": { "Id": 4, "Code": "Group", "Name": "Group" },
+        "Name": "CST2000  000",
+        "Code": "24F_CST2000_000.1"
+      },
+      "Access": {
+        "IsActive": true,
+        "StartDate": null,
+        "EndDate": null,
+        "CanAccess": true,
+        "ClasslistRoleName": "Facilitator",
+        "LISRoles": [
+          "urn:lti:instrole:ims/lis/Faculty",
+          "urn:lti:instrole:ims/lis/Instructor"
+        ],
+        "LastAccessed": null
+      }
+    },
+    {
+      "OrgUnit": {
+        "Id": 1019,
+        "Type": {
+          "Id": 3,
+          "Code": "Course Offering",
+          "Name": "Course Offering"
+        },
+        "Name": "24F_CST1000_000 Introduction to Testing",
+        "Code": "24F_CST1000_000"
+      },
+      "Access": {
+        "IsActive": true,
+        "StartDate": "2024-09-10T04:00:00.000Z",
+        "EndDate": "2024-12-18T05:00:00.000Z",
+        "CanAccess": true,
+        "ClasslistRoleName": "Facilitator",
+        "LISRoles": [
+          "urn:lti:instrole:ims/lis/Faculty",
+          "urn:lti:instrole:ims/lis/Instructor"
+        ],
+        "LastAccessed": "2024-06-01T00:00:00.000Z"
+      }
+    },
+    {
+      "OrgUnit": {
+        "Id": 1020,
+        "Type": { "Id": 4, "Code": "Group", "Name": "Group" },
+        "Name": "CST1000  000",
+        "Code": "24F_CST1000_000.1"
+      },
+      "Access": {
+        "IsActive": true,
+        "StartDate": null,
+        "EndDate": null,
+        "CanAccess": true,
+        "ClasslistRoleName": "Facilitator",
+        "LISRoles": [
+          "urn:lti:instrole:ims/lis/Faculty",
+          "urn:lti:instrole:ims/lis/Instructor"
+        ],
+        "LastAccessed": null
+      }
+    },
+    {
+      "OrgUnit": {
+        "Id": 1021,
+        "Type": { "Id": 4, "Code": "Group", "Name": "Group" },
+        "Name": "CST1000 001",
+        "Code": "24F_CST1000_001.1"
+      },
+      "Access": {
+        "IsActive": true,
+        "StartDate": null,
+        "EndDate": null,
+        "CanAccess": true,
+        "ClasslistRoleName": "Facilitator",
+        "LISRoles": [
+          "urn:lti:instrole:ims/lis/Faculty",
+          "urn:lti:instrole:ims/lis/Instructor"
+        ],
+        "LastAccessed": null
+      }
+    },
+    {
+      "OrgUnit": {
+        "Id": 1022,
+        "Type": { "Id": 4, "Code": "Group", "Name": "Group" },
+        "Name": "CST3000 001",
+        "Code": "24F_CST3000_001.1"
+      },
+      "Access": {
+        "IsActive": true,
+        "StartDate": null,
+        "EndDate": null,
+        "CanAccess": true,
+        "ClasslistRoleName": "Facilitator",
+        "LISRoles": [
+          "urn:lti:instrole:ims/lis/Faculty",
+          "urn:lti:instrole:ims/lis/Instructor"
+        ],
+        "LastAccessed": null
+      }
+    },
+    {
+      "OrgUnit": {
+        "Id": 1023,
+        "Type": { "Id": 4, "Code": "Group", "Name": "Group" },
+        "Name": "CST2000 001",
+        "Code": "24F_CST2000_001.1"
+      },
+      "Access": {
+        "IsActive": true,
+        "StartDate": null,
+        "EndDate": null,
+        "CanAccess": true,
+        "ClasslistRoleName": "Facilitator",
+        "LISRoles": [
+          "urn:lti:instrole:ims/lis/Faculty",
+          "urn:lti:instrole:ims/lis/Instructor"
+        ],
+        "LastAccessed": null
+      }
+    },
+    {
+      "OrgUnit": {
+        "Id": 1024,
+        "Type": { "Id": 4, "Code": "Group", "Name": "Group" },
+        "Name": "Group 1",
+        "Code": "grp_000000_1"
+      },
+      "Access": {
+        "IsActive": true,
+        "StartDate": null,
+        "EndDate": null,
+        "CanAccess": true,
+        "ClasslistRoleName": "Facilitator",
+        "LISRoles": [
+          "urn:lti:instrole:ims/lis/Faculty",
+          "urn:lti:instrole:ims/lis/Instructor"
+        ],
+        "LastAccessed": null
+      }
+    },
+    {
+      "OrgUnit": {
+        "Id": 1025,
+        "Type": { "Id": 4, "Code": "Group", "Name": "Group" },
+        "Name": "Group 2",
+        "Code": "grp_000000_2"
+      },
+      "Access": {
+        "IsActive": true,
+        "StartDate": null,
+        "EndDate": null,
+        "CanAccess": true,
+        "ClasslistRoleName": "Facilitator",
+        "LISRoles": [
+          "urn:lti:instrole:ims/lis/Faculty",
+          "urn:lti:instrole:ims/lis/Instructor"
+        ],
+        "LastAccessed": null
+      }
+    },
+    {
+      "OrgUnit": {
+        "Id": 1026,
+        "Type": { "Id": 4, "Code": "Group", "Name": "Group" },
+        "Name": "Group 3",
+        "Code": "grp_000000_3"
+      },
+      "Access": {
+        "IsActive": true,
+        "StartDate": null,
+        "EndDate": null,
+        "CanAccess": true,
+        "ClasslistRoleName": "Facilitator",
+        "LISRoles": [
+          "urn:lti:instrole:ims/lis/Faculty",
+          "urn:lti:instrole:ims/lis/Instructor"
+        ],
+        "LastAccessed": null
+      }
+    }
+  ]
+}
