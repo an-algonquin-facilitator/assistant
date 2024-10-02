@@ -15,7 +15,7 @@
     "isolatedModules": true,
     "noEmit": true,
     "jsx": "react-jsx",
-    "types": ["cypress"]
+    "types": ["cypress", "node", "cypress/react"]
   },
-  "include": ["src"]
+  "include": ["src", "cypress", "cypress.config.ts"]
 }
