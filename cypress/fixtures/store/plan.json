@@ -8,9 +8,16 @@
       "due": 1727323140000,
       "end": 1731473940000,
       "holidayOffset": 0,
-      "startOffset": { "weeks": 1 },
-      "dueOffset": { "days": 1, "weeks": 2 },
-      "endOffset": { "weeks": 9 }
+      "startOffset": {
+        "weeks": 1
+      },
+      "dueOffset": {
+        "days": 1,
+        "weeks": 2
+      },
+      "endOffset": {
+        "weeks": 9
+      }
     },
     {
       "id": "100002",
@@ -20,8 +27,13 @@
       "end": 1728446340000,
       "holidayOffset": 0,
       "startOffset": {},
-      "dueOffset": { "weeks": 3 },
-      "endOffset": { "days": 0, "weeks": 4 }
+      "dueOffset": {
+        "weeks": 3
+      },
+      "endOffset": {
+        "days": 0,
+        "weeks": 4
+      }
     },
     {
       "id": "100003",
@@ -31,8 +43,14 @@
       "end": 1729569540000,
       "holidayOffset": 1,
       "startOffset": {},
-      "dueOffset": { "weeks": 4, "days": 6 },
-      "endOffset": { "days": 6, "weeks": 5 }
+      "dueOffset": {
+        "weeks": 4,
+        "days": 6
+      },
+      "endOffset": {
+        "days": 6,
+        "weeks": 5
+      }
     }
   ],
   "quizzes": [
@@ -44,19 +62,32 @@
       "due": 1727323140000,
       "end": 1731473940000,
       "holidayOffset": 0,
-      "startOffset": { "weeks": 1 },
-      "dueOffset": { "days": 1, "weeks": 2 },
-      "endOffset": { "weeks": 9 }
+      "startOffset": {
+        "weeks": 1
+      },
+      "dueOffset": {
+        "days": 1,
+        "weeks": 2
+      },
+      "endOffset": {
+        "weeks": 9
+      }
     }
   ],
   "news": [
     {
       "name": "Welcome to CST2000",
-      "content": "CST2000 is a class about nothing because it doesn't exists. Why are you reading fixture data?<br>\nThis is a demo of the templating system:<br>\nlab1-monthDate: 25<br>\nlab1-month: September<br>\nlab1-monthShort: Sep<br>\nlab1-weekDays: Wednesday<br>\nlab1-weekDaysShort: Wed<br>\nlab1-iso8601: 2024-09-26T03:59:00.000Z<br>\nlab1-date: Wed Sep 25 2024<br>\nquiz1-monthDate: 25<br>\nquiz1-month: September<br>\nquiz1-monthShort: Sep<br>\nquiz1-weekDays: Wednesday<br>\nquiz1-weekDaysShort: Wed<br>\nquiz1-iso8601: 2024-09-26T03:59:00.000Z<br>\nquiz1-date: Wed Sep 25 2024\n",
+      "content": "CST2000 is a class about nothing because it doesn't exists. Why are you reading fixture data?\nThis is a demo of the templating system:\nlab1-monthDate: 25<br>\nlab1-month: September<br>\nlab1-monthShort: Sep<br>\nlab1-weekDays: Wednesday<br>\nlab1-weekDaysShort: Wed<br>\nlab1-iso8601: 2024-09-26T03:59:00.000Z<br>\nlab1-date: Wed Sep 25 2024<br>\nquiz1-monthDate: 25<br>\nquiz1-month: September<br>\nquiz1-monthShort: Sep<br>\nquiz1-weekDays: Wednesday<br>\nquiz1-weekDaysShort: Wed<br>\nquiz1-iso8601: 2024-09-26T03:59:00.000Z<br>\nquiz1-date: Wed Sep 25 2024\n",
       "open": 1726632060000,
-      "openOffset": { "days": 1, "weeks": 1 },
+      "openOffset": {
+        "days": 1,
+        "weeks": 1
+      },
       "dismiss": 1727927940000,
-      "dismissOffset": { "days": 1, "weeks": 3 }
+      "dismissOffset": {
+        "days": 1,
+        "weeks": 3
+      }
     }
   ]
 }
