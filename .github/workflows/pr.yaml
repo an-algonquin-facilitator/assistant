@@ -45,6 +45,9 @@ jobs:
       image: cypress/browsers:latest
       options: --user 1001
     steps:
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
       - name: Checkout
         uses: actions/checkout@v4
       - name: Cypress
