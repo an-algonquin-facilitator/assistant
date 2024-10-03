@@ -61,6 +61,7 @@ jobs:
       - name: gz
         run: |
           tar -czvf screenshots.tar.gz cypress/snapshots
+        shell: bash
       - name: Upload screenshots
         uses: actions/upload-artifact@v4
         if: failure()
