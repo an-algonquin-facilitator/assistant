@@ -31,7 +31,7 @@
     "format-check": "npx prettier . --check",
     "start": "react-scripts start",
     "build": "react-scripts build",
-    "test": "cypress run --component",
+    "test": "TZ=America/New_York cypress run --component",
     "eject": "react-scripts eject",
     "cy": "cypress open"
   },
