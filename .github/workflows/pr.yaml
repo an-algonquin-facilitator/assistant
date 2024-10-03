@@ -39,3 +39,11 @@ jobs:
       - uses: actions/configure-pages@v4
       - run: npm ci
       - run: npm run format-check
+  cypress:
+    runs-on: ubuntu-latest
+    container: cypress/browsers
+    steps:
+      - uses: actions/checkout@v4
+      - run: npm ci
+      - run: npx cypress install
+      - run: npm run test
