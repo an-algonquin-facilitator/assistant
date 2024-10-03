@@ -49,3 +49,4 @@ jobs:
         with:
           component: true
           browser: chrome
+          headed: true
