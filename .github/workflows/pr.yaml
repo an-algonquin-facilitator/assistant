@@ -56,6 +56,5 @@ jobs:
           component: true
           browser: chrome
           headed: true
-          record: true
         env:
           DEBUG: "@cypress/github-action"
