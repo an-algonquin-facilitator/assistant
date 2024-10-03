@@ -1,0 +1,14 @@
+{
+  "Body": {
+    "Text": "",
+    "Html": "CST2000 is a class about nothing because it doesn't exists. Why are you reading fixture data?<br>\nThis is a demo of the templating system:<br>\nlab1-monthDate: 25<br>\nlab1-month: September<br>\nlab1-monthShort: Sep<br>\nlab1-weekDays: Wednesday<br>\nlab1-weekDaysShort: Wed<br>\nlab1-iso8601: 2024-09-26T03:59:00.000Z<br>\nlab1-date: Wed Sep 25 2024<br>\nquiz1-monthDate: 25<br>\nquiz1-month: September<br>\nquiz1-monthShort: Sep<br>\nquiz1-weekDays: Wednesday<br>\nquiz1-weekDaysShort: Wed<br>\nquiz1-iso8601: 2024-09-26T03:59:00.000Z<br>\nquiz1-date: Wed Sep 25 2024\n"
+  },
+  "StartDate": "2024-09-18T04:01:00.000Z",
+  "EndDate": "2024-10-03T03:59:00.000Z",
+  "Title": "Welcome to CST2000",
+  "IsPublished": true,
+  "IsAuthorInfoShown": false,
+  "IsGlobal": false,
+  "ShowOnlyInCourseOfferings": false,
+  "IsPinned": false
+}

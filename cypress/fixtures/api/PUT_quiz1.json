@@ -1,0 +1,72 @@
+{
+  "QuizId": 100001,
+  "Name": "Quiz 1",
+  "AutoExportToGrades": true,
+  "IsActive": true,
+  "GradeItemId": 1000001,
+  "IsAutoSetGraded": true,
+  "Instructions": {
+    "Text": {
+      "Type": "Html",
+      "Content": ""
+    },
+    "IsDisplayed": false
+  },
+  "Description": {
+    "Text": {
+      "Type": "Html",
+      "Content": "<p>Week 2 Quiz</p>"
+    },
+    "IsDisplayed": true
+  },
+  "Header": {
+    "Text": {
+      "Type": "Html",
+      "Content": ""
+    },
+    "IsDisplayed": true
+  },
+  "Footer": {
+    "Text": {
+      "Type": "Html",
+      "Content": ""
+    },
+    "IsDisplayed": true
+  },
+  "StartDate": "2024-09-17T04:01:00.000Z",
+  "EndDate": "2024-11-13T04:59:00.000Z",
+  "DueDate": "2024-09-26T03:59:00.000Z",
+  "DisplayInCalendar": false,
+  "SortOrder": 2,
+  "SubmissionTimeLimit": {
+    "IsEnforced": true,
+    "ShowClock": true,
+    "TimeLimitValue": 20
+  },
+  "SubmissionGracePeriod": 0,
+  "LateSubmissionInfo": {
+    "LateSubmissionOption": 2,
+    "LateLimitMinutes": null
+  },
+  "AttemptsAllowed": {
+    "IsUnlimited": false,
+    "NumberOfAttemptsAllowed": 1
+  },
+  "Password": null,
+  "AllowHints": false,
+  "DisableRightClick": false,
+  "DisablePagerAndAlerts": false,
+  "RestrictIPAddressRange": [],
+  "NotificationEmail": null,
+  "CalcTypeId": 1,
+  "CategoryId": null,
+  "PreventMovingBackwards": false,
+  "Shuffle": false,
+  "ActivityId": "https://ids.brightspace.com/activities/quiz/ABCD1234-ABCD-1234-ABCD-1234ABCD1234-0000001",
+  "AllowOnlyUsersWithSpecialAccess": false,
+  "IsRetakeIncorrectOnly": false,
+  "PagingTypeId": 0,
+  "IsSynchronous": false,
+  "DeductionPercentage": null,
+  "NumberOfAttemptsAllowed": 1
+}

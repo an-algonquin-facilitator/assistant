@@ -3,7 +3,7 @@ import type { PayloadAction } from "@reduxjs/toolkit";
 import type { DateOffset } from "./template";
 import { useAppSelector } from "./hooks";
 
-interface PlanState {
+export interface PlanState {
   assignments: AssignmentPlan[];
   quizzes: QuizPlan[];
   news: NewsPlan[];

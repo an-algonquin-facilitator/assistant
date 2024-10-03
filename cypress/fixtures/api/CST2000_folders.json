@@ -45,7 +45,10 @@
     "Id": 100002,
     "CategoryId": null,
     "Name": "Lab 2",
-    "CustomInstructions": { "Text": "", "Html": "" },
+    "CustomInstructions": {
+      "Text": "Test Description",
+      "Html": "<p>Test Description</p>"
+    },
     "Attachments": [
       { "FileId": 10000002, "FileName": "CST2000_lab2.pdf", "Size": 1024 }
     ],

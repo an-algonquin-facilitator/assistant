@@ -5,20 +5,20 @@ news:
     content: |
       CST2000 is a class about nothing because it doesn't exists. Why are you reading fixture data?
       This is a demo of the templating system:
-      {{assignments.lab1.due.monthDate}}
-      {{assignments.lab1.due.month}}
-      {{assignments.lab1.due.monthShort}}
-      {{assignments.lab1.due.weekDays}}
-      {{assignments.lab1.due.weekDaysShort}}
-      {{assignments.lab1.due.iso8601}}
-      {{assignments.lab1.due.date}}
-      {{quizzes.lab1.due.monthDate}}
-      {{quizzes.lab1.due.month}}
-      {{quizzes.lab1.due.monthShort}}
-      {{quizzes.lab1.due.weekDays}}
-      {{quizzes.lab1.due.weekDaysShort}}
-      {{quizzes.lab1.due.iso8601}}
-      {{quizzes.lab1.due.date}}
+      lab1-monthDate: {{assignments.lab1.due.monthDate}}<br>
+      lab1-month: {{assignments.lab1.due.month}}<br>
+      lab1-monthShort: {{assignments.lab1.due.monthShort}}<br>
+      lab1-weekDays: {{assignments.lab1.due.weekDays}}<br>
+      lab1-weekDaysShort: {{assignments.lab1.due.weekDaysShort}}<br>
+      lab1-iso8601: {{assignments.lab1.due.iso8601}}<br>
+      lab1-date: {{assignments.lab1.due.date}}<br>
+      quiz1-monthDate: {{quizzes.quiz1.due.monthDate}}<br>
+      quiz1-month: {{quizzes.quiz1.due.month}}<br>
+      quiz1-monthShort: {{quizzes.quiz1.due.monthShort}}<br>
+      quiz1-weekDays: {{quizzes.quiz1.due.weekDays}}<br>
+      quiz1-weekDaysShort: {{quizzes.quiz1.due.weekDaysShort}}<br>
+      quiz1-iso8601: {{quizzes.quiz1.due.iso8601}}<br>
+      quiz1-date: {{quizzes.quiz1.due.date}}
     start:
       weeks: 1
       days: 1
@@ -43,6 +43,7 @@ assignments:
   - name: Lab 3
     due:
       weeks: 4
+      days: 6
 quizzes:
   - name: Quiz 1
     id: quiz1

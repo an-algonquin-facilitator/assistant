@@ -51,7 +51,7 @@ const calculateDateWithHoliday = (
   if (offset.weeks != null) d = d.add(offset.weeks, "week");
   if (offset.days != null) d = d.add(offset.days, "day");
   let holidayOffset = 0;
-  while (isHoliday("YYYY-MM-DD")) {
+  while (isHoliday(d.format("YYYY-MM-DD"))) {
     holidayOffset++;
     d = d.add(1, "day");
   }

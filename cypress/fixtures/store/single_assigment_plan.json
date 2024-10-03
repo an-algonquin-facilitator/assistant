@@ -1,0 +1,18 @@
+{
+  "assignments": [
+    {
+      "id": "100001",
+      "templateId": "lab1",
+      "name": "Lab 1",
+      "start": 1726545660000,
+      "due": 1727323140000,
+      "end": 1731473940000,
+      "holidayOffset": 0,
+      "startOffset": { "weeks": 1 },
+      "dueOffset": { "days": 1, "weeks": 2 },
+      "endOffset": { "weeks": 9 }
+    }
+  ],
+  "quizzes": [],
+  "news": []
+}

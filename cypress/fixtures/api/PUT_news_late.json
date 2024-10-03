@@ -1,0 +1,14 @@
+{
+  "Body": {
+    "Text": "",
+    "Html": "New text"
+  },
+  "StartDate": "2024-09-18T04:01:00.000Z",
+  "EndDate": "2024-10-03T03:59:00.000Z",
+  "Title": "Late Policy",
+  "IsPublished": true,
+  "IsAuthorInfoShown": false,
+  "IsGlobal": false,
+  "ShowOnlyInCourseOfferings": false,
+  "IsPinned": false
+}
