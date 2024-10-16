@@ -7,6 +7,7 @@ import { store } from "./store/store";
 import { Provider } from "react-redux";
 import { LocalizationProvider } from "@mui/x-date-pickers";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
+import { Build } from "./components/Build";
 
 const darkTheme = createTheme({
   palette: {
@@ -25,6 +26,7 @@ const darkTheme = createTheme({
         <CssBaseline />
         <Provider store={store}>
           <LocalizationProvider dateAdapter={AdapterDayjs}>
+            <Build />
             <App />
           </LocalizationProvider>
         </Provider>
