@@ -39,7 +39,11 @@ export const QuizRow = ({ quiz: q }: QuizRowProps): ReactElement => {
         />
       </TableCell>
       <TableCell>
-        <PlannedDate date={q.end} offset={q.endOffset} />
+        <PlannedDate
+          date={q.end}
+          offset={q.endOffset}
+          holidayOffset={q.holidayOffset}
+        />
       </TableCell>
     </TableRow>
   );

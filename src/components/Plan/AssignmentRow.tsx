@@ -41,7 +41,11 @@ export const AssignmentRow = ({
         />
       </TableCell>
       <TableCell>
-        <PlannedDate date={a.end} offset={a.endOffset} />
+        <PlannedDate
+          date={a.end}
+          offset={a.endOffset}
+          holidayOffset={a.holidayOffset}
+        />
       </TableCell>
     </TableRow>
   );

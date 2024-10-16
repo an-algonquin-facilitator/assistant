@@ -70,6 +70,14 @@ describe("<PlanStep />", () => {
     );
     cy.contains("2024-09-15 23:59:00").trigger("mouseover");
     cy.contains("semester start + 4 weeks + 6 days + 1 holidays");
+    cy.contains("2024-09-22 23:59:00").trigger("mouseover");
+    cy.contains("semester start + 5 weeks + 6 days + 1 holidays");
+
+    cy.contains(/Quizzes/i).click();
+    cy.contains("2024-09-15 23:59:00").trigger("mouseover");
+    cy.contains("semester start + 4 weeks + 6 days + 1 holidays");
+    cy.contains("2024-09-22 23:59:00").trigger("mouseover");
+    cy.contains("semester start + 5 weeks + 6 days + 1 holidays");
   });
 
   it("should set plan", () => {
@@ -83,7 +91,9 @@ describe("<PlanStep />", () => {
     cy.contains(/Assignments \(3\/3\)/i);
     cy.contains(/Quizzes \(0\/3\)/i).click();
     cy.get("input").eq(1).click();
-    cy.contains(/Quizzes \(1\/3\)/i);
+    // eslint-disable-next-line @typescript-eslint/no-magic-numbers
+    cy.get("input").eq(3).click();
+    cy.contains(/Quizzes \(2\/3\)/i);
     cy.contains(/News \(0\/2\)/i).click();
     cy.get("input").eq(1).click();
     cy.contains(/review/i).click();
