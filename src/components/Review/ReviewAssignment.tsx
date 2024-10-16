@@ -56,7 +56,10 @@ export const ReviewAssignment = ({
           <Tooltip
             title={
               <Typography>
-                {dateOffsetToString(assignment.endOffset)}
+                {dateOffsetToString(
+                  assignment.endOffset,
+                  assignment.holidayOffset,
+                )}
               </Typography>
             }
           >

@@ -60,3 +60,4 @@ quizzes:
   - name: Quiz 3
     due:
       weeks: 4
+      days: 6

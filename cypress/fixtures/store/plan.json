@@ -40,7 +40,7 @@
       "name": "Lab 3",
       "start": 1725940860000,
       "due": 1729051140000,
-      "end": 1729569540000,
+      "end": 1729655940000,
       "holidayOffset": 1,
       "startOffset": {},
       "dueOffset": {
@@ -71,6 +71,23 @@
       },
       "endOffset": {
         "weeks": 9
+      }
+    },
+    {
+      "id": "100003",
+      "name": "Quiz 3",
+      "start": 1725940860000,
+      "due": 1729051140000,
+      "end": 1729655940000,
+      "holidayOffset": 1,
+      "startOffset": {},
+      "dueOffset": {
+        "weeks": 4,
+        "days": 6
+      },
+      "endOffset": {
+        "days": 6,
+        "weeks": 5
       }
     }
   ],

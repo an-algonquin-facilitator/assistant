@@ -22,6 +22,7 @@ import type { SelectedCourse } from "../../store/course";
 const dayLastHour = 23;
 const dayLastMinute = 59;
 const msPerSecond = 1000;
+const msPerDay = 86400000;
 
 const calculateDate = (
   start: number,
@@ -152,13 +153,16 @@ const assignmentTemplateToPlan = (
     a.due,
     TargetDateType.END,
   );
+
   return {
     id: f.Id + "",
     templateId: a.id,
     name: f.Name,
     start: calculateDate(startDateUnixMS, a.start ?? {}, true),
     due: due[0],
-    end: calculateDate(startDateUnixMS, a.end ?? defaultEndOffset, false),
+    end:
+      calculateDate(startDateUnixMS, a.end ?? defaultEndOffset, false) +
+      due[1] * msPerDay,
 
     holidayOffset: due[1],
     startOffset: a.start ?? {},
@@ -190,7 +194,9 @@ const quizTemplateToPlan = (
     name: bQ.Name,
     start: calculateDate(startDateUnixMS, q.start ?? {}, true),
     due: due[0],
-    end: calculateDate(startDateUnixMS, q.end ?? defaultEndOffset, false),
+    end:
+      calculateDate(startDateUnixMS, q.end ?? defaultEndOffset, false) +
+      due[1] * msPerDay,
 
     holidayOffset: due[1],
     startOffset: q.start ?? {},
