@@ -30,6 +30,7 @@
     "format": "npx prettier . --write",
     "format-check": "npx prettier . --check",
     "start": "react-scripts start",
+    "consts": "echo \"{ \\\"hash\\\": \\\"`git rev-parse --short HEAD`\\\" }\" > src/env.json",
     "build": "react-scripts build",
     "test": "TZ=America/New_York cypress run --component",
     "eject": "react-scripts eject",
