@@ -68,15 +68,15 @@ describe("<PlanStep />", () => {
         <PlanStep next={() => undefined} previous={() => undefined} />,
       </Provider>,
     );
-    cy.contains("2024-09-15 23:59:00").trigger("mouseover");
+    cy.contains("2024-10-15 23:59:00").trigger("mouseover");
     cy.contains("semester start + 4 weeks + 6 days + 1 holidays");
-    cy.contains("2024-09-22 23:59:00").trigger("mouseover");
+    cy.contains("2024-10-22 23:59:00").trigger("mouseover");
     cy.contains("semester start + 5 weeks + 6 days + 1 holidays");
 
     cy.contains(/Quizzes/i).click();
-    cy.contains("2024-09-15 23:59:00").trigger("mouseover");
+    cy.contains("2024-10-15 23:59:00").trigger("mouseover");
     cy.contains("semester start + 4 weeks + 6 days + 1 holidays");
-    cy.contains("2024-09-22 23:59:00").trigger("mouseover");
+    cy.contains("2024-10-22 23:59:00").trigger("mouseover");
     cy.contains("semester start + 5 weeks + 6 days + 1 holidays");
   });
 
