@@ -22,7 +22,7 @@ export const formatDate = (unix: number): string => {
   const d = new Date(unix);
   const YYYY = d.getFullYear();
   const padLength = 2;
-  const MM = pad(d.getMonth() + "", padLength);
+  const MM = pad(d.getMonth() + 1 + "", padLength);
   const DD = pad(d.getDate() + "", padLength);
   const hh = pad(d.getHours() + "", padLength);
   const mm = pad(d.getMinutes() + "", padLength);

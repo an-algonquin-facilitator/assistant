@@ -42,7 +42,7 @@ describe("<ReviewStep />", () => {
     });
 
     cy.contains("Lab 3").click();
-    cy.contains("Due: 2024-09-15 23:59:00").trigger("mouseover");
+    cy.contains("Due: 2024-10-15 23:59:00").trigger("mouseover");
     cy.contains("semester start + 4 weeks + 6 days + 1 holidays");
   });
 });
