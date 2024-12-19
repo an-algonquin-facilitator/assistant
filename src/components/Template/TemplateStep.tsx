@@ -6,18 +6,38 @@ import type { CourseTemplate } from "../../store/template";
 import { resetTemplate, setTemplate } from "../../store/template";
 import type { ReactElement } from "react";
 import { useState } from "react";
-import type { SelectedCourse } from "../../store/course";
 import { isValidTemplate, validateTemplate } from "./utils";
 import { useEnrollmentsQuery } from "../../api/enrollment";
-import { CourseSelection } from "./CourseSelection/CourseSelection";
 import { Loading } from "../Loading";
 import { Overview } from "./Overview/Overview";
+import type { SelectedCourse } from "../../store/course";
 import { setCourse as dSetCourse } from "../../store/course";
+import type { FullCourseResponse } from "./CourseSelection/utils";
+import {
+  dispatchFullCourseFetches,
+  sortCourses,
+} from "./CourseSelection/utils";
+import { CourseSelectionField } from "./CourseSelection/CourseSelectionField";
 
 export interface TemplateFile {
   filename: string;
   template: CourseTemplate;
 }
+
+const makeConcreteCourse = (
+  fullCourseResponse: FullCourseResponse,
+): SelectedCourse | undefined =>
+  fullCourseResponse.course.data &&
+  fullCourseResponse.folders.data &&
+  fullCourseResponse.quizzes.data &&
+  fullCourseResponse.news.data
+    ? {
+        course: fullCourseResponse.course.data,
+        folders: fullCourseResponse.folders.data,
+        quizzes: fullCourseResponse.quizzes.data,
+        news: fullCourseResponse.news.data,
+      }
+    : undefined;
 
 export const TemplateStep = ({ previous, next }: PageProps): ReactElement => {
   const {
@@ -26,11 +46,33 @@ export const TemplateStep = ({ previous, next }: PageProps): ReactElement => {
     error: enrollmentsError,
   } = useEnrollmentsQuery();
   const [templateFile, setTemplateFile] = useState<TemplateFile | undefined>();
-  const [course, setCourse] = useState<SelectedCourse | undefined>();
+  const [fullCourse, setFullCourse] = useState<FullCourseResponse>({
+    course: { loading: false },
+    folders: { loading: false },
+    quizzes: { loading: false },
+    news: { loading: false },
+  });
   const dispatch = useAppDispatch();
 
+  const course = makeConcreteCourse(fullCourse);
   const validatedTemplate = validateTemplate(templateFile, course);
   const isValid = isValidTemplate(validatedTemplate);
+  const [recent, others] = sortCourses(enrollments?.Items ?? []);
+
+  const onCourseSelected = (courseId: string): void => {
+    dispatchFullCourseFetches(courseId, setFullCourse);
+  };
+
+  const onTemplateSelected = (t?: TemplateFile): void => {
+    setTemplateFile(t);
+    if (!t || !enrollments) return;
+
+    const prefered = recent.find((c) =>
+      c.OrgUnit.Code.includes(t.template.courseCode),
+    );
+    if (!prefered) return;
+    onCourseSelected(prefered.OrgUnit.Id + "");
+  };
 
   const onPrevious = (): void => {
     dispatch(resetTemplate());
@@ -61,13 +103,14 @@ export const TemplateStep = ({ previous, next }: PageProps): ReactElement => {
     <>
       <UploadTemplateFile
         templateFile={templateFile}
-        setTemplateFile={setTemplateFile}
+        setTemplateFile={onTemplateSelected}
       />
       {templateFile && (
-        <CourseSelection
-          enrollments={enrollments.Items}
-          courseCode={templateFile.template.courseCode}
-          onCourseSelected={setCourse}
+        <CourseSelectionField
+          courseName={fullCourse.course.data?.Name ?? "None"}
+          recent={recent}
+          others={others}
+          onCourseSelected={onCourseSelected}
         />
       )}
       {templateFile && course && (

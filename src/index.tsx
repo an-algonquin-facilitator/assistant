@@ -21,16 +21,14 @@ const darkTheme = createTheme({
   const root = ReactDOM.createRoot(node);
 
   root.render(
-    <React.StrictMode>
-      <ThemeProvider theme={darkTheme}>
-        <CssBaseline />
-        <Provider store={store}>
-          <LocalizationProvider dateAdapter={AdapterDayjs}>
-            <Build />
-            <App />
-          </LocalizationProvider>
-        </Provider>
-      </ThemeProvider>
-    </React.StrictMode>,
+    <ThemeProvider theme={darkTheme}>
+      <CssBaseline />
+      <Provider store={store}>
+        <LocalizationProvider dateAdapter={AdapterDayjs}>
+          <Build />
+          <App />
+        </LocalizationProvider>
+      </Provider>
+    </ThemeProvider>,
   );
 })();

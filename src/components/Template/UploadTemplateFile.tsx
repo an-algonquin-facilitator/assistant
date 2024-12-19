@@ -2,7 +2,6 @@ import { Box, IconButton, List, ListItem, Typography } from "@mui/material";
 import FileUploadIcon from "@mui/icons-material/FileUpload";
 import YAML from "yaml";
 import type { TemplateFile } from "./TemplateStep";
-import type { Dispatch, SetStateAction } from "react";
 import { useState, type ReactElement } from "react";
 import { TemplateFileValidator } from "./typeCheckTemplate";
 import { unknownError } from "../../api/utils";
@@ -31,7 +30,7 @@ const parseFile = (
 
 interface UploadTemplateFileProps {
   templateFile?: TemplateFile;
-  setTemplateFile: Dispatch<SetStateAction<TemplateFile | undefined>>;
+  setTemplateFile: (t?: TemplateFile) => void;
 }
 
 export const UploadTemplateFile = ({
