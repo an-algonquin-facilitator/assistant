@@ -1,4 +1,4 @@
-import { Checkbox, TableCell, TableRow, Typography } from "@mui/material";
+import { TableCell, TableRow, Typography } from "@mui/material";
 import { PlannedDate } from "./PlannedDate";
 import type { AssignmentPlan } from "../../store/plan";
 import {
@@ -6,8 +6,8 @@ import {
   removeAssignmentPlan,
   useIsAssignmentPlanned,
 } from "../../store/plan";
-import { useAppDispatch } from "../../store/hooks";
 import type { ReactElement } from "react";
+import { PlanCheckbox } from "./PlanCheckbox";
 
 interface AssignmentRowProps {
   assignment: AssignmentPlan;
@@ -16,16 +16,16 @@ interface AssignmentRowProps {
 export const AssignmentRow = ({
   assignment: a,
 }: AssignmentRowProps): ReactElement => {
-  const isPlanned = useIsAssignmentPlanned(a.id);
-  const dispatch = useAppDispatch();
-
-  const onChange = (_: unknown, checked: boolean): void => {
-    dispatch(checked ? addAssignmentPlan(a) : removeAssignmentPlan(a));
-  };
   return (
     <TableRow>
       <TableCell>
-        <Checkbox checked={isPlanned} onChange={onChange} />
+        <PlanCheckbox
+          id={a.id}
+          elem={a}
+          add={addAssignmentPlan}
+          remove={removeAssignmentPlan}
+          useIsPlanned={useIsAssignmentPlanned}
+        />
       </TableCell>
       <TableCell>
         <Typography sx={{ textOverflow: "ellipsis" }}>{a.name}</Typography>

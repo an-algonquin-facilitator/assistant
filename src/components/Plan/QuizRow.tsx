@@ -1,4 +1,4 @@
-import { Checkbox, TableCell, TableRow, Typography } from "@mui/material";
+import { TableCell, TableRow, Typography } from "@mui/material";
 import { PlannedDate } from "./PlannedDate";
 import type { QuizPlan } from "../../store/plan";
 import {
@@ -6,24 +6,24 @@ import {
   removeQuizPlan,
   useIsQuizPlanned,
 } from "../../store/plan";
-import { useAppDispatch } from "../../store/hooks";
 import type { ReactElement } from "react";
+import { PlanCheckbox } from "./PlanCheckbox";
 
 interface QuizRowProps {
   quiz: QuizPlan;
 }
 
 export const QuizRow = ({ quiz: q }: QuizRowProps): ReactElement => {
-  const isPlanned = useIsQuizPlanned(q.id);
-  const dispatch = useAppDispatch();
-
-  const onChange = (_: unknown, checked: boolean): void => {
-    dispatch(checked ? addQuizPlan(q) : removeQuizPlan(q));
-  };
   return (
     <TableRow>
       <TableCell>
-        <Checkbox checked={isPlanned} onChange={onChange} />
+        <PlanCheckbox
+          id={q.id}
+          elem={q}
+          add={addQuizPlan}
+          remove={removeQuizPlan}
+          useIsPlanned={useIsQuizPlanned}
+        />
       </TableCell>
       <TableCell>
         <Typography sx={{ textOverflow: "ellipsis" }}>{q.name}</Typography>

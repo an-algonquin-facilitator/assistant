@@ -1,5 +1,4 @@
 import {
-  Checkbox,
   Table,
   TableBody,
   TableCell,
@@ -14,30 +13,28 @@ import {
   useIsAllAssignmentPlanned,
 } from "../../store/plan";
 import { AssignmentRow } from "./AssignmentRow";
-import { useAppDispatch } from "../../store/hooks";
+
 import type { ReactElement } from "react";
+import { AllPlannedCheckbox } from "./AllPlannedCheckbox";
 
 interface AssignmentTabProps {
   assignments: AssignmentPlan[];
 }
 
-export const AssignmentTab = ({
+export const AssignmentPanel = ({
   assignments,
 }: AssignmentTabProps): ReactElement => {
-  const dispatch = useAppDispatch();
-  const allPlanned = useIsAllAssignmentPlanned();
-
-  const onCheck = (_: unknown, checked: boolean): void => {
-    const f = checked ? addAssignmentPlan : removeAssignmentPlan;
-    assignments.forEach((a) => dispatch(f(a)));
-  };
-
   return (
     <Table>
       <TableHead>
         <TableRow>
           <TableCell>
-            <Checkbox checked={allPlanned} onChange={onCheck} />
+            <AllPlannedCheckbox
+              elems={assignments}
+              add={addAssignmentPlan}
+              remove={removeAssignmentPlan}
+              useIsAllPlanned={useIsAllAssignmentPlanned}
+            />
           </TableCell>
           <TableCell>
             <Typography>Name</Typography>

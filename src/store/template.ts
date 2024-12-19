@@ -70,3 +70,12 @@ export const templateReducer = templateSlice.reducer;
 
 export const useTemplate = (): Required<CourseTemplate> =>
   useAppSelector((s) => s.template.value);
+
+export const useTemplateAssignmentCount = (): number =>
+  useAppSelector((s) => s.template.value.assignments.length);
+
+export const useTemplateQuizzesCount = (): number =>
+  useAppSelector((s) => s.template.value.quizzes.length);
+
+export const useTemplateNewsCount = (): number =>
+  useAppSelector((s) => s.template.value.news.length);
