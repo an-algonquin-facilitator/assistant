@@ -5,7 +5,6 @@ import { fetchCourse } from "../../../api/course";
 import { fetchFolders } from "../../../api/folder";
 import { store } from "../../../store/store";
 import type { Response } from "../../../api/utils";
-import type { Dispatch, SetStateAction } from "react";
 import type { SelectedCourse } from "../../../store/course";
 
 export const sortCourses = (
@@ -37,7 +36,7 @@ const unknownError = (e: unknown): string => {
 
 export const dispatchFullCourseFetches = (
   courseId: string,
-  setCourse: Dispatch<SetStateAction<Response<SelectedCourse>>>,
+  setCourse: (c: Response<SelectedCourse>) => void,
 ): void => {
   setCourse({ loading: true });
 

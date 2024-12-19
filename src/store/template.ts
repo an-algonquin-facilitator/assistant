@@ -63,7 +63,6 @@ const templateSlice = createSlice({
   },
 });
 
-// Action creators are generated for each case reducer function
 export const { setTemplate, resetTemplate } = templateSlice.actions;
 
 export const templateReducer = templateSlice.reducer;

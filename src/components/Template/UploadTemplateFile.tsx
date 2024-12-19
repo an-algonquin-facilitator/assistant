@@ -9,6 +9,9 @@ import { isLeft } from "fp-ts/lib/Either";
 import { PathReporter } from "io-ts/lib/PathReporter";
 import { Modal } from "../Modal";
 import type { CourseTemplate } from "../../store/template";
+import { setTemplateFile, useTemplateFileName } from "../../store/templateStep";
+import { useAppDispatch } from "../../store/hooks";
+import type { Enrollment } from "../../api/enrollment";
 
 const parseFile = (
   f: File,
@@ -29,16 +32,29 @@ const parseFile = (
 };
 
 interface UploadTemplateFileProps {
-  templateFile?: TemplateFile;
-  setTemplateFile: (t?: TemplateFile) => void;
+  recent: Enrollment[];
+  onCourseSelected: (courseId: string) => void;
 }
 
 export const UploadTemplateFile = ({
-  templateFile,
-  setTemplateFile,
+  recent,
+  onCourseSelected,
 }: UploadTemplateFileProps): ReactElement => {
+  const dispatch = useAppDispatch();
+  const templateFileName = useTemplateFileName();
   const [open, setOpen] = useState(false);
   const [error, setError] = useState<string[]>([]);
+
+  const dispatchTemplateFile = (t?: TemplateFile): void => {
+    dispatch(setTemplateFile(t));
+    if (!t) return;
+
+    const prefered = recent.find((c) =>
+      c.OrgUnit.Code.includes(t.template.courseCode),
+    );
+    if (!prefered) return;
+    onCourseSelected(String(prefered.OrgUnit.Id));
+  };
 
   const onChange = async (
     e: React.ChangeEvent<HTMLInputElement>,
@@ -54,7 +70,7 @@ export const UploadTemplateFile = ({
       setOpen(true);
       return;
     }
-    setTemplateFile({
+    dispatchTemplateFile({
       filename: f.name,
       template,
     });
@@ -69,7 +85,7 @@ export const UploadTemplateFile = ({
       }}
     >
       <Typography>Select Template:</Typography>
-      <Typography>{templateFile?.filename ?? "None"}</Typography>
+      <Typography>{templateFileName ?? "None"}</Typography>
       <IconButton sx={{ m: 2 }} component="label">
         <FileUploadIcon />
         <input

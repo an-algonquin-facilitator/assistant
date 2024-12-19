@@ -3,21 +3,18 @@ import { UploadTemplateFile } from "./UploadTemplateFile";
 import type { PageProps } from "../Assistant/Assistant";
 import { useAppDispatch } from "../../store/hooks";
 import type { CourseTemplate } from "../../store/template";
-import { resetTemplate, setTemplate } from "../../store/template";
+import { resetTemplate } from "../../store/template";
 import type { ReactElement } from "react";
-import { useState } from "react";
-import { isValidTemplate, validateTemplate } from "./utils";
 import { useEnrollmentsQuery } from "../../api/enrollment";
 import { Loading } from "../Loading";
 import { Overview } from "./Overview/Overview";
-import type { SelectedCourse } from "../../store/course";
-import { setCourse as dSetCourse } from "../../store/course";
 import {
   dispatchFullCourseFetches,
   sortCourses,
 } from "./CourseSelection/utils";
 import { CourseSelectionField } from "./CourseSelection/CourseSelectionField";
-import type { Response } from "../../api/utils";
+import { setSelectedCourse, useSelectedCourse } from "../../store/templateStep";
+import { PlanButton } from "./PlanButton";
 
 export interface TemplateFile {
   filename: string;
@@ -30,48 +27,17 @@ export const TemplateStep = ({ previous, next }: PageProps): ReactElement => {
     loading: enrollmentsLoading,
     error: enrollmentsError,
   } = useEnrollmentsQuery();
-  const [templateFile, setTemplateFile] = useState<TemplateFile | undefined>();
-  const [course, setCourse] = useState<Response<SelectedCourse>>({
-    loading: false,
-  });
+  const [recent, others] = sortCourses(enrollments?.Items ?? []);
+  const course = useSelectedCourse();
   const dispatch = useAppDispatch();
 
-  const validatedTemplate = validateTemplate(templateFile, course.data);
-  const isValid = isValidTemplate(validatedTemplate);
-  const [recent, others] = sortCourses(enrollments?.Items ?? []);
-
   const onCourseSelected = (courseId: string): void => {
-    dispatchFullCourseFetches(courseId, setCourse);
-  };
-
-  const onTemplateSelected = (t?: TemplateFile): void => {
-    setTemplateFile(t);
-    if (!t || !enrollments) return;
-
-    const prefered = recent.find((c) =>
-      c.OrgUnit.Code.includes(t.template.courseCode),
-    );
-    if (!prefered) return;
-    onCourseSelected(prefered.OrgUnit.Id + "");
+    dispatchFullCourseFetches(courseId, (c) => dispatch(setSelectedCourse(c)));
   };
 
   const onPrevious = (): void => {
     dispatch(resetTemplate());
     previous();
-  };
-
-  const onNext = (): void => {
-    if (!templateFile || !course.data || !isValid) return;
-    dispatch(
-      setTemplate({
-        courseCode: templateFile.template.courseCode,
-        assignments: validatedTemplate.validAssignments,
-        quizzes: validatedTemplate.validQuizzes,
-        news: validatedTemplate.validNews,
-      }),
-    );
-    dispatch(dSetCourse(course.data));
-    next();
   };
 
   if (enrollmentsLoading) return <Loading />;
@@ -82,28 +48,19 @@ export const TemplateStep = ({ previous, next }: PageProps): ReactElement => {
 
   return (
     <>
-      <UploadTemplateFile
-        templateFile={templateFile}
-        setTemplateFile={onTemplateSelected}
+      <UploadTemplateFile recent={recent} onCourseSelected={onCourseSelected} />
+      <CourseSelectionField
+        courseName={course.data?.course.Name ?? "None"}
+        recent={recent}
+        others={others}
+        onCourseSelected={onCourseSelected}
       />
-      {templateFile && (
-        <CourseSelectionField
-          courseName={course.data?.course.Name ?? "None"}
-          recent={recent}
-          others={others}
-          onCourseSelected={onCourseSelected}
-        />
-      )}
-      {templateFile && course.data && (
-        <Overview template={validatedTemplate} course={course.data} />
-      )}
+      <Overview />
       <Box
         sx={{ display: "flex", width: "100%", justifyContent: "space-between" }}
       >
         <Button onClick={onPrevious}>BACK</Button>
-        <Button onClick={onNext} disabled={!isValid}>
-          PLAN
-        </Button>
+        <PlanButton onClick={next} />
       </Box>
     </>
   );

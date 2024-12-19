@@ -6,22 +6,23 @@ import {
   TableRow,
   Typography,
 } from "@mui/material";
-import type { ValidatedTemplate } from "../utils";
-import { isValidTemplate } from "../utils";
 import type { ReactElement } from "react";
-import type { SelectedCourse } from "../../../store/course";
 import { AssignmentWarnings } from "./AssignmentWarnings";
 import { QuizWarnings } from "./QuizWarnings";
 import { NewsWarnings } from "./NewsWarnings";
 import dayjs from "dayjs";
+import {
+  useIsTemplateValid,
+  useSelectedCourse,
+  useValidatedTemplate,
+} from "../../../store/templateStep";
 
-interface OverviewProps {
-  template: ValidatedTemplate;
-  course: SelectedCourse;
-}
+export const Overview = (): ReactElement => {
+  const template = useValidatedTemplate();
+  const course = useSelectedCourse().data;
+  const isValid = useIsTemplateValid();
 
-export const Overview = ({ template, course }: OverviewProps): ReactElement => {
-  const isValid = isValidTemplate(template);
+  if (!course) return <></>;
 
   if (!isValid)
     return (
