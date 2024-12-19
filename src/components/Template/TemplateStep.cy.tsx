@@ -4,12 +4,18 @@ import { Provider } from "react-redux";
 import type { Store } from "../../store/store";
 import { store } from "../../store/store";
 import { setToken } from "../../store/token";
+import { resetTemplateStep } from "../../store/templateStep";
+import { resetTemplate } from "../../store/template";
+import { resetCourse } from "../../store/course";
+import { resetPlan } from "../../store/plan";
 
 describe("<TemplateStep />", () => {
-  before(() => {
-    store.dispatch(setToken("TOKEN"));
-  });
   beforeEach(() => {
+    store.dispatch(setToken("TOKEN"));
+    store.dispatch(resetTemplateStep());
+    store.dispatch(resetTemplate());
+    store.dispatch(resetCourse());
+    store.dispatch(resetPlan());
     cy.fixture("api/myenrollments").then((myenrollments) => {
       cy.intercept(
         {
