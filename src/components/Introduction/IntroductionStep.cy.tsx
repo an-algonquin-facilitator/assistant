@@ -5,7 +5,7 @@ import { store } from "../../store/store";
 import { localStorageDoNotWarnKey } from "../Risk/Risk";
 import { expect } from "chai";
 import { CopyTokenJS } from "./AcquireTokenCodeSnippet";
-import { localStorageTokenKey, setToken } from "../../store/token";
+import { localStorageTokenKey, insertToken } from "../../store/token";
 
 const endOfTime = 4102462800; // Jan 1 2100
 const createToken = (exp: number): string => {
@@ -36,7 +36,7 @@ const createToken = (exp: number): string => {
 
 describe("<IntroductionStep />", () => {
   afterEach(() => {
-    store.dispatch(setToken(""));
+    store.dispatch(insertToken(""));
   });
   it("should show warning first time", () => {
     window.localStorage.removeItem(localStorageDoNotWarnKey);

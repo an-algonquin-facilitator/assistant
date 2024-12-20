@@ -1,10 +1,9 @@
 import type { ReactElement } from "react";
 import { useIsTemplateValid } from "../../store/templateStep";
-import { useAppDispatch } from "../../store/hooks";
+import { useAppDispatch, useAppStore } from "../../store/hooks";
 import { setCourse as dSetCourse } from "../../store/course";
 import { setTemplate } from "../../store/template";
 import { Button } from "@mui/material";
-import { store } from "../../store/store";
 
 interface PlanButtonProps {
   onClick: () => void;
@@ -13,6 +12,7 @@ interface PlanButtonProps {
 export const PlanButton = ({ onClick }: PlanButtonProps): ReactElement => {
   const dispatch = useAppDispatch();
   const isValid = useIsTemplateValid();
+  const store = useAppStore();
 
   const onNext = (): void => {
     const { file } = store.getState().templateStep;

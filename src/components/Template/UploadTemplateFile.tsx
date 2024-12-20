@@ -36,12 +36,16 @@ interface UploadTemplateFileProps {
   onCourseSelected: (courseId: string) => void;
 }
 
+const TemplateFileName = (): ReactElement => {
+  const templateFileName = useTemplateFileName();
+  return <>{templateFileName ?? "None"}</>;
+};
+
 export const UploadTemplateFile = ({
   recent,
   onCourseSelected,
 }: UploadTemplateFileProps): ReactElement => {
   const dispatch = useAppDispatch();
-  const templateFileName = useTemplateFileName();
   const [open, setOpen] = useState(false);
   const [error, setError] = useState<string[]>([]);
 
@@ -85,7 +89,9 @@ export const UploadTemplateFile = ({
       }}
     >
       <Typography>Select Template:</Typography>
-      <Typography>{templateFileName ?? "None"}</Typography>
+      <Typography>
+        <TemplateFileName />
+      </Typography>
       <IconButton sx={{ m: 2 }} component="label">
         <FileUploadIcon />
         <input

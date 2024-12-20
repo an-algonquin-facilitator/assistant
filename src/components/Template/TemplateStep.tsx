@@ -13,7 +13,7 @@ import {
   sortCourses,
 } from "./CourseSelection/utils";
 import { CourseSelectionField } from "./CourseSelection/CourseSelectionField";
-import { setSelectedCourse, useSelectedCourse } from "../../store/templateStep";
+import { setSelectedCourse } from "../../store/templateStep";
 import { PlanButton } from "./PlanButton";
 
 export interface TemplateFile {
@@ -28,7 +28,6 @@ export const TemplateStep = ({ previous, next }: PageProps): ReactElement => {
     error: enrollmentsError,
   } = useEnrollmentsQuery();
   const [recent, others] = sortCourses(enrollments?.Items ?? []);
-  const course = useSelectedCourse();
   const dispatch = useAppDispatch();
 
   const onCourseSelected = (courseId: string): void => {
@@ -50,7 +49,6 @@ export const TemplateStep = ({ previous, next }: PageProps): ReactElement => {
     <>
       <UploadTemplateFile recent={recent} onCourseSelected={onCourseSelected} />
       <CourseSelectionField
-        courseName={course.data?.course.Name ?? "None"}
         recent={recent}
         others={others}
         onCourseSelected={onCourseSelected}

@@ -1,14 +1,14 @@
 import { Box, Button, Typography } from "@mui/material";
-import type { IModalProps } from "../Modal";
 import { Modal } from "../Modal";
 import { DoNotWarnCheckbox } from "./DoNotWarnCheckbox";
-import type { ReactElement } from "react";
+import { useState, type ReactElement } from "react";
+import { ShouldWarn } from "../Risk/Risk";
 
-interface IProps extends IModalProps {
-  onAccept: () => void;
+interface IContentProps {
+  onClose: () => void;
 }
 
-const Content = ({ onAccept }: IProps): ReactElement => {
+const Content = ({ onClose }: IContentProps): ReactElement => {
   return (
     <>
       <Typography variant="h5">
@@ -35,17 +35,21 @@ const Content = ({ onAccept }: IProps): ReactElement => {
           flexDirection: "column",
         }}
       >
-        <Button onClick={onAccept}>I understand</Button>
+        <Button onClick={onClose}>I understand</Button>
         <DoNotWarnCheckbox />
       </Box>
     </>
   );
 };
 
-export const AcceptRiskModal = (props: IProps): ReactElement => {
+export const AcceptRiskModal = (): ReactElement => {
+  const [open, setOpen] = useState(ShouldWarn());
+
+  const onClose = (): void => setOpen(false);
+
   return (
-    <Modal {...props}>
-      <Content {...props} />
+    <Modal open={open} onClose={onClose}>
+      <Content onClose={onClose} />
     </Modal>
   );
 };

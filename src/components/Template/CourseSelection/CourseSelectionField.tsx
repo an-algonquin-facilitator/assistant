@@ -2,19 +2,25 @@ import { Box, Typography } from "@mui/material";
 import { CourseSelectionButton } from "./ClassSelectionButton";
 import type { ReactElement } from "react";
 import type { Enrollment } from "../../../api/enrollment";
-import { useTemplateFile } from "../../../store/templateStep";
+import {
+  useSelectedCourse,
+  useTemplateFile,
+} from "../../../store/templateStep";
 
 interface CourseSelectionFieldProps {
-  courseName: string;
   recent: Enrollment[];
   others: Enrollment[];
   onCourseSelected: (courseId: string) => void;
 }
 
+const SelectedCourseName = (): ReactElement => {
+  const course = useSelectedCourse();
+  return <>{course.data?.course.Name ?? "None"}</>;
+};
+
 export const CourseSelectionField = (
   props: CourseSelectionFieldProps,
 ): ReactElement => {
-  const { courseName } = props;
   const templateFile = useTemplateFile();
   if (!templateFile) return <></>;
   return (
@@ -27,7 +33,9 @@ export const CourseSelectionField = (
       }}
     >
       <Typography>Selected Class:</Typography>
-      <Typography>{courseName}</Typography>
+      <Typography>
+        <SelectedCourseName />
+      </Typography>
       <CourseSelectionButton {...props} />
     </Box>
   );
