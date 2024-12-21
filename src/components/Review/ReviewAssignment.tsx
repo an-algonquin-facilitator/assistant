@@ -10,22 +10,26 @@ import type { AssignmentPlan } from "../../store/plan";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import { dateOffsetToString, formatDate } from "./utils";
 import type { ReactElement } from "react";
+import { changeExpanded, useIsExpanded } from "../../store/review";
+import { useAppDispatch } from "../../store/hooks";
 
 interface IReviewAssignmentProps {
   assignment: AssignmentPlan;
-  expanded: string;
-  setExpanded: (id: string) => void;
 }
 
 export const ReviewAssignment = ({
   assignment,
-  expanded,
-  setExpanded,
 }: IReviewAssignmentProps): ReactElement => {
   const id = "A" + assignment.id;
+  const isExpanded = useIsExpanded(id);
+  const dispatch = useAppDispatch();
+
   return (
     <>
-      <Accordion expanded={expanded === id} onChange={() => setExpanded(id)}>
+      <Accordion
+        expanded={isExpanded}
+        onChange={() => dispatch(changeExpanded(id))}
+      >
         <AccordionSummary expandIcon={<ExpandMoreIcon />}>
           <Typography sx={{ display: "flex", alignItems: "center" }}>
             <AssignmentIcon /> {assignment.name} ({assignment.id})

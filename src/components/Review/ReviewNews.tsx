@@ -11,21 +11,23 @@ import type { NewsPlan } from "../../store/plan";
 import { dateOffsetToString, formatDate } from "./utils";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import type { ReactElement } from "react";
+import { changeExpanded, useIsExpanded } from "../../store/review";
+import { useAppDispatch } from "../../store/hooks";
 
 interface IProps {
   news: NewsPlan;
-  expanded: string;
-  setExpanded: (id: string) => void;
 }
 
-export const ReviewNews = ({
-  news,
-  expanded,
-  setExpanded,
-}: IProps): ReactElement => {
+export const ReviewNews = ({ news }: IProps): ReactElement => {
   const id = "N" + news.name;
+
+  const isExpanded = useIsExpanded(id);
+  const dispatch = useAppDispatch();
   return (
-    <Accordion expanded={expanded === id} onChange={() => setExpanded(id)}>
+    <Accordion
+      expanded={isExpanded}
+      onChange={() => dispatch(changeExpanded(id))}
+    >
       <AccordionSummary expandIcon={<ExpandMoreIcon />}>
         <Typography sx={{ display: "flex", alignItems: "center" }}>
           <AnnouncementIcon /> {news.name}

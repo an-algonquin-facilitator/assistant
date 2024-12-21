@@ -2,12 +2,14 @@ import { configureStore } from "@reduxjs/toolkit";
 import { tokenReducer } from "./token";
 import { templateReducer } from "./template";
 import { planReducer } from "./plan";
+import { reviewReducer } from "./review";
 
 export const store = configureStore({
   reducer: {
     token: tokenReducer,
     template: templateReducer,
     plan: planReducer,
+    review: reviewReducer,
   },
 });
 

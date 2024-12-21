@@ -90,7 +90,6 @@ describe("<PlanStep />", () => {
     cy.contains(/Assignments \(3\/3\)/i);
     cy.contains(/Quizzes \(0\/3\)/i).click();
     cy.get("input").eq(1).click();
-    // eslint-disable-next-line @typescript-eslint/no-magic-numbers
     cy.get("input").eq(3).click();
     cy.contains(/Quizzes \(2\/3\)/i);
     cy.contains(/News \(0\/2\)/i).click();

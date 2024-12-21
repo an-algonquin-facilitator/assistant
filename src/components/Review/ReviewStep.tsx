@@ -9,16 +9,11 @@ import { ReviewAssignment } from "./ReviewAssignment";
 import { ReviewQuiz } from "./ReviewQuiz";
 import { ReviewNews } from "./ReviewNews";
 import type { ReactElement } from "react";
-import { useState } from "react";
 
 export const ReviewStep = ({ previous, next }: PageProps): ReactElement => {
-  const [expanded, setExpanded] = useState("");
   const assignments = usePlannedAssignments();
   const quizzes = usePlannedQuizzes();
   const news = usePlannedNews();
-
-  const changeExpanded = (id: string): void =>
-    setExpanded(id === expanded ? "" : id);
 
   return (
     <>
@@ -26,12 +21,7 @@ export const ReviewStep = ({ previous, next }: PageProps): ReactElement => {
         <>
           <Typography variant="h5">Assignments:</Typography>
           {assignments.map((a) => (
-            <ReviewAssignment
-              key={a.id}
-              assignment={a}
-              expanded={expanded}
-              setExpanded={changeExpanded}
-            />
+            <ReviewAssignment key={a.id} assignment={a} />
           ))}
         </>
       )}
@@ -41,12 +31,7 @@ export const ReviewStep = ({ previous, next }: PageProps): ReactElement => {
             Quizzes:
           </Typography>
           {quizzes.map((q) => (
-            <ReviewQuiz
-              key={q.id}
-              quiz={q}
-              expanded={expanded}
-              setExpanded={changeExpanded}
-            />
+            <ReviewQuiz key={q.id} quiz={q} />
           ))}
         </>
       )}
@@ -57,12 +42,7 @@ export const ReviewStep = ({ previous, next }: PageProps): ReactElement => {
             News:
           </Typography>
           {news.map((n) => (
-            <ReviewNews
-              key={n.name}
-              news={n}
-              expanded={expanded}
-              setExpanded={changeExpanded}
-            />
+            <ReviewNews key={n.name} news={n} />
           ))}
         </>
       )}
