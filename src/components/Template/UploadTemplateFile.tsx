@@ -8,8 +8,12 @@ import { unknownError } from "../../api/utils";
 import { isLeft } from "fp-ts/lib/Either";
 import { PathReporter } from "io-ts/lib/PathReporter";
 import { Modal } from "../Modal";
-import type { CourseTemplate } from "../../store/template";
-import { setTemplateFile, useTemplateFileName } from "../../store/templateStep";
+import {
+  uploadInvalidTemplate,
+  uploadTemplate,
+  useTemplateFileName,
+  type CourseTemplate,
+} from "../../store/template";
 import { useAppDispatch } from "../../store/hooks";
 import type { Enrollment } from "../../api/enrollment";
 
@@ -38,7 +42,7 @@ interface UploadTemplateFileProps {
 
 const TemplateFileName = (): ReactElement => {
   const templateFileName = useTemplateFileName();
-  return <>{templateFileName ?? "None"}</>;
+  return <>{templateFileName || "None"}</>;
 };
 
 export const UploadTemplateFile = ({
@@ -49,9 +53,8 @@ export const UploadTemplateFile = ({
   const [open, setOpen] = useState(false);
   const [error, setError] = useState<string[]>([]);
 
-  const dispatchTemplateFile = (t?: TemplateFile): void => {
-    dispatch(setTemplateFile(t));
-    if (!t) return;
+  const dispatchTemplateFile = (t: TemplateFile): void => {
+    dispatch(uploadTemplate(t));
 
     const prefered = recent.find((c) =>
       c.OrgUnit.Code.includes(t.template.courseCode),
@@ -70,7 +73,7 @@ export const UploadTemplateFile = ({
     const [template, err] = parseFile(f, fileContent);
     if (err) {
       setError(err);
-      setTemplateFile(undefined);
+      dispatch(uploadInvalidTemplate());
       setOpen(true);
       return;
     }

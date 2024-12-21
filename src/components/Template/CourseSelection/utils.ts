@@ -4,8 +4,12 @@ import { fetchQuizzes } from "../../../api/quiz";
 import { fetchCourse } from "../../../api/course";
 import { fetchFolders } from "../../../api/folder";
 import { store } from "../../../store/store";
-import type { Response } from "../../../api/utils";
-import type { SelectedCourse } from "../../../store/course";
+import type { useAppDispatch } from "../../../store/hooks";
+import {
+  courseRequestError,
+  courseRequestStarted,
+  courseRequestSuccess,
+} from "../../../store/template";
 
 export const sortCourses = (
   enrollments: Enrollment[],
@@ -36,9 +40,9 @@ const unknownError = (e: unknown): string => {
 
 export const dispatchFullCourseFetches = (
   courseId: string,
-  setCourse: (c: Response<SelectedCourse>) => void,
+  dispatch: ReturnType<typeof useAppDispatch>,
 ): void => {
-  setCourse({ loading: true });
+  dispatch(courseRequestStarted());
 
   const token = store.getState().token.value;
 
@@ -50,16 +54,13 @@ export const dispatchFullCourseFetches = (
   ]);
 
   p.then(([folders, quizzes, news, course]) =>
-    setCourse({
-      data: {
+    dispatch(
+      courseRequestSuccess({
         folders,
         quizzes: quizzes.Objects,
         news,
         course,
-      },
-      loading: false,
-    }),
-  ).catch((e: unknown) =>
-    setCourse({ loading: false, error: unknownError(e) }),
-  );
+      }),
+    ),
+  ).catch((e: unknown) => dispatch(courseRequestError(unknownError(e))));
 };

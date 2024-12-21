@@ -5,9 +5,9 @@ import type {
   AssignmentTemplate,
   QuizTemplate as TQuiz,
   NewsTemplate as TNews,
+  SelectedCourse,
 } from "../../store/template";
 import type { TemplateFile } from "./TemplateStep";
-import type { SelectedCourse } from "../../store/course";
 
 export interface ValidatedTemplate {
   validAssignments: AssignmentTemplate[];

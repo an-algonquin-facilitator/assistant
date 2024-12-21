@@ -13,7 +13,6 @@ import {
   sortCourses,
 } from "./CourseSelection/utils";
 import { CourseSelectionField } from "./CourseSelection/CourseSelectionField";
-import { setSelectedCourse } from "../../store/templateStep";
 import { PlanButton } from "./PlanButton";
 
 export interface TemplateFile {
@@ -31,7 +30,7 @@ export const TemplateStep = ({ previous, next }: PageProps): ReactElement => {
   const dispatch = useAppDispatch();
 
   const onCourseSelected = (courseId: string): void => {
-    dispatchFullCourseFetches(courseId, (c) => dispatch(setSelectedCourse(c)));
+    dispatchFullCourseFetches(courseId, dispatch);
   };
 
   const onPrevious = (): void => {

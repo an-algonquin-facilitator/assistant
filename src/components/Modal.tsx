@@ -18,6 +18,8 @@ const style = {
   boxShadow: 24,
   borderRadius: 2,
   p: 4,
+  maxHeight: "80vh",
+  overflow: "scroll",
 };
 export const Modal = ({ children, open, onClose }: IProps): ReactElement => {
   return (

@@ -1,7 +1,6 @@
 import type { ReactElement } from "react";
 import { useMemo, useState } from "react";
-import { useTemplate } from "../../store/template";
-import { useCourse } from "../../store/course";
+import { useCourse, useTemplate } from "../../store/template";
 import { processTemplate } from "./utils";
 import { Tab, Tabs } from "@mui/material";
 import { TabPanel } from "./TabPanel";

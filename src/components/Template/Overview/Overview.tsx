@@ -12,19 +12,17 @@ import { QuizWarnings } from "./QuizWarnings";
 import { NewsWarnings } from "./NewsWarnings";
 import dayjs from "dayjs";
 import {
-  useIsTemplateValid,
-  useSelectedCourse,
-  useValidatedTemplate,
-} from "../../../store/templateStep";
+  useCourse,
+  useTemplateValidationResult,
+} from "../../../store/template";
 
 export const Overview = (): ReactElement => {
-  const template = useValidatedTemplate();
-  const course = useSelectedCourse().data;
-  const isValid = useIsTemplateValid();
+  const validationResult = useTemplateValidationResult();
+  const course = useCourse();
 
-  if (!course) return <></>;
+  if (!course.course.Name) return <></>;
 
-  if (!isValid)
+  if (!validationResult.isTemplateValid)
     return (
       <>
         <Typography>
@@ -57,28 +55,28 @@ export const Overview = (): ReactElement => {
         <TableBody>
           <TableRow>
             <TableCell>Assignments</TableCell>
-            <TableCell>{template.validAssignments.length}</TableCell>
+            <TableCell>{validationResult.validAssignments.length}</TableCell>
             <TableCell>{course.folders.length}</TableCell>
             <TableCell>
-              <AssignmentWarnings template={template} />
+              <AssignmentWarnings template={validationResult} />
             </TableCell>
           </TableRow>
 
           <TableRow>
             <TableCell>Quizzes</TableCell>
-            <TableCell>{template.validQuizzes.length}</TableCell>
+            <TableCell>{validationResult.validQuizzes.length}</TableCell>
             <TableCell>{course.quizzes.length}</TableCell>
             <TableCell>
-              <QuizWarnings template={template} />
+              <QuizWarnings template={validationResult} />
             </TableCell>
           </TableRow>
 
           <TableRow>
             <TableCell>News</TableCell>
-            <TableCell>{template.validNews.length}</TableCell>
+            <TableCell>{validationResult.validNews.length}</TableCell>
             <TableCell>{course.news.length}</TableCell>
             <TableCell>
-              <NewsWarnings template={template} />
+              <NewsWarnings template={validationResult} />
             </TableCell>
           </TableRow>
         </TableBody>

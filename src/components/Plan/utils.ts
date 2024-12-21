@@ -5,6 +5,7 @@ import type {
   NewsTemplate as TNews,
   QuizTemplate as TQuiz,
   CourseTemplate,
+  SelectedCourse,
 } from "../../store/template";
 import { isHoliday } from "../../holidays";
 import type {
@@ -17,7 +18,6 @@ import type { Quiz as BQuiz } from "../../api/quiz";
 import type { Folder } from "../../api/folder";
 import { isDefined } from "../Introduction/utils";
 import Mustache from "mustache";
-import type { SelectedCourse } from "../../store/course";
 
 const dayLastHour = 23;
 const dayLastMinute = 59;

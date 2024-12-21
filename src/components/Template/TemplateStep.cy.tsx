@@ -4,18 +4,12 @@ import { Provider } from "react-redux";
 import type { Store } from "../../store/store";
 import { store } from "../../store/store";
 import { insertToken } from "../../store/token";
-import { resetTemplateStep } from "../../store/templateStep";
 import { resetTemplate } from "../../store/template";
-import { resetCourse } from "../../store/course";
-import { resetPlan } from "../../store/plan";
 
 describe("<TemplateStep />", () => {
   beforeEach(() => {
     store.dispatch(insertToken("TOKEN"));
-    store.dispatch(resetTemplateStep());
     store.dispatch(resetTemplate());
-    store.dispatch(resetCourse());
-    store.dispatch(resetPlan());
     cy.fixture("api/myenrollments").then((myenrollments) => {
       cy.intercept(
         {
@@ -172,17 +166,6 @@ describe("<TemplateStep />", () => {
     cy.get("table").find("button").should("be.disabled");
 
     cy.wrap(store).as("store");
-    cy.get("@store").then((s: unknown) => {
-      const state = (s as Store).getState();
-      expect(state.template.value).to.deep.eq({
-        courseCode: "",
-        assignments: [],
-        quizzes: [],
-        news: [],
-      });
-    });
-
-    cy.contains(/plan/i).click();
     cy.get("@store").then((s: unknown) => {
       const state = (s as Store).getState();
       cy.fixture("store/template").then((template) => {

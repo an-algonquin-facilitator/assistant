@@ -2,9 +2,8 @@ import React from "react";
 import { ApplyStep } from "./ApplyStep";
 import { Provider } from "react-redux";
 import { store } from "../../store/store";
-import { resetCourse, setCourse } from "../../store/course";
 import type { CourseTemplate } from "../../store/template";
-import { resetTemplate, setTemplate } from "../../store/template";
+import { resetTemplate, setCourse, setTemplate } from "../../store/template";
 import type { Course } from "../../api/course";
 import type { Folder } from "../../api/folder";
 import type { Paginated } from "../../api/api";
@@ -38,7 +37,7 @@ describe("<ApplyStep />", () => {
     cy.fixture("store/template").then((t) =>
       store.dispatch(setTemplate(t as Required<CourseTemplate>)),
     );
-    store.dispatch(resetCourse());
+    store.dispatch(resetTemplate());
     cy.fixture("api/CST2000_course").then((c) => {
       cy.fixture("api/CST2000_folders").then((f) => {
         cy.fixture("api/CST2000_quizzes").then((q) => {

@@ -1,8 +1,36 @@
-import type { SelectedCourse } from "./course";
-import type { TemplateFile, ValidatedTemplate } from "./templateStep";
+import type { SelectedCourse, TemplateFile } from "./template";
+import type { News as BNews } from "../api/news";
+import type { Quiz as BQuiz } from "../api/quiz";
+import type { Folder } from "../api/folder";
+import type {
+  AssignmentTemplate,
+  QuizTemplate as TQuiz,
+  NewsTemplate as TNews,
+} from "./template";
 
-export const isValidTemplate = (template: ValidatedTemplate): boolean => {
+export type TemplateValidationResult =
+  | {
+      isTemplateValid: true;
+
+      validAssignments: AssignmentTemplate[];
+      missingBrightspaceAssignments: Folder[];
+      missingTemplateAssignments: AssignmentTemplate[];
+
+      validQuizzes: TQuiz[];
+      missingBrightspaceQuizzes: BQuiz[];
+      missingTemplateQuizzes: TQuiz[];
+
+      validNews: TNews[];
+      missingBrightspaceNews: BNews[];
+      missingTemplateNews: TNews[];
+    }
+  | { isTemplateValid: false };
+
+export const isValidTemplate = (
+  template: TemplateValidationResult,
+): boolean => {
   return (
+    !template.isTemplateValid ||
     template.validAssignments.length > 0 ||
     template.validNews.length > 0 ||
     template.validQuizzes.length > 0
@@ -12,18 +40,10 @@ export const isValidTemplate = (template: ValidatedTemplate): boolean => {
 export const validateTemplate = (
   ut: TemplateFile | undefined,
   course: SelectedCourse | undefined,
-): ValidatedTemplate => {
+): TemplateValidationResult => {
   if (!ut || !course)
     return {
-      validAssignments: [],
-      missingBrightspaceAssignments: [],
-      missingTemplateAssignments: [],
-      validQuizzes: [],
-      missingBrightspaceQuizzes: [],
-      missingTemplateQuizzes: [],
-      validNews: [],
-      missingBrightspaceNews: [],
-      missingTemplateNews: [],
+      isTemplateValid: false,
     };
 
   const templateAssignments = ut.template.assignments ?? [];
@@ -68,6 +88,7 @@ export const validateTemplate = (
   );
 
   return {
+    isTemplateValid: true,
     validAssignments,
     missingBrightspaceAssignments,
     missingTemplateAssignments,

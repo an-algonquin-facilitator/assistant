@@ -1,11 +1,12 @@
-import { Box, Typography } from "@mui/material";
-import { CourseSelectionButton } from "./ClassSelectionButton";
+import { Box, LinearProgress, Typography } from "@mui/material";
+import { CourseSelectionButton } from "./CourseSelectionButton";
 import type { ReactElement } from "react";
 import type { Enrollment } from "../../../api/enrollment";
 import {
-  useSelectedCourse,
+  useCourse,
+  useIsCourseLoading,
   useTemplateFile,
-} from "../../../store/templateStep";
+} from "../../../store/template";
 
 interface CourseSelectionFieldProps {
   recent: Enrollment[];
@@ -14,15 +15,17 @@ interface CourseSelectionFieldProps {
 }
 
 const SelectedCourseName = (): ReactElement => {
-  const course = useSelectedCourse();
-  return <>{course.data?.course.Name ?? "None"}</>;
+  const course = useCourse();
+  return <>{course.course.Name || "None"}</>;
 };
 
 export const CourseSelectionField = (
   props: CourseSelectionFieldProps,
 ): ReactElement => {
   const templateFile = useTemplateFile();
-  if (!templateFile) return <></>;
+  const isLoading = useIsCourseLoading();
+  if (!templateFile.filename) return <></>;
+  if (isLoading) return <LinearProgress />;
   return (
     <Box
       sx={{

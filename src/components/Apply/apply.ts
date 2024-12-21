@@ -174,10 +174,10 @@ export const apply = async ({
   setComplete,
 }: ApplyArguments): Promise<void> => {
   const state = store.getState();
-  const courseId = state.currentCourse.selected.course.Identifier;
+  const courseId = state.template.course.course.Identifier;
   const token = state.token.value;
   const { plan } = state;
-  const { news } = state.currentCourse.selected;
+  const { news } = state.template.course;
 
   setStarted(true);
 
