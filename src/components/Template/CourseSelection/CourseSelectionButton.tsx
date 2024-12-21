@@ -5,7 +5,6 @@ import type { ReactElement } from "react";
 import { useState } from "react";
 
 interface CourseSelectionButtonProps {
-  courseName: string;
   recent: Enrollment[];
   others: Enrollment[];
   onCourseSelected: (courseId: string) => void;

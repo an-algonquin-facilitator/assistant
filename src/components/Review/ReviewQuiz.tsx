@@ -10,22 +10,24 @@ import type { QuizPlan } from "../../store/plan";
 import { dateOffsetToString, formatDate } from "../Review/utils";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import type { ReactElement } from "react";
+import { changeExpanded, useIsExpanded } from "../../store/review";
+import { useAppDispatch } from "../../store/hooks";
 
 interface ReviewQuizProps {
   quiz: QuizPlan;
-  expanded: string;
-  setExpanded: (id: string) => void;
 }
 
-export const ReviewQuiz = ({
-  quiz,
-  expanded,
-  setExpanded,
-}: ReviewQuizProps): ReactElement => {
+export const ReviewQuiz = ({ quiz }: ReviewQuizProps): ReactElement => {
   const id = "Q" + quiz.id;
+
+  const isExpanded = useIsExpanded(id);
+  const dispatch = useAppDispatch();
   return (
     <>
-      <Accordion expanded={expanded === id} onChange={() => setExpanded(id)}>
+      <Accordion
+        expanded={isExpanded}
+        onChange={() => dispatch(changeExpanded(id))}
+      >
         <AccordionSummary expandIcon={<ExpandMoreIcon />}>
           <Typography sx={{ display: "flex", alignItems: "center" }}>
             <QuizIcon /> {quiz.name} ({quiz.id})

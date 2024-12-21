@@ -6,19 +6,24 @@ import { useToken } from "../../../store/token";
 import { WhoAmI } from "./WhoAmI";
 import type { ReactElement } from "react";
 
-const Content = ({ onValidate }: IProps): ReactElement => {
+const Content = ({
+  onValidate,
+  onClose,
+}: ValidateTokenModalProps): ReactElement => {
   const token = useToken();
   const millisRemaining = tokenExpiryDateUnix(token);
-  if (millisRemaining < 0)
-    return <ExpiredToken onClose={() => onValidate(false)} />;
+  if (millisRemaining < 0) return <ExpiredToken onClose={onClose} />;
 
-  return <WhoAmI onValidate={onValidate} />;
+  return <WhoAmI onClose={onClose} onValidate={onValidate} />;
 };
 
-interface IProps extends IModalProps {
-  onValidate: (valid: boolean) => void;
+interface ValidateTokenModalProps extends IModalProps {
+  onValidate: () => void;
 }
-export const ValidateTokenModal = (props: IProps): ReactElement => {
+
+export const ValidateTokenModal = (
+  props: ValidateTokenModalProps,
+): ReactElement => {
   return (
     <Modal {...props}>
       <Content {...props} />

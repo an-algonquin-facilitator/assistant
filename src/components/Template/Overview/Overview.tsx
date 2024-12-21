@@ -6,24 +6,23 @@ import {
   TableRow,
   Typography,
 } from "@mui/material";
-import type { ValidatedTemplate } from "../utils";
-import { isValidTemplate } from "../utils";
 import type { ReactElement } from "react";
-import type { SelectedCourse } from "../../../store/course";
 import { AssignmentWarnings } from "./AssignmentWarnings";
 import { QuizWarnings } from "./QuizWarnings";
 import { NewsWarnings } from "./NewsWarnings";
 import dayjs from "dayjs";
+import {
+  useCourse,
+  useTemplateValidationResult,
+} from "../../../store/template";
 
-interface OverviewProps {
-  template: ValidatedTemplate;
-  course: SelectedCourse;
-}
+export const Overview = (): ReactElement => {
+  const validationResult = useTemplateValidationResult();
+  const course = useCourse();
 
-export const Overview = ({ template, course }: OverviewProps): ReactElement => {
-  const isValid = isValidTemplate(template);
+  if (!course.course.Name) return <></>;
 
-  if (!isValid)
+  if (!validationResult.isTemplateValid)
     return (
       <>
         <Typography>
@@ -56,28 +55,28 @@ export const Overview = ({ template, course }: OverviewProps): ReactElement => {
         <TableBody>
           <TableRow>
             <TableCell>Assignments</TableCell>
-            <TableCell>{template.validAssignments.length}</TableCell>
+            <TableCell>{validationResult.validAssignments.length}</TableCell>
             <TableCell>{course.folders.length}</TableCell>
             <TableCell>
-              <AssignmentWarnings template={template} />
+              <AssignmentWarnings template={validationResult} />
             </TableCell>
           </TableRow>
 
           <TableRow>
             <TableCell>Quizzes</TableCell>
-            <TableCell>{template.validQuizzes.length}</TableCell>
+            <TableCell>{validationResult.validQuizzes.length}</TableCell>
             <TableCell>{course.quizzes.length}</TableCell>
             <TableCell>
-              <QuizWarnings template={template} />
+              <QuizWarnings template={validationResult} />
             </TableCell>
           </TableRow>
 
           <TableRow>
             <TableCell>News</TableCell>
-            <TableCell>{template.validNews.length}</TableCell>
+            <TableCell>{validationResult.validNews.length}</TableCell>
             <TableCell>{course.news.length}</TableCell>
             <TableCell>
-              <NewsWarnings template={template} />
+              <NewsWarnings template={validationResult} />
             </TableCell>
           </TableRow>
         </TableBody>

@@ -9,19 +9,18 @@ import type { ReactElement } from "react";
 import { Loading } from "../../Loading";
 
 interface WhoAmIProps {
-  onValidate: (valid: boolean) => void;
+  onClose: () => void;
+  onValidate: () => void;
 }
 
-export const WhoAmI = ({ onValidate }: WhoAmIProps): ReactElement => {
+export const WhoAmI = ({ onValidate, onClose }: WhoAmIProps): ReactElement => {
   const token = useToken();
   const millisRemaining = tokenExpiryDateUnix(token);
   const { data: whoAmI, loading, error } = useWhoAmIQuery();
 
-  const onNotValid = (): void => onValidate(false);
-
   if (loading) return <Loading />;
-  if (error != null) return <WhoAmIError onClose={onNotValid} />;
-  if (!whoAmI) return <NoWhoAmI onClose={onNotValid} />;
+  if (error != null) return <WhoAmIError onClose={onClose} />;
+  if (!whoAmI) return <NoWhoAmI onClose={onClose} />;
 
   return (
     <Box
@@ -51,7 +50,7 @@ export const WhoAmI = ({ onValidate }: WhoAmIProps): ReactElement => {
         I recommend at least 10 minutes.
       </Typography>
       <p></p>
-      <Button disabled={millisRemaining < 0} onClick={() => onValidate(true)}>
+      <Button disabled={millisRemaining < 0} onClick={onValidate}>
         OK
       </Button>
     </Box>

@@ -1,10 +1,4 @@
-import {
-  Checkbox,
-  IconButton,
-  TableCell,
-  TableRow,
-  Typography,
-} from "@mui/material";
+import { TableCell, TableRow, Typography } from "@mui/material";
 import { PlannedDate } from "./PlannedDate";
 import type { NewsPlan } from "../../store/plan";
 import {
@@ -12,29 +6,25 @@ import {
   removeNewsPlan,
   useIsNewsPlanned,
 } from "../../store/plan";
-import { useAppDispatch } from "../../store/hooks";
-import ArticleIcon from "@mui/icons-material/Article";
-import { Modal } from "../Modal";
 import type { ReactElement } from "react";
-import { useState } from "react";
+import { PlanCheckbox } from "./PlanCheckbox";
+import { NewsContentButton } from "./NewsContentButton";
 
 interface NewsRowProps {
   news: NewsPlan;
 }
 
 export const NewsRow = ({ news: n }: NewsRowProps): ReactElement => {
-  const [open, setOpen] = useState(false);
-  const isPlanned = useIsNewsPlanned(n.name);
-  const dispatch = useAppDispatch();
-
-  const onChange = (_: unknown, checked: boolean): void => {
-    dispatch(checked ? addNewsPlan(n) : removeNewsPlan(n));
-  };
-
   return (
     <TableRow>
       <TableCell>
-        <Checkbox checked={isPlanned} onChange={onChange} />
+        <PlanCheckbox
+          id={n.name}
+          elem={n}
+          add={addNewsPlan}
+          remove={removeNewsPlan}
+          useIsPlanned={useIsNewsPlanned}
+        />
       </TableCell>
       <TableCell>
         <Typography sx={{ textOverflow: "ellipsis" }}>{n.name}</Typography>
@@ -46,14 +36,7 @@ export const NewsRow = ({ news: n }: NewsRowProps): ReactElement => {
         <PlannedDate date={n.dismiss} offset={n.dismissOffset} />
       </TableCell>
       <TableCell>
-        <IconButton onClick={() => setOpen(true)}>
-          <ArticleIcon />
-        </IconButton>
-        <Modal open={open} onClose={() => setOpen(false)}>
-          <Typography>
-            <span dangerouslySetInnerHTML={{ __html: n.content }} />
-          </Typography>
-        </Modal>
+        <NewsContentButton news={n} />
       </TableCell>
     </TableRow>
   );

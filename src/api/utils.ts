@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { useToken } from "../store/token";
 import { StatusOK } from "./api";
 
@@ -42,37 +42,30 @@ export const makeQuery = <R, T>(baseURL: string, path: (t: T) => string) => {
   return (t: T): Response<R> => {
     const [resp, setResp] = useState<Response<R>>({ loading: true });
     const token = useToken();
-    useEffect(() => {
-      if (!token) return;
-      fetch(baseURL + path(t), {
-        headers: {
-          Authorization: "Bearer " + token,
-        },
-      })
-        .then((apiResp) => {
-          if (apiResp.status === StatusOK)
-            apiResp
-              .json()
-              .then((body: R) => {
-                setResp({ data: body, loading: false });
-              })
-              .catch((e: unknown) =>
-                setResp({ loading: false, error: JSON.stringify(e) }),
-              );
-          else
-            apiResp
-              .json()
-              .then((body) => {
-                setResp({ loading: false, error: JSON.stringify(body) });
-              })
-              .catch((e: unknown) =>
-                setResp({ loading: false, error: JSON.stringify(e) }),
-              );
+
+    if (!token || !resp.loading) return resp;
+
+    const setError = (e: unknown): void =>
+      setResp({ loading: false, error: JSON.stringify(e) });
+
+    const q = fetch(baseURL + path(t), {
+      headers: {
+        Authorization: "Bearer " + token,
+      },
+    });
+
+    q.then((apiResp) => {
+      const asJSON = apiResp.json();
+      asJSON
+        .then((body: unknown) => {
+          if (apiResp.status === StatusOK) {
+            setResp({ data: body as R, loading: false });
+          } else {
+            setError(body);
+          }
         })
-        .catch((e: unknown) => {
-          setResp({ loading: false, error: String(e) });
-        });
-    }, [t, token]);
+        .catch(setError);
+    }).catch(setError);
 
     return resp;
   };

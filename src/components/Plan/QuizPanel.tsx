@@ -1,5 +1,4 @@
 import {
-  Checkbox,
   Table,
   TableBody,
   TableCell,
@@ -13,29 +12,26 @@ import {
   removeQuizPlan,
   useIsAllQuizPlanned,
 } from "../../store/plan";
-import { useAppDispatch } from "../../store/hooks";
 import { QuizRow } from "./QuizRow";
 import type { ReactElement } from "react";
+import { AllPlannedCheckbox } from "./AllPlannedCheckbox";
 
 interface QuizTabProps {
   quizzes: QuizPlan[];
 }
 
-export const QuizTab = ({ quizzes }: QuizTabProps): ReactElement => {
-  const dispatch = useAppDispatch();
-  const allPlanned = useIsAllQuizPlanned();
-
-  const onCheck = (_: unknown, checked: boolean): void => {
-    const f = checked ? addQuizPlan : removeQuizPlan;
-    quizzes.forEach((a) => dispatch(f(a)));
-  };
-
+export const QuizPanel = ({ quizzes }: QuizTabProps): ReactElement => {
   return (
     <Table>
       <TableHead>
         <TableRow>
           <TableCell>
-            <Checkbox checked={allPlanned} onChange={onCheck} />
+            <AllPlannedCheckbox
+              elems={quizzes}
+              add={addQuizPlan}
+              remove={removeQuizPlan}
+              useIsAllPlanned={useIsAllQuizPlanned}
+            />
           </TableCell>
           <TableCell>
             <Typography>Name</Typography>

@@ -1,15 +1,17 @@
 import { configureStore } from "@reduxjs/toolkit";
 import { tokenReducer } from "./token";
-import { currentCourseReducer } from "./course";
 import { templateReducer } from "./template";
 import { planReducer } from "./plan";
+import { reviewReducer } from "./review";
+import { applyReducer } from "./apply";
 
 export const store = configureStore({
   reducer: {
     token: tokenReducer,
-    currentCourse: currentCourseReducer,
     template: templateReducer,
     plan: planReducer,
+    review: reviewReducer,
+    apply: applyReducer,
   },
 });
 

@@ -7,15 +7,14 @@ const msPerSecond = 1000;
 
 export const TokenTimeRemaining = (): ReactElement => {
   const token = useToken();
-  const [timeLeft, setTimeLeft] = useState(
-    secondsToMinutes(tokenExpiryDateUnix(token)),
-  );
+  const expiry = tokenExpiryDateUnix(token);
+  const [timeLeft, setTimeLeft] = useState(secondsToMinutes(expiry));
   useEffect(() => {
     const interv = setInterval(
       () => setTimeLeft(secondsToMinutes(tokenExpiryDateUnix(token))),
       msPerSecond,
     );
     return (): void => clearInterval(interv);
-  }, [token]);
+  }, [token, setTimeLeft]);
   return <>{timeLeft}</>;
 };

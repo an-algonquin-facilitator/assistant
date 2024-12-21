@@ -1,5 +1,4 @@
 import {
-  Checkbox,
   Table,
   TableBody,
   TableCell,
@@ -13,29 +12,26 @@ import {
   removeNewsPlan,
   useIsAllNewsPlanned,
 } from "../../store/plan";
-import { useAppDispatch } from "../../store/hooks";
 import { NewsRow } from "./NewsRow";
 import type { ReactElement } from "react";
+import { AllPlannedCheckbox } from "./AllPlannedCheckbox";
 
 interface NewsTabProps {
   news: NewsPlan[];
 }
 
-export const NewsTab = ({ news }: NewsTabProps): ReactElement => {
-  const dispatch = useAppDispatch();
-  const allPlanned = useIsAllNewsPlanned();
-
-  const onCheck = (_: unknown, checked: boolean): void => {
-    const f = checked ? addNewsPlan : removeNewsPlan;
-    news.forEach((a) => dispatch(f(a)));
-  };
-
+export const NewsPanel = ({ news }: NewsTabProps): ReactElement => {
   return (
     <Table>
       <TableHead>
         <TableRow>
           <TableCell>
-            <Checkbox checked={allPlanned} onChange={onCheck} />
+            <AllPlannedCheckbox
+              elems={news}
+              add={addNewsPlan}
+              remove={removeNewsPlan}
+              useIsAllPlanned={useIsAllNewsPlanned}
+            />
           </TableCell>
           <TableCell>
             <Typography>Name</Typography>

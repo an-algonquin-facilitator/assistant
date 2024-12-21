@@ -45,10 +45,9 @@ export default [
     rules: {
       // Generally good but impractical with Redux
       "@typescript-eslint/prefer-readonly-parameter-types": "off",
-      // Why isn't this default?
-      "@typescript-eslint/no-magic-numbers": ["error", { ignore: [-1, 0, 1] }],
       // Subjective
       "@typescript-eslint/max-params": "off",
+      "@typescript-eslint/no-magic-numbers": "off",
       // React needs PascalCase
       "@typescript-eslint/naming-convention": [
         "error",

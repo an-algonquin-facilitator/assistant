@@ -1,5 +1,5 @@
 import { Input } from "@mui/material";
-import { setToken, useToken } from "../../store/token";
+import { insertToken, useToken } from "../../store/token";
 import { useAppDispatch } from "../../store/hooks";
 import type { ReactElement } from "react";
 
@@ -8,7 +8,7 @@ export const TokenField = (): ReactElement => {
   const dispatch = useAppDispatch();
 
   const onTokenChange = (e: React.ChangeEvent<HTMLInputElement>): void => {
-    dispatch(setToken(e.target.value));
+    dispatch(insertToken(e.target.value));
   };
   return (
     <Input

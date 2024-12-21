@@ -4,11 +4,12 @@ import { fetchQuizzes } from "../../../api/quiz";
 import { fetchCourse } from "../../../api/course";
 import { fetchFolders } from "../../../api/folder";
 import { store } from "../../../store/store";
-import type { Response } from "../../../api/utils";
-import type { Course } from "../../../api/course";
-import type { Folder } from "../../../api/folder";
-import type { Quiz } from "../../../api/quiz";
-import type { News } from "../../../api/news";
+import type { useAppDispatch } from "../../../store/hooks";
+import {
+  courseRequestError,
+  courseRequestStarted,
+  courseRequestSuccess,
+} from "../../../store/template";
 
 export const sortCourses = (
   enrollments: Enrollment[],
@@ -37,83 +38,29 @@ const unknownError = (e: unknown): string => {
   return String(e);
 };
 
-export const dispatchFetches = (
+export const dispatchFullCourseFetches = (
   courseId: string,
-  setCourse: (resp: Response<Course>) => void,
-  setFolders: (resp: Response<Folder[]>) => void,
-  setQuizzes: (resp: Response<Quiz[]>) => void,
-  setNews: (resp: Response<News[]>) => void,
+  dispatch: ReturnType<typeof useAppDispatch>,
 ): void => {
-  setFolders({
-    loading: true,
-  });
-
-  setQuizzes({
-    loading: true,
-  });
-
-  setNews({
-    loading: true,
-  });
-
-  setCourse({
-    loading: true,
-  });
+  dispatch(courseRequestStarted());
 
   const token = store.getState().token.value;
-  fetchFolders(token, courseId)
-    .then((f) =>
-      setFolders({
-        data: f,
-        loading: false,
-      }),
-    )
-    .catch((e: unknown) =>
-      setFolders({
-        loading: false,
-        error: unknownError(e),
-      }),
-    );
 
-  fetchQuizzes(token, courseId)
-    .then((f) =>
-      setQuizzes({
-        data: f.Objects,
-        loading: false,
-      }),
-    )
-    .catch((e: unknown) =>
-      setQuizzes({
-        loading: false,
-        error: unknownError(e),
-      }),
-    );
+  const p = Promise.all([
+    fetchFolders(token, courseId),
+    fetchQuizzes(token, courseId),
+    fetchAllNews(token, courseId),
+    fetchCourse(token, courseId),
+  ]);
 
-  fetchAllNews(token, courseId)
-    .then((f) =>
-      setNews({
-        data: f,
-        loading: false,
-      }),
-    )
-    .catch((e: unknown) =>
-      setNews({
-        loading: false,
-        error: unknownError(e),
+  p.then(([folders, quizzes, news, course]) => {
+    dispatch(
+      courseRequestSuccess({
+        folders,
+        quizzes: quizzes.Objects,
+        news,
+        course,
       }),
     );
-
-  fetchCourse(token, courseId)
-    .then((f) =>
-      setCourse({
-        data: f,
-        loading: false,
-      }),
-    )
-    .catch((e: unknown) =>
-      setCourse({
-        loading: false,
-        error: unknownError(e),
-      }),
-    );
+  }).catch((e: unknown) => dispatch(courseRequestError(unknownError(e))));
 };

@@ -3,16 +3,17 @@ import { UploadTemplateFile } from "./UploadTemplateFile";
 import type { PageProps } from "../Assistant/Assistant";
 import { useAppDispatch } from "../../store/hooks";
 import type { CourseTemplate } from "../../store/template";
-import { resetTemplate, setTemplate } from "../../store/template";
+import { resetTemplate } from "../../store/template";
 import type { ReactElement } from "react";
-import { useState } from "react";
-import type { SelectedCourse } from "../../store/course";
-import { isValidTemplate, validateTemplate } from "./utils";
 import { useEnrollmentsQuery } from "../../api/enrollment";
-import { CourseSelection } from "./CourseSelection/CourseSelection";
 import { Loading } from "../Loading";
 import { Overview } from "./Overview/Overview";
-import { setCourse as dSetCourse } from "../../store/course";
+import {
+  dispatchFullCourseFetches,
+  sortCourses,
+} from "./CourseSelection/utils";
+import { CourseSelectionField } from "./CourseSelection/CourseSelectionField";
+import { PlanButton } from "./PlanButton";
 
 export interface TemplateFile {
   filename: string;
@@ -25,30 +26,16 @@ export const TemplateStep = ({ previous, next }: PageProps): ReactElement => {
     loading: enrollmentsLoading,
     error: enrollmentsError,
   } = useEnrollmentsQuery();
-  const [templateFile, setTemplateFile] = useState<TemplateFile | undefined>();
-  const [course, setCourse] = useState<SelectedCourse | undefined>();
+  const [recent, others] = sortCourses(enrollments?.Items ?? []);
   const dispatch = useAppDispatch();
 
-  const validatedTemplate = validateTemplate(templateFile, course);
-  const isValid = isValidTemplate(validatedTemplate);
+  const onCourseSelected = (courseId: string): void => {
+    dispatchFullCourseFetches(courseId, dispatch);
+  };
 
   const onPrevious = (): void => {
     dispatch(resetTemplate());
     previous();
-  };
-
-  const onNext = (): void => {
-    if (!templateFile || !course || !isValid) return;
-    dispatch(
-      setTemplate({
-        courseCode: templateFile.template.courseCode,
-        assignments: validatedTemplate.validAssignments,
-        quizzes: validatedTemplate.validQuizzes,
-        news: validatedTemplate.validNews,
-      }),
-    );
-    dispatch(dSetCourse(course));
-    next();
   };
 
   if (enrollmentsLoading) return <Loading />;
@@ -59,27 +46,18 @@ export const TemplateStep = ({ previous, next }: PageProps): ReactElement => {
 
   return (
     <>
-      <UploadTemplateFile
-        templateFile={templateFile}
-        setTemplateFile={setTemplateFile}
+      <UploadTemplateFile recent={recent} onCourseSelected={onCourseSelected} />
+      <CourseSelectionField
+        recent={recent}
+        others={others}
+        onCourseSelected={onCourseSelected}
       />
-      {templateFile && (
-        <CourseSelection
-          enrollments={enrollments.Items}
-          courseCode={templateFile.template.courseCode}
-          onCourseSelected={setCourse}
-        />
-      )}
-      {templateFile && course && (
-        <Overview template={validatedTemplate} course={course} />
-      )}
+      <Overview />
       <Box
         sx={{ display: "flex", width: "100%", justifyContent: "space-between" }}
       >
         <Button onClick={onPrevious}>BACK</Button>
-        <Button onClick={onNext} disabled={!isValid}>
-          PLAN
-        </Button>
+        <PlanButton onClick={next} />
       </Box>
     </>
   );

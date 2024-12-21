@@ -4,8 +4,7 @@ import { Provider } from "react-redux";
 import type { Store } from "../../store/store";
 import { store } from "../../store/store";
 import type { CourseTemplate } from "../../store/template";
-import { resetTemplate, setTemplate } from "../../store/template";
-import { setCourse } from "../../store/course";
+import { resetTemplate, setCourse, setTemplate } from "../../store/template";
 import type { Course } from "../../api/course";
 import type { Folder } from "../../api/folder";
 import type { Quiz } from "../../api/quiz";
@@ -91,7 +90,6 @@ describe("<PlanStep />", () => {
     cy.contains(/Assignments \(3\/3\)/i);
     cy.contains(/Quizzes \(0\/3\)/i).click();
     cy.get("input").eq(1).click();
-    // eslint-disable-next-line @typescript-eslint/no-magic-numbers
     cy.get("input").eq(3).click();
     cy.contains(/Quizzes \(2\/3\)/i);
     cy.contains(/News \(0\/2\)/i).click();

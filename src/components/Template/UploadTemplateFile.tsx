@@ -2,14 +2,20 @@ import { Box, IconButton, List, ListItem, Typography } from "@mui/material";
 import FileUploadIcon from "@mui/icons-material/FileUpload";
 import YAML from "yaml";
 import type { TemplateFile } from "./TemplateStep";
-import type { Dispatch, SetStateAction } from "react";
 import { useState, type ReactElement } from "react";
 import { TemplateFileValidator } from "./typeCheckTemplate";
 import { unknownError } from "../../api/utils";
 import { isLeft } from "fp-ts/lib/Either";
 import { PathReporter } from "io-ts/lib/PathReporter";
 import { Modal } from "../Modal";
-import type { CourseTemplate } from "../../store/template";
+import {
+  uploadInvalidTemplate,
+  uploadTemplate,
+  useTemplateFileName,
+  type CourseTemplate,
+} from "../../store/template";
+import { useAppDispatch } from "../../store/hooks";
+import type { Enrollment } from "../../api/enrollment";
 
 const parseFile = (
   f: File,
@@ -30,16 +36,32 @@ const parseFile = (
 };
 
 interface UploadTemplateFileProps {
-  templateFile?: TemplateFile;
-  setTemplateFile: Dispatch<SetStateAction<TemplateFile | undefined>>;
+  recent: Enrollment[];
+  onCourseSelected: (courseId: string) => void;
 }
 
+const TemplateFileName = (): ReactElement => {
+  const templateFileName = useTemplateFileName();
+  return <>{templateFileName || "None"}</>;
+};
+
 export const UploadTemplateFile = ({
-  templateFile,
-  setTemplateFile,
+  recent,
+  onCourseSelected,
 }: UploadTemplateFileProps): ReactElement => {
+  const dispatch = useAppDispatch();
   const [open, setOpen] = useState(false);
   const [error, setError] = useState<string[]>([]);
+
+  const dispatchTemplateFile = (t: TemplateFile): void => {
+    dispatch(uploadTemplate(t));
+
+    const prefered = recent.find((c) =>
+      c.OrgUnit.Code.includes(t.template.courseCode),
+    );
+    if (!prefered) return;
+    onCourseSelected(String(prefered.OrgUnit.Id));
+  };
 
   const onChange = async (
     e: React.ChangeEvent<HTMLInputElement>,
@@ -51,11 +73,11 @@ export const UploadTemplateFile = ({
     const [template, err] = parseFile(f, fileContent);
     if (err) {
       setError(err);
-      setTemplateFile(undefined);
+      dispatch(uploadInvalidTemplate());
       setOpen(true);
       return;
     }
-    setTemplateFile({
+    dispatchTemplateFile({
       filename: f.name,
       template,
     });
@@ -70,7 +92,9 @@ export const UploadTemplateFile = ({
       }}
     >
       <Typography>Select Template:</Typography>
-      <Typography>{templateFile?.filename ?? "None"}</Typography>
+      <Typography>
+        <TemplateFileName />
+      </Typography>
       <IconButton sx={{ m: 2 }} component="label">
         <FileUploadIcon />
         <input
