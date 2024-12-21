@@ -1,7 +1,3 @@
-import type { Dispatch, SetStateAction } from "react";
-import type { APIError, Task } from "./Task";
-import { TaskType } from "./Task";
-
 import { store } from "../../store/store";
 import type { RichText, RichTextInput } from "../../api/api";
 import { StatusOK } from "../../api/api";
@@ -13,6 +9,14 @@ import type { InputQuiz } from "../../api/quiz";
 import { fetchQuiz, updateQuiz } from "../../api/quiz";
 import type { CreateNews, News } from "../../api/news";
 import { createNews, updateNews } from "../../api/news";
+import {
+  startTask,
+  taskFailed,
+  taskSuccess,
+  TaskType,
+  type APIError,
+} from "../../store/apply";
+import type { useAppDispatch } from "../../store/hooks";
 
 const toRichTextInput = (rt: RichText): RichTextInput => {
   return {
@@ -162,59 +166,45 @@ const applyNewsPlan = async (
   else return applyUpdateNewsPlan(token, courseId, existing, ne);
 };
 
-interface ApplyArguments {
-  setStarted: (b: boolean) => void;
-  setTasks: Dispatch<SetStateAction<Task[]>>;
-  setComplete: Dispatch<SetStateAction<boolean>>;
-}
-
-export const apply = async ({
-  setStarted,
-  setTasks,
-  setComplete,
-}: ApplyArguments): Promise<void> => {
+export const apply = async (
+  dispatch: ReturnType<typeof useAppDispatch>,
+): Promise<void> => {
   const state = store.getState();
   const courseId = state.template.course.course.Identifier;
   const token = state.token.value;
   const { plan } = state;
   const { news } = state.template.course;
 
-  setStarted(true);
-
   for (const assignment of plan.assignments) {
-    setTasks((t) => [
-      ...t,
-      { name: assignment.name, type: TaskType.ASSIGNMENT, loading: true },
-    ]);
+    const task = { name: assignment.name, type: TaskType.ASSIGNMENT };
+    dispatch(startTask(task));
     const error = await applyAssignmentPlan(token, courseId, assignment);
-    setTasks((t) => [
-      ...t.slice(0, t.length - 1),
-      { ...t[t.length - 1], loading: false, error },
-    ]);
+    if (error) {
+      dispatch(taskFailed({ ...task, error }));
+    } else {
+      dispatch(taskSuccess(task));
+    }
   }
 
   for (const qu of plan.quizzes) {
-    setTasks((t) => [
-      ...t,
-      { name: qu.name, type: TaskType.QUIZ, loading: true },
-    ]);
+    const task = { name: qu.name, type: TaskType.QUIZ };
+    dispatch(startTask(task));
     const error = await applyQuizPlan(token, courseId, qu);
-    setTasks((t) => [
-      ...t.slice(0, t.length - 1),
-      { ...t[t.length - 1], loading: false, error },
-    ]);
+    if (error) {
+      dispatch(taskFailed({ ...task, error }));
+    } else {
+      dispatch(taskSuccess(task));
+    }
   }
 
   for (const ne of plan.news) {
-    setTasks((t) => [
-      ...t,
-      { name: ne.name, type: TaskType.QUIZ, loading: true },
-    ]);
+    const task = { name: ne.name, type: TaskType.QUIZ };
+    dispatch(startTask(task));
     const error = await applyNewsPlan(token, courseId, news, ne);
-    setTasks((t) => [
-      ...t.slice(0, t.length - 1),
-      { ...t[t.length - 1], loading: false, error },
-    ]);
+    if (error) {
+      dispatch(taskFailed({ ...task, error }));
+    } else {
+      dispatch(taskSuccess(task));
+    }
   }
-  setComplete(true);
 };

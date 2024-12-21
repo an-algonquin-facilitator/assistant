@@ -3,6 +3,7 @@ import { tokenReducer } from "./token";
 import { templateReducer } from "./template";
 import { planReducer } from "./plan";
 import { reviewReducer } from "./review";
+import { applyReducer } from "./apply";
 
 export const store = configureStore({
   reducer: {
@@ -10,6 +11,7 @@ export const store = configureStore({
     template: templateReducer,
     plan: planReducer,
     review: reviewReducer,
+    apply: applyReducer,
   },
 });
 

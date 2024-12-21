@@ -1,11 +1,17 @@
 import { Box, Button, Typography } from "@mui/material";
 import type { ReactElement } from "react";
+import { useApplyStarted } from "../../store/apply";
+import { useAppDispatch } from "../../store/hooks";
+import { apply } from "./apply";
 
-interface ReadyProps {
-  onClick: () => void;
-}
+export const Ready = (): ReactElement => {
+  const isStarted = useApplyStarted();
+  const dispatch = useAppDispatch();
+  if (isStarted) return <></>;
+  const onClick = (): void => {
+    void apply(dispatch);
+  };
 
-export const Ready = ({ onClick }: ReadyProps): ReactElement => {
   return (
     <>
       <Typography variant="h3">Ready to apply your plan?</Typography>

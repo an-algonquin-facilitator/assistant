@@ -11,7 +11,7 @@ const initialState: ReviewState = {
 };
 
 const reviewSlice = createSlice({
-  name: "token",
+  name: "review",
   initialState,
   reducers: {
     changeExpanded: (state, action: PayloadAction<string>) => {

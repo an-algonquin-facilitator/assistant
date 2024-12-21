@@ -16,6 +16,7 @@ import {
   resetPlan,
   type PlanState,
 } from "../../store/plan";
+import { resetTasks } from "../../store/apply";
 
 const storePlan = (plan: PlanState): void => {
   for (const a of plan.assignments) {
@@ -32,6 +33,7 @@ const storePlan = (plan: PlanState): void => {
 
 describe("<ApplyStep />", () => {
   beforeEach(() => {
+    store.dispatch(resetTasks());
     store.dispatch(resetPlan());
     store.dispatch(resetTemplate());
     cy.fixture("store/template").then((t) =>
