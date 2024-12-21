@@ -53,7 +53,7 @@ export const dispatchFullCourseFetches = (
     fetchCourse(token, courseId),
   ]);
 
-  p.then(([folders, quizzes, news, course]) =>
+  p.then(([folders, quizzes, news, course]) => {
     dispatch(
       courseRequestSuccess({
         folders,
@@ -61,6 +61,6 @@ export const dispatchFullCourseFetches = (
         news,
         course,
       }),
-    ),
-  ).catch((e: unknown) => dispatch(courseRequestError(unknownError(e))));
+    );
+  }).catch((e: unknown) => dispatch(courseRequestError(unknownError(e))));
 };

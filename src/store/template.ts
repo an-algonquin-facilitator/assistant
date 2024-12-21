@@ -141,6 +141,7 @@ const templateSlice = createSlice({
     uploadInvalidTemplate(state) {
       state.file = initialState.file;
       state.validationResult = { isTemplateValid: false };
+      state.course = initialState.course;
     },
     courseRequestStarted(state) {
       state.courseRequest = { loading: true };
