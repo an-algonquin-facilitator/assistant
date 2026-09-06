@@ -4,9 +4,25 @@ import { StatusOK } from "../../api/api";
 import type { InputFolder } from "../../api/folder";
 import { updateFolder } from "../../api/folder";
 import { fetchFolder } from "../../api/folder";
-import type { AssignmentPlan, NewsPlan, QuizPlan } from "../../store/plan";
+import type {
+  AgentPlan,
+  AssignmentPlan,
+  DiscussionPlan,
+  NewsPlan,
+  QuizPlan,
+} from "../../store/plan";
+import type { AgentData } from "../../api/agent";
+import { createAgent, updateAgent } from "../../api/agent";
+import type { ConditionsData } from "../../api/releaseConditions";
+import {
+  fetchConditions,
+  intelligentAgentsTarget,
+  putConditions,
+} from "../../api/releaseConditions";
 import type { InputQuiz } from "../../api/quiz";
 import { fetchQuiz, updateQuiz } from "../../api/quiz";
+import type { InputTopic } from "../../api/discussion";
+import { fetchTopic, updateTopic } from "../../api/discussion";
 import type { CreateNews, News } from "../../api/news";
 import { createNews, updateNews } from "../../api/news";
 import {
@@ -18,10 +34,19 @@ import {
 } from "../../store/apply";
 import type { useAppDispatch } from "../../store/hooks";
 
+// Converts a RichText we received into the RichTextInput the API expects on
+// PUT. Prefer the Html form, but fall back to the Text form when D2L only
+// returned plain text so we never send back an empty description.
 const toRichTextInput = (rt: RichText): RichTextInput => {
+  if (rt.Html !== null && rt.Html !== "") {
+    return {
+      Type: "Html",
+      Content: rt.Html,
+    };
+  }
   return {
-    Type: "Html",
-    Content: rt.Html,
+    Type: "Text",
+    Content: rt.Text,
   };
 };
 
@@ -96,6 +121,112 @@ const applyQuizPlan = async (
       title: prom.statusText,
       detail: text,
     };
+  }
+  return undefined;
+};
+
+const applyDiscussionPlan = async (
+  token: string,
+  courseId: string,
+  di: DiscussionPlan,
+): Promise<APIError | undefined> => {
+  const topic = await fetchTopic(token, [courseId, di.forumId, di.id]);
+  // The PUT replaces the whole topic, so send back everything we fetched and
+  // only override the dates. Availability types are kept as they are so the
+  // topic keeps behaving the same way outside of its availability window.
+  const inputTopic: InputTopic = {
+    ...topic,
+    StartDate: new Date(di.start).toISOString(),
+    DueDate: new Date(di.due).toISOString(),
+    EndDate: new Date(di.end).toISOString(),
+    IsHidden: false,
+    DisplayInCalendar: false,
+    DisplayUnlockDatesInCalendar: false,
+    // We have to convert to RichTextInput for the API to not delete the topic description.
+    Description: toRichTextInput(topic.Description),
+  };
+
+  const prom = await updateTopic(
+    token,
+    courseId,
+    di.forumId,
+    di.id,
+    inputTopic,
+  );
+  if (prom.status !== StatusOK) {
+    const text = await prom.text();
+    return {
+      title: prom.statusText,
+      detail: text,
+    };
+  }
+  return undefined;
+};
+
+const responseError = async (
+  resp: Response,
+  prefix = "",
+): Promise<APIError> => ({
+  title: prefix + resp.statusText,
+  detail: await resp.text(),
+});
+
+// Creates the agent (or updates the one with the same name), then replaces
+// its release conditions. Two calls because conditions are a separate
+// resource keyed on the agent id.
+const applyAgentPlan = async (
+  token: string,
+  courseId: string,
+  ag: AgentPlan,
+): Promise<APIError | undefined> => {
+  const resp =
+    ag.existingId === undefined
+      ? await createAgent(token, courseId, ag.agentData)
+      : await updateAgent(token, courseId, ag.existingId, ag.agentData);
+  if (!resp.ok) return responseError(resp);
+
+  const text = await resp.text();
+  let agentId = ag.existingId;
+  try {
+    const data = JSON.parse(text) as Partial<AgentData>;
+    if (data.AgentId !== null && data.AgentId !== undefined) {
+      agentId = data.AgentId + "";
+    }
+  } catch {
+    // The body is not JSON, fall back on the existing id below.
+  }
+  if (agentId === undefined) {
+    return {
+      title: "Agent saved but Brightspace did not return its id",
+      detail: text,
+    };
+  }
+  if (!ag.conditions) return undefined;
+
+  // Echo the opaque State of the current expression when there is one.
+  let state: string | null = null;
+  try {
+    const current = (await fetchConditions(token, [
+      courseId,
+      intelligentAgentsTarget,
+      agentId,
+    ])) as Partial<ConditionsData>;
+    state = current.Expression?.State ?? null;
+  } catch {
+    state = null;
+  }
+  const body: ConditionsData = {
+    Expression: { ...ag.conditions.Expression, State: state },
+  };
+  const cResp = await putConditions(
+    token,
+    courseId,
+    intelligentAgentsTarget,
+    agentId,
+    body,
+  );
+  if (!cResp.ok) {
+    return responseError(cResp, "Agent saved but release conditions failed: ");
   }
   return undefined;
 };
@@ -197,8 +328,30 @@ export const apply = async (
     }
   }
 
+  for (const di of plan.discussions) {
+    const task = { name: di.name, type: TaskType.DISCUSSION };
+    dispatch(startTask(task));
+    const error = await applyDiscussionPlan(token, courseId, di);
+    if (error) {
+      dispatch(taskFailed({ ...task, error }));
+    } else {
+      dispatch(taskSuccess(task));
+    }
+  }
+
+  for (const ag of plan.agents) {
+    const task = { name: ag.name, type: TaskType.AGENT };
+    dispatch(startTask(task));
+    const error = await applyAgentPlan(token, courseId, ag);
+    if (error) {
+      dispatch(taskFailed({ ...task, error }));
+    } else {
+      dispatch(taskSuccess(task));
+    }
+  }
+
   for (const ne of plan.news) {
-    const task = { name: ne.name, type: TaskType.QUIZ };
+    const task = { name: ne.name, type: TaskType.NEWS };
     dispatch(startTask(task));
     const error = await applyNewsPlan(token, courseId, news, ne);
     if (error) {

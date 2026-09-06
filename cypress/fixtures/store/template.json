@@ -58,10 +58,97 @@
       }
     }
   ],
+  "discussions": [
+    {
+      "name": "Discussion 1",
+      "id": "disc1",
+      "start": {
+        "weeks": 1
+      },
+      "due": {
+        "days": 1,
+        "weeks": 2
+      },
+      "end": {
+        "weeks": 9
+      }
+    },
+    {
+      "name": "Discussion 2",
+      "due": {
+        "weeks": 3
+      }
+    },
+    {
+      "name": "Discussion 3",
+      "due": {
+        "weeks": 4,
+        "days": 6
+      }
+    }
+  ],
+  "agents": [
+    {
+      "name": "CST2000 Missed Lab 1 Deadline",
+      "roles": ["Learner"],
+      "conditions": {
+        "items": [
+          {
+            "type": "notSubmittedToDropbox",
+            "assignment": "lab1"
+          }
+        ]
+      },
+      "schedule": {
+        "type": "once",
+        "start": {
+          "weeks": 2,
+          "days": 2
+        }
+      },
+      "action": {
+        "repeat": "firstTimeOnly",
+        "email": {
+          "to": "{InitiatingUser}",
+          "bcc": "teacher@example.com",
+          "subject": "CST2000 Missed {{assignments.lab1.name}} Deadline",
+          "message": "<p>Hello {InitiatingUserFirstName},</p>\n<p>You missed the {{assignments.lab1.name}} deadline of {{assignments.lab1.due.date}}.</p>\n"
+        }
+      }
+    },
+    {
+      "name": "Weekly check-in",
+      "description": "Nudge students who have not visited the course",
+      "criteria": {
+        "courseActivity": {
+          "type": "notAccessed",
+          "days": 7
+        }
+      },
+      "schedule": {
+        "type": "daily",
+        "start": {
+          "weeks": 1
+        },
+        "time": "08:30",
+        "end": {
+          "weeks": 15
+        }
+      },
+      "action": {
+        "repeat": "everyTime",
+        "email": {
+          "to": "{InitiatingUser}",
+          "subject": "Come back to CST2000",
+          "message": "<p>We miss you.</p>"
+        }
+      }
+    }
+  ],
   "news": [
     {
       "name": "Welcome to CST2000",
-      "content": "CST2000 is a class about nothing because it doesn't exists. Why are you reading fixture data?\nThis is a demo of the templating system:\nlab1-monthDate: {{assignments.lab1.due.monthDate}}<br>\nlab1-month: {{assignments.lab1.due.month}}<br>\nlab1-monthShort: {{assignments.lab1.due.monthShort}}<br>\nlab1-weekDays: {{assignments.lab1.due.weekDays}}<br>\nlab1-weekDaysShort: {{assignments.lab1.due.weekDaysShort}}<br>\nlab1-iso8601: {{assignments.lab1.due.iso8601}}<br>\nlab1-date: {{assignments.lab1.due.date}}<br>\nquiz1-monthDate: {{quizzes.quiz1.due.monthDate}}<br>\nquiz1-month: {{quizzes.quiz1.due.month}}<br>\nquiz1-monthShort: {{quizzes.quiz1.due.monthShort}}<br>\nquiz1-weekDays: {{quizzes.quiz1.due.weekDays}}<br>\nquiz1-weekDaysShort: {{quizzes.quiz1.due.weekDaysShort}}<br>\nquiz1-iso8601: {{quizzes.quiz1.due.iso8601}}<br>\nquiz1-date: {{quizzes.quiz1.due.date}}\n",
+      "content": "CST2000 is a class about nothing because it doesn't exists. Why are you reading fixture data?\nThis is a demo of the templating system:\nlab1-monthDate: {{assignments.lab1.due.monthDate}}<br>\nlab1-month: {{assignments.lab1.due.month}}<br>\nlab1-monthShort: {{assignments.lab1.due.monthShort}}<br>\nlab1-weekDays: {{assignments.lab1.due.weekDays}}<br>\nlab1-weekDaysShort: {{assignments.lab1.due.weekDaysShort}}<br>\nlab1-iso8601: {{assignments.lab1.due.iso8601}}<br>\nlab1-date: {{assignments.lab1.due.date}}<br>\nquiz1-monthDate: {{quizzes.quiz1.due.monthDate}}<br>\nquiz1-month: {{quizzes.quiz1.due.month}}<br>\nquiz1-monthShort: {{quizzes.quiz1.due.monthShort}}<br>\nquiz1-weekDays: {{quizzes.quiz1.due.weekDays}}<br>\nquiz1-weekDaysShort: {{quizzes.quiz1.due.weekDaysShort}}<br>\nquiz1-iso8601: {{quizzes.quiz1.due.iso8601}}<br>\nquiz1-date: {{quizzes.quiz1.due.date}}<br>\ndisc1-start: {{discussions.disc1.start.date}}<br>\ndisc1-due: {{discussions.disc1.due.date}}<br>\ndisc1-end: {{discussions.disc1.end.date}}\n",
       "start": {
         "weeks": 1,
         "days": 1

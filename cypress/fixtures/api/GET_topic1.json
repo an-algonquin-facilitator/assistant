@@ -1,0 +1,33 @@
+{
+  "ForumId": 1,
+  "TopicId": 300001,
+  "Name": "Discussion 1",
+  "Description": {
+    "Text": "Introduce yourself",
+    "Html": "<p>Introduce yourself</p>"
+  },
+  "StartDate": "2024-01-01T00:00:00.000Z",
+  "EndDate": "2024-01-01T00:00:00.000Z",
+  "UnlockStartDate": null,
+  "UnlockEndDate": null,
+  "IsLocked": false,
+  "AllowAnonymousPosts": false,
+  "RequiresApproval": false,
+  "UnApprovedPostCount": 0,
+  "PinnedPostCount": 0,
+  "ScoringType": "1",
+  "IsAutoScore": false,
+  "ScoreOutOf": 10,
+  "IncludeNonScoredValues": false,
+  "ScoredCount": 0,
+  "RatingsSum": 0,
+  "RatingsCount": 0,
+  "IsHidden": true,
+  "MustPostToParticipate": false,
+  "RatingType": "0",
+  "ActivityId": "https://ids.brightspace.com/activities/discussiontopic/ABCD1234-ABCD-1234-ABCD-1234ABCD1234-300001",
+  "GroupTypeId": null,
+  "StartDateAvailabilityType": 2,
+  "EndDateAvailabilityType": 0,
+  "DueDate": null
+}

@@ -8,11 +8,20 @@
       "due": 1727323140000,
       "end": 1731473940000,
       "holidayOffset": 0,
-      "startOffset": { "weeks": 1 },
-      "dueOffset": { "days": 1, "weeks": 2 },
-      "endOffset": { "weeks": 9 }
+      "startOffset": {
+        "weeks": 1
+      },
+      "dueOffset": {
+        "days": 1,
+        "weeks": 2
+      },
+      "endOffset": {
+        "weeks": 9
+      }
     }
   ],
   "quizzes": [],
+  "discussions": [],
+  "agents": [],
   "news": []
 }

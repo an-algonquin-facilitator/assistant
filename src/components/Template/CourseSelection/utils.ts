@@ -3,6 +3,9 @@ import { fetchAllNews } from "../../../api/news";
 import { fetchQuizzes } from "../../../api/quiz";
 import { fetchCourse } from "../../../api/course";
 import { fetchFolders } from "../../../api/folder";
+import { fetchAllTopics } from "../../../api/discussion";
+import { fetchAllAgents } from "../../../api/agent";
+import { fetchCourseRoles } from "../../../api/classlist";
 import { store } from "../../../store/store";
 import type { useAppDispatch } from "../../../store/hooks";
 import {
@@ -22,7 +25,7 @@ export const sortCourses = (
 
   const maxDate = facilitating.reduce(
     (date, f) =>
-      f.Access.StartDate.localeCompare(date) ? f.Access.StartDate : date,
+      f.Access.StartDate.localeCompare(date) > 0 ? f.Access.StartDate : date,
     "",
   );
 
@@ -38,6 +41,18 @@ const unknownError = (e: unknown): string => {
   return String(e);
 };
 
+interface Soft<T> {
+  value: T;
+  error?: string;
+}
+
+// Intelligent agents and the classlist need newer API versions than the rest
+// of the course. When they fail, keep the course usable and remember why.
+const softFetch = async <T>(p: Promise<T>, fallback: T): Promise<Soft<T>> =>
+  p
+    .then((value) => ({ value }))
+    .catch((e: unknown) => ({ value: fallback, error: unknownError(e) }));
+
 export const dispatchFullCourseFetches = (
   courseId: string,
   dispatch: ReturnType<typeof useAppDispatch>,
@@ -50,16 +65,23 @@ export const dispatchFullCourseFetches = (
     fetchFolders(token, courseId),
     fetchQuizzes(token, courseId),
     fetchAllNews(token, courseId),
+    fetchAllTopics(token, courseId),
     fetchCourse(token, courseId),
+    softFetch(fetchAllAgents(token, courseId), []),
+    softFetch(fetchCourseRoles(token, courseId), []),
   ]);
 
-  p.then(([folders, quizzes, news, course]) => {
+  p.then(([folders, quizzes, news, topics, course, agents, roles]) => {
     dispatch(
       courseRequestSuccess({
         folders,
         quizzes: quizzes.Objects,
         news,
+        topics,
         course,
+        agents: agents.value,
+        roles: roles.value,
+        agentsError: agents.error ?? roles.error,
       }),
     );
   }).catch((e: unknown) => dispatch(courseRequestError(unknownError(e))));

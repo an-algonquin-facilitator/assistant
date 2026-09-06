@@ -1,0 +1,22 @@
+{
+  "Next": null,
+  "Objects": [
+    {
+      "AgentId": 700001,
+      "Name": "Weekly check-in",
+      "Description": "",
+      "IsEnabled": false,
+      "Schedule": null,
+      "Action": null,
+      "Condition": {
+        "LoginActivity": null,
+        "CourseActivity": null,
+        "ReleaseCondition": null,
+        "RoleIds": null
+      },
+      "LastRunDate": null,
+      "NextRunDate": null,
+      "CategoryId": 42
+    }
+  ]
+}

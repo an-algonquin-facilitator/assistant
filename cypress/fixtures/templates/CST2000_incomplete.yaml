@@ -42,3 +42,37 @@ quizzes:
   - name: Quiz 3
     due:
       weeks: 4
+discussions:
+  - name: Discussion 1
+    id: disc1
+    start:
+      weeks: 1
+    due:
+      days: 1
+      weeks: 2
+    end:
+      weeks: 9
+  - name: Discussion 3
+    due:
+      weeks: 4
+agents:
+  - name: CST2000 Missed Lab 1 Deadline
+    roles: [Learner]
+    conditions:
+      items:
+        - type: notSubmittedToDropbox
+          assignment: lab1
+    schedule:
+      type: once
+      start:
+        weeks: 2
+        days: 2
+    action:
+      repeat: firstTimeOnly
+      email:
+        to: "{InitiatingUser}"
+        bcc: teacher@example.com
+        subject: "CST2000 Missed {{assignments.lab1.name}} Deadline"
+        message: |
+          <p>Hello {InitiatingUserFirstName},</p>
+          <p>You missed the {{assignments.lab1.name}} deadline of {{assignments.lab1.due.date}}.</p>

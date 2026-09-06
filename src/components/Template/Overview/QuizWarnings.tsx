@@ -1,11 +1,11 @@
 import type { ReactElement } from "react";
-import type { ValidatedTemplate } from "../utils";
+import type { ValidTemplate } from "../../../store/templateValidation";
 import { ListWarnings } from "../ListWarnings";
 import { OKIcon } from "./OKIcon";
 import { WarningIcon } from "./WarningIcon";
 
 interface QuizWarningsProps {
-  template: ValidatedTemplate;
+  template: ValidTemplate;
 }
 
 export const QuizWarnings = ({ template }: QuizWarningsProps): ReactElement => {

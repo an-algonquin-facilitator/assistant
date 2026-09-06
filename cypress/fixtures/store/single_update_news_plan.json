@@ -1,14 +1,22 @@
 {
   "assignments": [],
   "quizzes": [],
+  "discussions": [],
+  "agents": [],
   "news": [
     {
       "name": "Late Policy",
       "content": "New text",
       "open": 1726632060000,
-      "openOffset": { "days": 1, "weeks": 1 },
+      "openOffset": {
+        "days": 1,
+        "weeks": 1
+      },
       "dismiss": 1727927940000,
-      "dismissOffset": { "days": 1, "weeks": 3 }
+      "dismissOffset": {
+        "days": 1,
+        "weeks": 3
+      }
     }
   ]
 }

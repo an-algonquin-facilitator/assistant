@@ -1,0 +1,18 @@
+{
+  "Expression": {
+    "Type": "Expression",
+    "State": null,
+    "ExpressionParams": {
+      "Operator": "All",
+      "Operands": [
+        {
+          "Type": "NotSubmittedToDropbox",
+          "State": null,
+          "NotSubmittedToDropboxParams": {
+            "FolderId": 100001
+          }
+        }
+      ]
+    }
+  }
+}

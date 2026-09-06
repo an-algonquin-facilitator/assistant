@@ -1,0 +1,44 @@
+[
+  {
+    "ForumId": 1,
+    "StartDate": null,
+    "EndDate": null,
+    "PostStartDate": null,
+    "PostEndDate": null,
+    "Name": "Graded Discussions",
+    "Description": {
+      "Text": "",
+      "Html": ""
+    },
+    "ShowDescriptionInTopics": false,
+    "AllowAnonymous": false,
+    "IsLocked": false,
+    "IsHidden": false,
+    "RequiresApproval": false,
+    "DisplayInCalendar": false,
+    "DisplayPostDatesInCalendar": false,
+    "StartDateAvailabilityType": null,
+    "EndDateAvailabilityType": null
+  },
+  {
+    "ForumId": 2,
+    "StartDate": null,
+    "EndDate": null,
+    "PostStartDate": null,
+    "PostEndDate": null,
+    "Name": "General",
+    "Description": {
+      "Text": "",
+      "Html": ""
+    },
+    "ShowDescriptionInTopics": false,
+    "AllowAnonymous": false,
+    "IsLocked": false,
+    "IsHidden": false,
+    "RequiresApproval": false,
+    "DisplayInCalendar": false,
+    "DisplayPostDatesInCalendar": false,
+    "StartDateAvailabilityType": null,
+    "EndDateAvailabilityType": null
+  }
+]

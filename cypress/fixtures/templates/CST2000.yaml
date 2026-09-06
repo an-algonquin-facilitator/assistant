@@ -18,7 +18,10 @@ news:
       quiz1-weekDays: {{quizzes.quiz1.due.weekDays}}<br>
       quiz1-weekDaysShort: {{quizzes.quiz1.due.weekDaysShort}}<br>
       quiz1-iso8601: {{quizzes.quiz1.due.iso8601}}<br>
-      quiz1-date: {{quizzes.quiz1.due.date}}
+      quiz1-date: {{quizzes.quiz1.due.date}}<br>
+      disc1-start: {{discussions.disc1.start.date}}<br>
+      disc1-due: {{discussions.disc1.due.date}}<br>
+      disc1-end: {{discussions.disc1.end.date}}
     start:
       weeks: 1
       days: 1
@@ -61,3 +64,60 @@ quizzes:
     due:
       weeks: 4
       days: 6
+discussions:
+  - name: Discussion 1
+    id: disc1
+    start:
+      weeks: 1
+    due:
+      days: 1
+      weeks: 2
+    end:
+      weeks: 9
+  - name: Discussion 2
+    due:
+      weeks: 3
+  - name: Discussion 3
+    due:
+      weeks: 4
+      days: 6
+agents:
+  - name: CST2000 Missed Lab 1 Deadline
+    roles: [Learner]
+    conditions:
+      items:
+        - type: notSubmittedToDropbox
+          assignment: lab1
+    schedule:
+      type: once
+      start:
+        weeks: 2
+        days: 2
+    action:
+      repeat: firstTimeOnly
+      email:
+        to: "{InitiatingUser}"
+        bcc: teacher@example.com
+        subject: "CST2000 Missed {{assignments.lab1.name}} Deadline"
+        message: |
+          <p>Hello {InitiatingUserFirstName},</p>
+          <p>You missed the {{assignments.lab1.name}} deadline of {{assignments.lab1.due.date}}.</p>
+  - name: Weekly check-in
+    description: Nudge students who have not visited the course
+    criteria:
+      courseActivity:
+        type: notAccessed
+        days: 7
+    schedule:
+      type: daily
+      start:
+        weeks: 1
+      time: "08:30"
+      end:
+        weeks: 15
+    action:
+      repeat: everyTime
+      email:
+        to: "{InitiatingUser}"
+        subject: Come back to CST2000
+        message: <p>We miss you.</p>
