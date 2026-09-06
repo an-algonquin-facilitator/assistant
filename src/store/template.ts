@@ -9,6 +9,8 @@ import type { Quiz } from "../api/quiz";
 import type { Course } from "../api/course";
 import type { Folder } from "../api/folder";
 import type { Topic } from "../api/discussion";
+import type { AgentData } from "../api/agent";
+import type { CourseRole } from "../api/classlist";
 
 export interface SelectedCourse {
   course: Course;
@@ -17,6 +19,12 @@ export interface SelectedCourse {
   news: News[];
   // Discussion topics from every forum of the course, flattened.
   topics: Topic[];
+  // Intelligent agents of the course and the roles seen in its classlist.
+  // Both come from newer API versions, so when they cannot be loaded the
+  // course is still usable and agentsError explains what went wrong.
+  agents: AgentData[];
+  roles: CourseRole[];
+  agentsError?: string;
 }
 
 export interface TemplateFile {
@@ -53,6 +61,116 @@ export interface DiscussionTemplate {
   end?: DateOffset;
 }
 
+export type AgentLoginActivityType = "notLoggedIn" | "loggedIn";
+export type AgentCourseActivityType = "notAccessed" | "accessed";
+
+export interface AgentLoginActivityTemplate {
+  type: AgentLoginActivityType;
+  days: number;
+}
+
+export interface AgentCourseActivityTemplate {
+  type: AgentCourseActivityType;
+  days: number;
+}
+
+export interface AgentCriteriaTemplate {
+  loginActivity?: AgentLoginActivityTemplate;
+  courseActivity?: AgentCourseActivityTemplate;
+}
+
+export type AgentDropboxConditionType =
+  | "submittedToDropbox"
+  | "notSubmittedToDropbox"
+  | "receivesFeedback";
+
+export type AgentQuizConditionType =
+  | "submitsQuizAttempt"
+  | "notSubmittedQuizAttempt";
+
+export interface AgentDropboxConditionTemplate {
+  type: AgentDropboxConditionType;
+  // Template id of an assignment.
+  assignment: string;
+}
+
+export interface AgentQuizConditionTemplate {
+  type: AgentQuizConditionType;
+  // Template id of a quiz.
+  quiz: string;
+  // Number of attempts for submitsQuizAttempt. Default 1.
+  attempts?: number;
+}
+
+// Escape hatch: any release condition block, sent to Brightspace verbatim.
+export interface AgentRawConditionTemplate {
+  raw: Record<string, unknown>;
+}
+
+export type AgentConditionTemplate =
+  | AgentDropboxConditionTemplate
+  | AgentQuizConditionTemplate
+  | AgentRawConditionTemplate;
+
+export type AgentConditionsOperator = "all" | "any";
+
+export interface AgentConditionsTemplate {
+  operator?: AgentConditionsOperator;
+  items: AgentConditionTemplate[];
+}
+
+export type AgentScheduleType = "once" | "daily" | "weekly" | "monthly";
+
+export interface AgentScheduleTemplate {
+  type: AgentScheduleType;
+  start: DateOffset;
+  // HH:mm, local time. Default 09:00.
+  time?: string;
+  end?: DateOffset;
+  every?: number;
+  onDays?: string[];
+}
+
+export interface AgentEmailTemplate {
+  to: string;
+  cc?: string;
+  bcc?: string;
+  // Mustache templates, same view as news content.
+  subject: string;
+  message: string;
+}
+
+export type AgentEnrollmentType = "enroll" | "unenroll";
+
+export interface AgentEnrollmentTemplate {
+  type: AgentEnrollmentType;
+  orgUnitId: number;
+  roleId: number;
+}
+
+export type AgentRepeatType = "firstTimeOnly" | "everyTime";
+
+export interface AgentActionTemplate {
+  repeat?: AgentRepeatType;
+  email?: AgentEmailTemplate;
+  enrollment?: AgentEnrollmentTemplate;
+}
+
+export interface AgentTemplate {
+  // Unique. An existing agent with the same name is updated in place.
+  name: string;
+  description?: string;
+  enabled?: boolean;
+  // Role display names, resolved through the classlist.
+  roles?: string[];
+  // Numeric role ids, for when a role is not present in the classlist yet.
+  roleIds?: number[];
+  criteria?: AgentCriteriaTemplate;
+  conditions?: AgentConditionsTemplate;
+  schedule?: AgentScheduleTemplate;
+  action?: AgentActionTemplate;
+}
+
 export interface NewsTemplate {
   name: string;
   content: string;
@@ -65,6 +183,7 @@ export interface CourseTemplate {
   assignments?: AssignmentTemplate[];
   quizzes?: QuizTemplate[];
   discussions?: DiscussionTemplate[];
+  agents?: AgentTemplate[];
   news?: NewsTemplate[];
 }
 
@@ -91,6 +210,7 @@ const initialState: CourseTemplateState = {
     assignments: [],
     quizzes: [],
     discussions: [],
+    agents: [],
     news: [],
   },
   course: {
@@ -127,6 +247,8 @@ const initialState: CourseTemplateState = {
     quizzes: [],
     news: [],
     topics: [],
+    agents: [],
+    roles: [],
   },
 };
 
@@ -140,6 +262,7 @@ const updateTemplateValidationResult = (
       assignments: state.validationResult.validAssignments,
       quizzes: state.validationResult.validQuizzes,
       discussions: state.validationResult.validDiscussions,
+      agents: state.validationResult.validAgents,
       news: state.validationResult.validNews,
     };
   }
@@ -210,6 +333,9 @@ export const useTemplateQuizzesCount = (): number =>
 
 export const useTemplateDiscussionsCount = (): number =>
   useAppSelector((s) => s.template.value.discussions.length);
+
+export const useTemplateAgentsCount = (): number =>
+  useAppSelector((s) => s.template.value.agents.length);
 
 export const useTemplateNewsCount = (): number =>
   useAppSelector((s) => s.template.value.news.length);

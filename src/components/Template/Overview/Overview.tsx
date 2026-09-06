@@ -10,6 +10,7 @@ import type { ReactElement } from "react";
 import { AssignmentWarnings } from "./AssignmentWarnings";
 import { QuizWarnings } from "./QuizWarnings";
 import { DiscussionWarnings } from "./DiscussionWarnings";
+import { AgentWarnings } from "./AgentWarnings";
 import { NewsWarnings } from "./NewsWarnings";
 import dayjs from "dayjs";
 import {
@@ -78,6 +79,20 @@ export const Overview = (): ReactElement => {
             <TableCell>{course.topics.length}</TableCell>
             <TableCell>
               <DiscussionWarnings template={validationResult} />
+            </TableCell>
+          </TableRow>
+
+          <TableRow>
+            <TableCell>Intelligent Agents</TableCell>
+            <TableCell>{validationResult.validAgents.length}</TableCell>
+            <TableCell>
+              {course.agentsError === undefined ? course.agents.length : "?"}
+            </TableCell>
+            <TableCell>
+              <AgentWarnings
+                template={validationResult}
+                agentsError={course.agentsError}
+              />
             </TableCell>
           </TableRow>
 

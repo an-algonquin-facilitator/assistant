@@ -13,6 +13,7 @@ export enum TaskType {
   ASSIGNMENT = "ASSIGNMENT",
   QUIZ = "QUIZ",
   DISCUSSION = "DISCUSSION",
+  AGENT = "AGENT",
   NEWS = "NEWS",
 }
 

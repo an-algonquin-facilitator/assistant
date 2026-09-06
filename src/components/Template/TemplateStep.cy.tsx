@@ -47,6 +47,22 @@ const interceptCourseFetch = (): void => {
     "https://d52a5d1e-ab94-4159-bbef-ace0093616dc.organizations.api.brightspace.com/d2l/api/le/1.90/1016/discussions/forums/2/topics/",
     { fixture: "api/CST2000_topics_forum2" },
   ).as("topics2");
+
+  cy.intercept(
+    "GET",
+    "https://d52a5d1e-ab94-4159-bbef-ace0093616dc.organizations.api.brightspace.com/d2l/api/le/1.93/1016/agents",
+    {
+      fixture: "api/CST2000_agents",
+    },
+  ).as("agents");
+
+  cy.intercept(
+    "GET",
+    "https://d52a5d1e-ab94-4159-bbef-ace0093616dc.organizations.api.brightspace.com/d2l/api/le/1.93/1016/classlist/",
+    {
+      fixture: "api/CST2000_classlist",
+    },
+  ).as("classlist");
 };
 
 const waitCourseFetch = (): void => {
@@ -58,6 +74,8 @@ const waitCourseFetch = (): void => {
     "@forums",
     "@topics1",
     "@topics2",
+    "@agents",
+    "@classlist",
   ]);
 };
 
@@ -151,7 +169,13 @@ describe("<TemplateStep />", () => {
       "End: Wed Dec 18 2024 00:00:00 GMT-0500 (Eastern Standard Time)",
     );
 
-    const expectedText = ["Lab 1", "Quiz 2", "Discussion 2", "Late Policy"];
+    const expectedText = [
+      "Lab 1",
+      "Quiz 2",
+      "Discussion 2",
+      "Weekly check-in",
+      "Late Policy",
+    ];
     const buttons = cy.get("table").find("button");
     buttons.each((b, i) => {
       b.trigger("click");

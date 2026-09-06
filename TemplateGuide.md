@@ -1,6 +1,6 @@
 # Template Guide
 
-Templates are YAML files that lists how assignments, quizzes, discussions, and announcements (called news in brightspace) should look.
+Templates are YAML files that lists how assignments, quizzes, discussions, intelligent agents, and announcements (called news in brightspace) should look.
 
 start dates are always the start of the day (00:01)
 due and end dates are always the end of the day (11:59)
@@ -51,6 +51,64 @@ interface Discussion {
   end?: DateOffset; // default to due date + 1 week
 }
 
+// Represent an intelligent agent. Maps onto the Brightspace Intelligent Agents API:
+// https://docs.valence.desire2learn.com/res/intelligentagents.html
+// Agents are matched by name: an existing agent with the same name is updated in place,
+// otherwise it is created.
+interface Agent {
+  name: string; // unique in the course
+  description?: string;
+  enabled?: boolean; // default true
+  roles?: string[]; // role display names (e.g. "Learner"), resolved through the course classlist
+  roleIds?: number[]; // numeric role ids, for when nobody with that role is enrolled yet
+  criteria?: {
+    loginActivity?: { type: "notLoggedIn" | "loggedIn"; days: number };
+    courseActivity?: { type: "notAccessed" | "accessed"; days: number };
+  };
+  conditions?: {
+    operator?: "all" | "any"; // default all
+    items: (
+      | {
+          type:
+            | "submittedToDropbox"
+            | "notSubmittedToDropbox"
+            | "receivesFeedback";
+          assignment: string;
+        } // assignment template id
+      | {
+          type: "submitsQuizAttempt" | "notSubmittedQuizAttempt";
+          quiz: string;
+          attempts?: number;
+        } // quiz template id
+      | { raw: object } // any release condition block sent verbatim, see the Release Conditions API
+    )[];
+  };
+  schedule?: {
+    // when omitted the agent has no schedule and must be run manually.
+    type: "once" | "daily" | "weekly" | "monthly";
+    start: DateOffset; // day the agent (first) runs
+    time?: string; // "HH:mm" local time, default "09:00"
+    end?: DateOffset; // repeating types only, end of that day
+    every?: number; // repeating types only, default 1
+    onDays?: string[]; // weekly only
+  };
+  action?: {
+    repeat?: "firstTimeOnly" | "everyTime"; // default firstTimeOnly
+    email?: {
+      to: string; // e.g. "{InitiatingUser}", Brightspace expands its own {...} replace strings
+      cc?: string;
+      bcc?: string;
+      subject: string; // mustache template, same view as news content
+      message: string; // mustache template, HTML
+    };
+    enrollment?: {
+      type: "enroll" | "unenroll";
+      orgUnitId: number;
+      roleId: number;
+    };
+  };
+}
+
 // ALL news default to
 // - original author information not shown.
 // - set to "ready for publish"
@@ -66,6 +124,7 @@ interface Template {
   assignments?: Assignment[];
   quizzes?: Quiz[];
   discussions?: Discussion[];
+  agents?: Agent[];
   news?: News[];
 }
 ```
@@ -145,4 +204,30 @@ discussions:
     end:
       weeks: 1
       days: 2
+agents:
+  - name: CST1234 Missed Assignment 1 Deadline
+    roles: [Learner]
+    conditions:
+      items:
+        - type: notSubmittedToDropbox
+          assignment: a1
+    schedule:
+      type: once
+      start: # the day after assignment 1 is due
+        weeks: 6
+        days: 3
+    action:
+      repeat: firstTimeOnly
+      email:
+        to: "{InitiatingUser}"
+        bcc: me@algonquincollege.com
+        subject: "CST1234 Missed {{assignments.a1.name}} Deadline"
+        message: |
+          <p>Hello {InitiatingUserFirstName},</p>
+          <p>It seems you have missed the deadline of {{assignments.a1.name}} on {{assignments.a1.due.date}}.</p>
 ```
+
+Intelligent agents need the LE API 1.93+ (LMS 20.26.4) and release conditions the LP API 1.49+. When
+they cannot be loaded the Template step shows a warning on the Intelligent Agents row and the rest of the
+template still works. Mustache uses `{{ }}` while Brightspace replace strings use `{ }`, so both can be
+mixed in the same email.

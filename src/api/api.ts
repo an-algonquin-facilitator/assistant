@@ -3,7 +3,7 @@
 const lpVersion = "1.9";
 const leVersion = "1.74";
 
-const host = `https://d52a5d1e-ab94-4159-bbef-ace0093616dc.organizations.api.brightspace.com`;
+export const host = `https://d52a5d1e-ab94-4159-bbef-ace0093616dc.organizations.api.brightspace.com`;
 const lpBase = `/d2l/api/lp/${lpVersion}`;
 export const lpBaseURL = host + lpBase;
 
@@ -17,7 +17,26 @@ const leDiscussionVersion = "1.90";
 const leDiscussionBase = `/d2l/api/le/${leDiscussionVersion}`;
 export const leDiscussionBaseURL = host + leDiscussionBase;
 
+// Intelligent Agents routes only exist from LE API 1.93 (LMS 20.26.4). The
+// classlist (used to resolve role names) is served from the same version.
+// https://docs.valence.desire2learn.com/res/intelligentagents.html
+const leAgentsVersion = "1.93";
+const leAgentsBase = `/d2l/api/le/${leAgentsVersion}`;
+export const leAgentsBaseURL = host + leAgentsBase;
+
+// Release conditions live in the LP API and need 1.49+.
+// https://docs.valence.desire2learn.com/res/releaseconditions.html
+const lpConditionsVersion = "1.49";
+const lpConditionsBase = `/d2l/api/lp/${lpConditionsVersion}`;
+export const lpConditionsBaseURL = host + lpConditionsBase;
+
 export interface Paginated<T> {
+  Objects: T[];
+}
+
+// Newer list routes return an "object list page": follow Next until null.
+export interface ObjectListPage<T> {
+  Next: string | null;
   Objects: T[];
 }
 

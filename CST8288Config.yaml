@@ -182,6 +182,227 @@ quizzes:
       weeks: 12
     due:
       weeks: 13
+agents:
+  - name: "CST8288 Missed Lab 1 Deadline"
+    roles: [Learner]
+    conditions:
+      items:
+        - type: notSubmittedToDropbox
+          assignment: lab1
+    schedule:
+      type: once
+      start:
+        weeks: 2
+        days: 1
+    action:
+      repeat: firstTimeOnly
+      email:
+        to: "{InitiatingUser}"
+        bcc: buitena@algonquincollege.com
+        subject: "CST8288 Missed {{assignments.lab1.name}} Deadline"
+        message: |
+          <p><span dir="ltr">Hello {InitiatingUserFirstName},</span></p>
+          <p><span dir="ltr">It seems you’ve missed the deadline on <strong>{{assignments.lab1.name}}</strong> in CST8288 (due {{assignments.lab1.due.date}}). It is recommended that you finish and submit that assignment as soon as possible to avoid falling further behind in your course work. </span></p>
+          <p><span dir="ltr">If you have an extension request, please disregard this email. Please submit an <a rel="noopener" href="https://forms.office.com/Pages/ResponsePage.aspx?id=JNkb7GoKqUqqicmAMWwESaydWaz-iAVBrRpCgalV_KJUN0NIS0JaQzZPODUwUVBUOVZHS0RKVkg4UiQlQCN0PWcu" target="_blank">Extension Request Form</a> immediately if you have a valid reason.</span></p>
+          <p><span dir="ltr">(this is an automated email, please do not respond to it directly. Email me at <a rel="noopener" href="mailto:buitena@algonquincollege.com">buitena@algonquincollege.com</a> if you have any concerns)</span></p>
+  - name: "CST8288 Missed Lab 2 Deadline"
+    roles: [Learner]
+    conditions:
+      items:
+        - type: notSubmittedToDropbox
+          assignment: lab2
+    schedule:
+      type: once
+      start:
+        weeks: 3
+        days: 1
+    action:
+      repeat: firstTimeOnly
+      email:
+        to: "{InitiatingUser}"
+        bcc: buitena@algonquincollege.com
+        subject: "CST8288 Missed {{assignments.lab2.name}} Deadline"
+        message: |
+          <p><span dir="ltr">Hello {InitiatingUserFirstName},</span></p>
+          <p><span dir="ltr">It seems you’ve missed the deadline on <strong>{{assignments.lab2.name}}</strong> in CST8288 (due {{assignments.lab2.due.date}}). It is recommended that you finish and submit that assignment as soon as possible to avoid falling further behind in your course work. </span></p>
+          <p><span dir="ltr">If you have an extension request, please disregard this email. Please submit an <a rel="noopener" href="https://forms.office.com/Pages/ResponsePage.aspx?id=JNkb7GoKqUqqicmAMWwESaydWaz-iAVBrRpCgalV_KJUN0NIS0JaQzZPODUwUVBUOVZHS0RKVkg4UiQlQCN0PWcu" target="_blank">Extension Request Form</a> immediately if you have a valid reason.</span></p>
+          <p><span dir="ltr">(this is an automated email, please do not respond to it directly. Email me at <a rel="noopener" href="mailto:buitena@algonquincollege.com">buitena@algonquincollege.com</a> if you have any concerns)</span></p>
+  - name: "CST8288 Missed Lab 3 Deadline"
+    roles: [Learner]
+    conditions:
+      items:
+        - type: notSubmittedToDropbox
+          assignment: lab3
+    schedule:
+      type: once
+      start:
+        weeks: 5
+        days: 1
+    action:
+      repeat: firstTimeOnly
+      email:
+        to: "{InitiatingUser}"
+        bcc: buitena@algonquincollege.com
+        subject: "CST8288 Missed {{assignments.lab3.name}} Deadline"
+        message: |
+          <p><span dir="ltr">Hello {InitiatingUserFirstName},</span></p>
+          <p><span dir="ltr">It seems you’ve missed the deadline on <strong>{{assignments.lab3.name}}</strong> in CST8288 (due {{assignments.lab3.due.date}}). It is recommended that you finish and submit that assignment as soon as possible to avoid falling further behind in your course work. </span></p>
+          <p><span dir="ltr">If you have an extension request, please disregard this email. Please submit an <a rel="noopener" href="https://forms.office.com/Pages/ResponsePage.aspx?id=JNkb7GoKqUqqicmAMWwESaydWaz-iAVBrRpCgalV_KJUN0NIS0JaQzZPODUwUVBUOVZHS0RKVkg4UiQlQCN0PWcu" target="_blank">Extension Request Form</a> immediately if you have a valid reason.</span></p>
+          <p><span dir="ltr">(this is an automated email, please do not respond to it directly. Email me at <a rel="noopener" href="mailto:buitena@algonquincollege.com">buitena@algonquincollege.com</a> if you have any concerns)</span></p>
+  - name: "CST8288 Missed Lab 4 Deadline"
+    roles: [Learner]
+    conditions:
+      items:
+        - type: notSubmittedToDropbox
+          assignment: lab4
+    schedule:
+      type: once
+      start:
+        weeks: 8
+        days: 1
+    action:
+      repeat: firstTimeOnly
+      email:
+        to: "{InitiatingUser}"
+        bcc: buitena@algonquincollege.com
+        subject: "CST8288 Missed {{assignments.lab4.name}} Deadline"
+        message: |
+          <p><span dir="ltr">Hello {InitiatingUserFirstName},</span></p>
+          <p><span dir="ltr">It seems you’ve missed the deadline on <strong>{{assignments.lab4.name}}</strong> in CST8288 (due {{assignments.lab4.due.date}}). It is recommended that you finish and submit that assignment as soon as possible to avoid falling further behind in your course work. </span></p>
+          <p><span dir="ltr">If you have an extension request, please disregard this email. Please submit an <a rel="noopener" href="https://forms.office.com/Pages/ResponsePage.aspx?id=JNkb7GoKqUqqicmAMWwESaydWaz-iAVBrRpCgalV_KJUN0NIS0JaQzZPODUwUVBUOVZHS0RKVkg4UiQlQCN0PWcu" target="_blank">Extension Request Form</a> immediately if you have a valid reason.</span></p>
+          <p><span dir="ltr">(this is an automated email, please do not respond to it directly. Email me at <a rel="noopener" href="mailto:buitena@algonquincollege.com">buitena@algonquincollege.com</a> if you have any concerns)</span></p>
+  - name: "CST8288 Missed Lab 5 Deadline"
+    roles: [Learner]
+    conditions:
+      items:
+        - type: notSubmittedToDropbox
+          assignment: lab5
+    schedule:
+      type: once
+      start:
+        weeks: 10
+        days: 1
+    action:
+      repeat: firstTimeOnly
+      email:
+        to: "{InitiatingUser}"
+        bcc: buitena@algonquincollege.com
+        subject: "CST8288 Missed {{assignments.lab5.name}} Deadline"
+        message: |
+          <p><span dir="ltr">Hello {InitiatingUserFirstName},</span></p>
+          <p><span dir="ltr">It seems you’ve missed the deadline on <strong>{{assignments.lab5.name}}</strong> in CST8288 (due {{assignments.lab5.due.date}}). It is recommended that you finish and submit that assignment as soon as possible to avoid falling further behind in your course work. </span></p>
+          <p><span dir="ltr">If you have an extension request, please disregard this email. Please submit an <a rel="noopener" href="https://forms.office.com/Pages/ResponsePage.aspx?id=JNkb7GoKqUqqicmAMWwESaydWaz-iAVBrRpCgalV_KJUN0NIS0JaQzZPODUwUVBUOVZHS0RKVkg4UiQlQCN0PWcu" target="_blank">Extension Request Form</a> immediately if you have a valid reason.</span></p>
+          <p><span dir="ltr">(this is an automated email, please do not respond to it directly. Email me at <a rel="noopener" href="mailto:buitena@algonquincollege.com">buitena@algonquincollege.com</a> if you have any concerns)</span></p>
+  - name: "CST8288 Missed Lab 6 Deadline"
+    roles: [Learner]
+    conditions:
+      items:
+        - type: notSubmittedToDropbox
+          assignment: lab6
+    schedule:
+      type: once
+      start:
+        weeks: 12
+        days: 1
+    action:
+      repeat: firstTimeOnly
+      email:
+        to: "{InitiatingUser}"
+        bcc: buitena@algonquincollege.com
+        subject: "CST8288 Missed {{assignments.lab6.name}} Deadline"
+        message: |
+          <p><span dir="ltr">Hello {InitiatingUserFirstName},</span></p>
+          <p><span dir="ltr">It seems you’ve missed the deadline on <strong>{{assignments.lab6.name}}</strong> in CST8288 (due {{assignments.lab6.due.date}}). It is recommended that you finish and submit that assignment as soon as possible to avoid falling further behind in your course work. </span></p>
+          <p><span dir="ltr">If you have an extension request, please disregard this email. Please submit an <a rel="noopener" href="https://forms.office.com/Pages/ResponsePage.aspx?id=JNkb7GoKqUqqicmAMWwESaydWaz-iAVBrRpCgalV_KJUN0NIS0JaQzZPODUwUVBUOVZHS0RKVkg4UiQlQCN0PWcu" target="_blank">Extension Request Form</a> immediately if you have a valid reason.</span></p>
+          <p><span dir="ltr">(this is an automated email, please do not respond to it directly. Email me at <a rel="noopener" href="mailto:buitena@algonquincollege.com">buitena@algonquincollege.com</a> if you have any concerns)</span></p>
+  - name: "CST8288 Missed Group Project 1 Deadline"
+    roles: [Learner]
+    conditions:
+      items:
+        - type: notSubmittedToDropbox
+          assignment: project1
+    schedule:
+      type: once
+      start:
+        weeks: 4
+        days: 5
+    action:
+      repeat: firstTimeOnly
+      email:
+        to: "{InitiatingUser}"
+        bcc: buitena@algonquincollege.com
+        subject: "CST8288 Missed {{assignments.project1.name}} Deadline"
+        message: |
+          <p><span dir="ltr">Hello {InitiatingUserFirstName},</span></p>
+          <p><span dir="ltr">It seems you’ve missed the deadline on <strong>{{assignments.project1.name}}</strong> in CST8288 (due {{assignments.project1.due.date}}). It is recommended that you finish and submit that assignment as soon as possible to avoid falling further behind in your course work. </span></p>
+          <p><span dir="ltr">If you have an extension request, please disregard this email. Please submit an <a rel="noopener" href="https://forms.office.com/Pages/ResponsePage.aspx?id=JNkb7GoKqUqqicmAMWwESaydWaz-iAVBrRpCgalV_KJUN0NIS0JaQzZPODUwUVBUOVZHS0RKVkg4UiQlQCN0PWcu" target="_blank">Extension Request Form</a> immediately if you have a valid reason.</span></p>
+          <p><span dir="ltr">(this is an automated email, please do not respond to it directly. Email me at <a rel="noopener" href="mailto:buitena@algonquincollege.com">buitena@algonquincollege.com</a> if you have any concerns)</span></p>
+  - name: "CST8288 Missed Group Project 2 Deadline"
+    roles: [Learner]
+    conditions:
+      items:
+        - type: notSubmittedToDropbox
+          assignment: project2
+    schedule:
+      type: once
+      start:
+        weeks: 7
+        days: 5
+    action:
+      repeat: firstTimeOnly
+      email:
+        to: "{InitiatingUser}"
+        bcc: buitena@algonquincollege.com
+        subject: "CST8288 Missed {{assignments.project2.name}} Deadline"
+        message: |
+          <p><span dir="ltr">Hello {InitiatingUserFirstName},</span></p>
+          <p><span dir="ltr">It seems you’ve missed the deadline on <strong>{{assignments.project2.name}}</strong> in CST8288 (due {{assignments.project2.due.date}}). It is recommended that you finish and submit that assignment as soon as possible to avoid falling further behind in your course work. </span></p>
+          <p><span dir="ltr">If you have an extension request, please disregard this email. Please submit an <a rel="noopener" href="https://forms.office.com/Pages/ResponsePage.aspx?id=JNkb7GoKqUqqicmAMWwESaydWaz-iAVBrRpCgalV_KJUN0NIS0JaQzZPODUwUVBUOVZHS0RKVkg4UiQlQCN0PWcu" target="_blank">Extension Request Form</a> immediately if you have a valid reason.</span></p>
+          <p><span dir="ltr">(this is an automated email, please do not respond to it directly. Email me at <a rel="noopener" href="mailto:buitena@algonquincollege.com">buitena@algonquincollege.com</a> if you have any concerns)</span></p>
+  - name: "CST8288 Missed Group Project 3 Deadline"
+    roles: [Learner]
+    conditions:
+      items:
+        - type: notSubmittedToDropbox
+          assignment: project3
+    schedule:
+      type: once
+      start:
+        weeks: 10
+        days: 5
+    action:
+      repeat: firstTimeOnly
+      email:
+        to: "{InitiatingUser}"
+        bcc: buitena@algonquincollege.com
+        subject: "CST8288 Missed {{assignments.project3.name}} Deadline"
+        message: |
+          <p><span dir="ltr">Hello {InitiatingUserFirstName},</span></p>
+          <p><span dir="ltr">It seems you’ve missed the deadline on <strong>{{assignments.project3.name}}</strong> in CST8288 (due {{assignments.project3.due.date}}). It is recommended that you finish and submit that assignment as soon as possible to avoid falling further behind in your course work. </span></p>
+          <p><span dir="ltr">If you have an extension request, please disregard this email. Please submit an <a rel="noopener" href="https://forms.office.com/Pages/ResponsePage.aspx?id=JNkb7GoKqUqqicmAMWwESaydWaz-iAVBrRpCgalV_KJUN0NIS0JaQzZPODUwUVBUOVZHS0RKVkg4UiQlQCN0PWcu" target="_blank">Extension Request Form</a> immediately if you have a valid reason.</span></p>
+          <p><span dir="ltr">(this is an automated email, please do not respond to it directly. Email me at <a rel="noopener" href="mailto:buitena@algonquincollege.com">buitena@algonquincollege.com</a> if you have any concerns)</span></p>
+  - name: "CST8288 Missed Group Project 4 Deadline"
+    roles: [Learner]
+    conditions:
+      items:
+        - type: notSubmittedToDropbox
+          assignment: project4
+    schedule:
+      type: once
+      start:
+        weeks: 13
+        days: 1
+    action:
+      repeat: firstTimeOnly
+      email:
+        to: "{InitiatingUser}"
+        bcc: buitena@algonquincollege.com
+        subject: "CST8288 Missed {{assignments.project4.name}} Deadline"
+        message: |
+          <p><span dir="ltr">Hello {InitiatingUserFirstName},</span></p>
+          <p><span dir="ltr">It seems you’ve missed the deadline on <strong>{{assignments.project4.name}}</strong> in CST8288 (due {{assignments.project4.due.date}}). It is recommended that you finish and submit that assignment as soon as possible to avoid falling further behind in your course work. </span></p>
+          <p><span dir="ltr">If you have an extension request, please disregard this email. Please submit an <a rel="noopener" href="https://forms.office.com/Pages/ResponsePage.aspx?id=JNkb7GoKqUqqicmAMWwESaydWaz-iAVBrRpCgalV_KJUN0NIS0JaQzZPODUwUVBUOVZHS0RKVkg4UiQlQCN0PWcu" target="_blank">Extension Request Form</a> immediately if you have a valid reason.</span></p>
+          <p><span dir="ltr">(this is an automated email, please do not respond to it directly. Email me at <a rel="noopener" href="mailto:buitena@algonquincollege.com">buitena@algonquincollege.com</a> if you have any concerns)</span></p>
 news:
   - name: "Welcome to CST8288!"
     end:

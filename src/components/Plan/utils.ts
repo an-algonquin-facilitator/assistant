@@ -5,11 +5,31 @@ import type {
   NewsTemplate as TNews,
   QuizTemplate as TQuiz,
   DiscussionTemplate as TDiscussion,
+  AgentTemplate as TAgent,
+  AgentScheduleTemplate,
+  AgentScheduleType,
+  AgentDropboxConditionType,
+  AgentQuizConditionType,
+  AgentConditionTemplate,
   CourseTemplate,
   SelectedCourse,
 } from "../../store/template";
+import { parseTime } from "../../store/templateValidation";
+import type { AgentData, ScheduleData } from "../../api/agent";
+import {
+  AccessConditionType,
+  ActionRepeatType,
+  EnrollmentType,
+  LoginConditionType,
+  ScheduleType,
+} from "../../api/agent";
+import type {
+  ConditionsData,
+  ReleaseConditionData,
+} from "../../api/releaseConditions";
 import { isHoliday } from "../../holidays";
 import type {
+  AgentPlan,
   AssignmentPlan,
   CoursePlan,
   DiscussionPlan,
@@ -308,6 +328,256 @@ const newsTemplateToPlan = (
   };
 };
 
+const defaultAgentTime = { hour: 9, minute: 0 };
+
+const scheduleTypeMap: Record<AgentScheduleType, ScheduleType> = {
+  once: ScheduleType.OneTime,
+  daily: ScheduleType.Daily,
+  weekly: ScheduleType.Weekly,
+  monthly: ScheduleType.Monthly,
+};
+
+interface BuiltSchedule {
+  data: ScheduleData | null;
+  summary: string;
+  start?: number;
+  end?: number;
+}
+
+const buildAgentSchedule = (
+  startDateUnixMS: number,
+  schedule: AgentScheduleTemplate | undefined,
+): BuiltSchedule => {
+  if (!schedule) return { data: null, summary: "No schedule (run manually)" };
+  const time =
+    (schedule.time === undefined ? undefined : parseTime(schedule.time)) ??
+    defaultAgentTime;
+  const start =
+    dayjs(calculateDate(startDateUnixMS, schedule.start, true))
+      .startOf("day")
+      .add(time.hour, "hour")
+      .add(time.minute, "minute")
+      .unix() * msPerSecond;
+  const once = schedule.type === "once";
+  const end =
+    !once && schedule.end
+      ? calculateDate(startDateUnixMS, schedule.end, false)
+      : undefined;
+  const every = schedule.every ?? 1;
+  const summary = once
+    ? "Once"
+    : `${schedule.type} (every ${every})${end === undefined ? "" : " until " + new Date(end).toDateString()}`;
+  return {
+    start,
+    end,
+    summary,
+    data: {
+      IsEnabled: true,
+      Type: scheduleTypeMap[schedule.type],
+      StartDate: new Date(start).toISOString(),
+      EndDate: end === undefined ? null : new Date(end).toISOString(),
+      RepeatsEvery: once ? null : every,
+      RepeatsOnDay: null,
+      RepeatsOnDays: schedule.onDays ?? null,
+      RepeatsOnMonth: null,
+      ScheduledTimeHour: time.hour,
+      ScheduledTimeMinute: time.minute,
+    },
+  };
+};
+
+const dropboxConditionType: Record<AgentDropboxConditionType, string> = {
+  submittedToDropbox: "SubmitsToDropbox",
+  notSubmittedToDropbox: "NotSubmittedToDropbox",
+  receivesFeedback: "ReceivesFeedback",
+};
+
+const dropboxConditionText: Record<AgentDropboxConditionType, string> = {
+  submittedToDropbox: "Has submitted to folder",
+  notSubmittedToDropbox: "Has not submitted to folder",
+  receivesFeedback: "Has received feedback on folder",
+};
+
+const quizConditionType: Record<AgentQuizConditionType, string> = {
+  submitsQuizAttempt: "SubmitsQuizAttempt",
+  notSubmittedQuizAttempt: "NotSubmittedQuizAttempt",
+};
+
+const quizConditionText: Record<AgentQuizConditionType, string> = {
+  submitsQuizAttempt: "Has submitted an attempt on quiz",
+  notSubmittedQuizAttempt: "Has not submitted an attempt on quiz",
+};
+
+interface BuiltCondition {
+  operand: ReleaseConditionData;
+  summary: string;
+}
+
+const buildAgentCondition = (
+  template: CourseTemplate,
+  course: SelectedCourse,
+  item: AgentConditionTemplate,
+): BuiltCondition | undefined => {
+  if ("assignment" in item) {
+    const a = template.assignments?.find((x) => x.id === item.assignment);
+    const folder = course.folders.find((f) => f.Name === a?.name);
+    if (!folder) return undefined;
+    const type = dropboxConditionType[item.type];
+    return {
+      operand: {
+        Type: type,
+        State: null,
+        [`${type}Params`]: { FolderId: folder.Id },
+      },
+      summary: `${dropboxConditionText[item.type]} "${folder.Name}" (${folder.Id})`,
+    };
+  }
+  if ("quiz" in item) {
+    const q = template.quizzes?.find((x) => x.id === item.quiz);
+    const quiz = course.quizzes.find((b) => b.Name === q?.name);
+    if (!quiz) return undefined;
+    const type = quizConditionType[item.type];
+    const params =
+      item.type === "submitsQuizAttempt"
+        ? { QuizId: quiz.QuizId, NumberOfAttempts: item.attempts ?? 1 }
+        : { QuizId: quiz.QuizId };
+    return {
+      operand: { Type: type, State: null, [`${type}Params`]: params },
+      summary: `${quizConditionText[item.type]} "${quiz.Name}" (${quiz.QuizId})`,
+    };
+  }
+  const { Type: rawType } = item.raw;
+  if (typeof rawType !== "string") return undefined;
+  return {
+    operand: { ...item.raw, Type: rawType, State: null },
+    summary: `Raw condition "${rawType}"`,
+  };
+};
+
+// Mustache escapes HTML by default which would turn "/" in an assignment name
+// into "&#x2F;", fine in an HTML body but wrong in a plain text subject.
+const renderPlain = (template: string, view: MustacheView): string =>
+  Mustache.render(template, view, {}, { escape: (v: unknown) => String(v) });
+
+const agentTemplateToPlan = (
+  startDateUnixMS: number,
+  template: CourseTemplate,
+  course: SelectedCourse,
+  agent: TAgent,
+  view: MustacheView,
+): AgentPlan | undefined => {
+  const existing = course.agents.find((a) => a.Name === agent.name);
+
+  const roleIds: number[] = [...(agent.roleIds ?? [])];
+  const roleSummaries: string[] = roleIds.map((id) => `role id ${id}`);
+  for (const name of agent.roles ?? []) {
+    const role = course.roles.find((r) => r.name === name);
+    if (!role) return undefined;
+    roleIds.push(role.id);
+    roleSummaries.push(`${role.name} (${role.id})`);
+  }
+
+  const built: BuiltCondition[] = [];
+  for (const item of agent.conditions?.items ?? []) {
+    const b = buildAgentCondition(template, course, item);
+    if (!b) return undefined;
+    built.push(b);
+  }
+  const conditions: ConditionsData | undefined =
+    agent.conditions === undefined
+      ? undefined
+      : {
+          Expression: {
+            Type: "Expression",
+            State: null,
+            ExpressionParams: {
+              Operator: agent.conditions.operator === "any" ? "Any" : "All",
+              Operands: built.map((b) => b.operand),
+            },
+          },
+        };
+
+  const schedule = buildAgentSchedule(startDateUnixMS, agent.schedule);
+  const email = agent.action?.email;
+  const enrollment = agent.action?.enrollment;
+  const { criteria } = agent;
+
+  const agentData: AgentData = {
+    AgentId: existing?.AgentId ?? null,
+    Name: agent.name,
+    Description: agent.description ?? "",
+    IsEnabled: agent.enabled ?? true,
+    Schedule: schedule.data,
+    Action: {
+      RepeatType:
+        agent.action?.repeat === "everyTime"
+          ? ActionRepeatType.EveryTime
+          : ActionRepeatType.FirstTimeOnly,
+      EmailAction: email
+        ? {
+            IsEnabled: true,
+            To: email.to,
+            Cc: email.cc ?? null,
+            Bcc: email.bcc ?? null,
+            Subject: renderPlain(email.subject, view),
+            Message: Mustache.render(email.message, view),
+            IsHtml: true,
+          }
+        : null,
+      EnrollmentAction: enrollment
+        ? {
+            IsEnabled: true,
+            EnrollmentType:
+              enrollment.type === "enroll"
+                ? EnrollmentType.Enroll
+                : EnrollmentType.Unenroll,
+            OrgUnitId: enrollment.orgUnitId,
+            RoleId: enrollment.roleId,
+          }
+        : null,
+    },
+    Condition: {
+      LoginActivity: criteria?.loginActivity
+        ? {
+            Type:
+              criteria.loginActivity.type === "loggedIn"
+                ? LoginConditionType.HasLoggedIn
+                : LoginConditionType.HasNotLoggedIn,
+            Days: criteria.loginActivity.days,
+          }
+        : null,
+      CourseActivity: criteria?.courseActivity
+        ? {
+            Type:
+              criteria.courseActivity.type === "accessed"
+                ? AccessConditionType.HasAccessed
+                : AccessConditionType.HasNotAccessed,
+            Days: criteria.courseActivity.days,
+          }
+        : null,
+      ReleaseCondition: existing?.Condition?.ReleaseCondition ?? null,
+      RoleIds: roleIds.length > 0 ? roleIds : null,
+    },
+    LastRunDate: null,
+    NextRunDate: null,
+    CategoryId: existing?.CategoryId ?? null,
+  };
+
+  return {
+    name: agent.name,
+    existingId: existing?.AgentId == null ? undefined : existing.AgentId + "",
+    agentData,
+    conditions,
+    conditionSummaries: built.map((b) => b.summary),
+    roleSummaries,
+    scheduleSummary: schedule.summary,
+    scheduleStart: schedule.start,
+    scheduleStartOffset: agent.schedule?.start,
+    scheduleEnd: schedule.end,
+    scheduleEndOffset: agent.schedule?.end,
+  };
+};
+
 export const processTemplate = (
   template: CourseTemplate,
   selectedCourse: SelectedCourse,
@@ -317,6 +587,7 @@ export const processTemplate = (
   const ass = template.assignments ?? [];
   const qu = template.quizzes ?? [];
   const di = template.discussions ?? [];
+  const ag = template.agents ?? [];
   const ne = template.news ?? [];
 
   const plannedQuizzes = qu
@@ -341,10 +612,23 @@ export const processTemplate = (
     newsTemplateToPlan(startDateUnixMS, n, mustacheView),
   );
 
+  const plannedAgents = ag
+    .map((a) =>
+      agentTemplateToPlan(
+        startDateUnixMS,
+        template,
+        selectedCourse,
+        a,
+        mustacheView,
+      ),
+    )
+    .filter(isDefined);
+
   return {
     news: plannedNews,
     quizzes: plannedQuizzes,
     discussions: plannedDiscussions,
+    agents: plannedAgents,
     assignments: plannedAssignments,
   };
 };

@@ -1,0 +1,14 @@
+{
+  "Expression": {
+    "Type": "Expression",
+    "State": null,
+    "ExpressionParams": {
+      "Operator": "All",
+      "Operands": []
+    },
+    "Text": {
+      "Text": "",
+      "Html": ""
+    }
+  }
+}

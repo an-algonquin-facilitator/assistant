@@ -1,6 +1,7 @@
 import { Box, Button, Typography } from "@mui/material";
 import type { PageProps } from "../Assistant/Assistant";
 import {
+  usePlannedAgents,
   usePlannedAssignments,
   usePlannedDiscussions,
   usePlannedNews,
@@ -9,6 +10,7 @@ import {
 import { ReviewAssignment } from "./ReviewAssignment";
 import { ReviewQuiz } from "./ReviewQuiz";
 import { ReviewDiscussion } from "./ReviewDiscussion";
+import { ReviewAgent } from "./ReviewAgent";
 import { ReviewNews } from "./ReviewNews";
 import type { ReactElement } from "react";
 
@@ -16,6 +18,7 @@ export const ReviewStep = ({ previous, next }: PageProps): ReactElement => {
   const assignments = usePlannedAssignments();
   const quizzes = usePlannedQuizzes();
   const discussions = usePlannedDiscussions();
+  const agents = usePlannedAgents();
   const news = usePlannedNews();
 
   return (
@@ -45,6 +48,16 @@ export const ReviewStep = ({ previous, next }: PageProps): ReactElement => {
           </Typography>
           {discussions.map((d) => (
             <ReviewDiscussion key={d.id} discussion={d} />
+          ))}
+        </>
+      )}
+      {agents.length > 0 && (
+        <>
+          <Typography variant="h5" sx={{ mt: 2 }}>
+            Intelligent Agents:
+          </Typography>
+          {agents.map((a) => (
+            <ReviewAgent key={a.name} agent={a} />
           ))}
         </>
       )}

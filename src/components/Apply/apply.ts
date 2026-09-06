@@ -5,11 +5,20 @@ import type { InputFolder } from "../../api/folder";
 import { updateFolder } from "../../api/folder";
 import { fetchFolder } from "../../api/folder";
 import type {
+  AgentPlan,
   AssignmentPlan,
   DiscussionPlan,
   NewsPlan,
   QuizPlan,
 } from "../../store/plan";
+import type { AgentData } from "../../api/agent";
+import { createAgent, updateAgent } from "../../api/agent";
+import type { ConditionsData } from "../../api/releaseConditions";
+import {
+  fetchConditions,
+  intelligentAgentsTarget,
+  putConditions,
+} from "../../api/releaseConditions";
 import type { InputQuiz } from "../../api/quiz";
 import { fetchQuiz, updateQuiz } from "../../api/quiz";
 import type { InputTopic } from "../../api/discussion";
@@ -154,6 +163,74 @@ const applyDiscussionPlan = async (
   return undefined;
 };
 
+const responseError = async (
+  resp: Response,
+  prefix = "",
+): Promise<APIError> => ({
+  title: prefix + resp.statusText,
+  detail: await resp.text(),
+});
+
+// Creates the agent (or updates the one with the same name), then replaces
+// its release conditions. Two calls because conditions are a separate
+// resource keyed on the agent id.
+const applyAgentPlan = async (
+  token: string,
+  courseId: string,
+  ag: AgentPlan,
+): Promise<APIError | undefined> => {
+  const resp =
+    ag.existingId === undefined
+      ? await createAgent(token, courseId, ag.agentData)
+      : await updateAgent(token, courseId, ag.existingId, ag.agentData);
+  if (!resp.ok) return responseError(resp);
+
+  const text = await resp.text();
+  let agentId = ag.existingId;
+  try {
+    const data = JSON.parse(text) as Partial<AgentData>;
+    if (data.AgentId !== null && data.AgentId !== undefined) {
+      agentId = data.AgentId + "";
+    }
+  } catch {
+    // The body is not JSON, fall back on the existing id below.
+  }
+  if (agentId === undefined) {
+    return {
+      title: "Agent saved but Brightspace did not return its id",
+      detail: text,
+    };
+  }
+  if (!ag.conditions) return undefined;
+
+  // Echo the opaque State of the current expression when there is one.
+  let state: string | null = null;
+  try {
+    const current = (await fetchConditions(token, [
+      courseId,
+      intelligentAgentsTarget,
+      agentId,
+    ])) as Partial<ConditionsData>;
+    state = current.Expression?.State ?? null;
+  } catch {
+    state = null;
+  }
+  const body: ConditionsData = {
+    Expression: { ...ag.conditions.Expression, State: state },
+  };
+  const cResp = await putConditions(
+    token,
+    courseId,
+    intelligentAgentsTarget,
+    agentId,
+    body,
+  );
+  if (!cResp.ok) {
+    return responseError(cResp, "Agent saved but release conditions failed: ");
+  }
+  return undefined;
+};
+
 const applyCreateNewsPlan = async (
   token: string,
   courseId: string,
@@ -255,6 +332,17 @@ export const apply = async (
     const task = { name: di.name, type: TaskType.DISCUSSION };
     dispatch(startTask(task));
     const error = await applyDiscussionPlan(token, courseId, di);
+    if (error) {
+      dispatch(taskFailed({ ...task, error }));
+    } else {
+      dispatch(taskSuccess(task));
+    }
+  }
+
+  for (const ag of plan.agents) {
+    const task = { name: ag.name, type: TaskType.AGENT };
+    dispatch(startTask(task));
+    const error = await applyAgentPlan(token, courseId, ag);
     if (error) {
       dispatch(taskFailed({ ...task, error }));
     } else {

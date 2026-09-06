@@ -1,6 +1,6 @@
 # ACO course setup assistant
 
-This will guide you through using the ACO assistant. This tool can setup dates for all assignments, quizzes, discussion topics, and announcements. It can also auto generate content for announcement using a template system that means your announcement dates are always perfect.
+This will guide you through using the ACO assistant. This tool can setup dates for all assignments, quizzes, discussion topics, and announcements, and create or update intelligent agents. It can also auto generate content for announcement using a template system that means your announcement dates are always perfect.
 
 ## Usage
 

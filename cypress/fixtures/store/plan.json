@@ -146,5 +146,76 @@
         "weeks": 3
       }
     }
+  ],
+  "agents": [
+    {
+      "name": "CST2000 Missed Lab 1 Deadline",
+      "agentData": {
+        "AgentId": null,
+        "Name": "CST2000 Missed Lab 1 Deadline",
+        "Description": "",
+        "IsEnabled": true,
+        "Schedule": {
+          "IsEnabled": true,
+          "Type": 5,
+          "StartDate": "2024-09-26T13:00:00.000Z",
+          "EndDate": null,
+          "RepeatsEvery": null,
+          "RepeatsOnDay": null,
+          "RepeatsOnDays": null,
+          "RepeatsOnMonth": null,
+          "ScheduledTimeHour": 9,
+          "ScheduledTimeMinute": 0
+        },
+        "Action": {
+          "RepeatType": 1,
+          "EmailAction": {
+            "IsEnabled": true,
+            "To": "{InitiatingUser}",
+            "Cc": null,
+            "Bcc": "teacher@example.com",
+            "Subject": "CST2000 Missed Lab 1 Deadline",
+            "Message": "<p>Hello {InitiatingUserFirstName},</p>\n<p>You missed the Lab 1 deadline of Wed Sep 25 2024.</p>\n",
+            "IsHtml": true
+          },
+          "EnrollmentAction": null
+        },
+        "Condition": {
+          "LoginActivity": null,
+          "CourseActivity": null,
+          "ReleaseCondition": null,
+          "RoleIds": [578]
+        },
+        "LastRunDate": null,
+        "NextRunDate": null,
+        "CategoryId": null
+      },
+      "conditions": {
+        "Expression": {
+          "Type": "Expression",
+          "State": null,
+          "ExpressionParams": {
+            "Operator": "All",
+            "Operands": [
+              {
+                "Type": "NotSubmittedToDropbox",
+                "State": null,
+                "NotSubmittedToDropboxParams": {
+                  "FolderId": 100001
+                }
+              }
+            ]
+          }
+        }
+      },
+      "conditionSummaries": ["Has not submitted to folder \"Lab 1\" (100001)"],
+      "roleSummaries": ["Learner (578)"],
+      "scheduleSummary": "Once",
+      "scheduleStart": 1727355600000,
+      "scheduleStartOffset": {
+        "weeks": 2,
+        "days": 2
+      }
+    }
   ]
 }

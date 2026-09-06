@@ -32,6 +32,11 @@ describe("<PlanStep />", () => {
                     quizzes: (q as Paginated<Quiz>).Objects,
                     news: n as News[],
                     topics: [...(t1 as Topic[]), ...(t2 as Topic[])],
+                    agents: [],
+                    roles: [
+                      { id: 500, name: "Facilitator" },
+                      { id: 578, name: "Learner" },
+                    ],
                   }),
                 );
               });
@@ -68,6 +73,23 @@ describe("<PlanStep />", () => {
     cy.contains("disc1-start: Tue Sep 17 2024");
     cy.contains("disc1-due: Wed Sep 25 2024");
     cy.contains("disc1-end: Tue Nov 12 2024");
+  });
+
+  it("should show agent details and rendered email", () => {
+    cy.mount(
+      <Provider store={store}>
+        <PlanStep next={() => undefined} previous={() => undefined} />,
+      </Provider>,
+    );
+    cy.contains(/Agents \(0\/2\)/i).click();
+    cy.contains("CST2000 Missed Lab 1 Deadline (new)");
+    cy.contains('Has not submitted to folder "Lab 1" (100001)');
+    cy.contains("Learner (578)");
+    cy.contains("2024-09-26 09:00:00").trigger("mouseover");
+    cy.contains("semester start + 2 weeks + 2 days");
+    cy.get(".MuiIconButton-root").first().click();
+    cy.contains("Subject: CST2000 Missed Lab 1 Deadline");
+    cy.contains("You missed the Lab 1 deadline of Wed Sep 25 2024.");
   });
 
   it("should display dates", () => {
@@ -111,6 +133,9 @@ describe("<PlanStep />", () => {
     cy.get("input").eq(1).click();
     cy.get("input").eq(3).click();
     cy.contains(/Discussions \(2\/3\)/i);
+    cy.contains(/Agents \(0\/2\)/i).click();
+    cy.get("input").eq(1).click();
+    cy.contains(/Agents \(1\/2\)/i);
     cy.contains(/News \(0\/2\)/i).click();
     cy.get("input").eq(1).click();
     cy.contains(/review/i).click();
@@ -127,6 +152,13 @@ describe("<PlanStep />", () => {
         });
         ps.discussions.forEach((d) => {
           if (d.templateId === undefined) d.templateId = undefined;
+        });
+        ps.agents.forEach((a) => {
+          if (a.existingId === undefined) a.existingId = undefined;
+          if (a.conditions === undefined) a.conditions = undefined;
+          if (a.scheduleEnd === undefined) a.scheduleEnd = undefined;
+          if (a.scheduleEndOffset === undefined)
+            a.scheduleEndOffset = undefined;
         });
         expect(st.plan).to.be.deep.eq(p);
       });

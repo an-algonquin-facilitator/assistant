@@ -4,6 +4,7 @@ import { Provider } from "react-redux";
 import { store } from "../../store/store";
 import type { PlanState } from "../../store/plan";
 import {
+  addAgentPlan,
   addAssignmentPlan,
   addDiscussionPlan,
   addNewsPlan,
@@ -22,6 +23,9 @@ describe("<ReviewStep />", () => {
       }
       for (const d of plan.discussions) {
         store.dispatch(addDiscussionPlan(d));
+      }
+      for (const a of plan.agents) {
+        store.dispatch(addAgentPlan(a));
       }
       for (const n of plan.news) {
         store.dispatch(addNewsPlan(n));
@@ -47,6 +51,9 @@ describe("<ReviewStep />", () => {
       for (const d of plan.discussions) {
         cy.contains(d.name);
       }
+      for (const a of plan.agents) {
+        cy.contains(a.name);
+      }
       for (const n of plan.news) {
         cy.contains(n.name);
       }
@@ -59,5 +66,10 @@ describe("<ReviewStep />", () => {
     cy.contains("Discussion 3").click();
     cy.contains("Due: 2024-10-15 23:59:00").trigger("mouseover");
     cy.contains("semester start + 4 weeks + 6 days + 1 holidays");
+
+    cy.contains("CST2000 Missed Lab 1 Deadline").click();
+    cy.contains("Start: 2024-09-26 09:00:00").trigger("mouseover");
+    cy.contains("semester start + 2 weeks + 2 days");
+    cy.contains("Subject: CST2000 Missed Lab 1 Deadline");
   });
 });

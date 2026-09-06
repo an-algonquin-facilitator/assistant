@@ -2,11 +2,14 @@ import { createSlice } from "@reduxjs/toolkit";
 import type { PayloadAction } from "@reduxjs/toolkit";
 import type { DateOffset } from "./template";
 import { useAppSelector } from "./hooks";
+import type { AgentData } from "../api/agent";
+import type { ConditionsData } from "../api/releaseConditions";
 
 export interface PlanState {
   assignments: AssignmentPlan[];
   quizzes: QuizPlan[];
   discussions: DiscussionPlan[];
+  agents: AgentPlan[];
   news: NewsPlan[];
 }
 
@@ -14,6 +17,7 @@ const initialState: PlanState = {
   assignments: [],
   quizzes: [],
   discussions: [],
+  agents: [],
   news: [],
 };
 
@@ -62,6 +66,26 @@ export interface DiscussionPlan {
   endOffset: DateOffset;
 }
 
+export interface AgentPlan {
+  // Agent name, unique within the course. Also the plan identity.
+  name: string;
+  // AgentId of the existing agent with that name, when there is one.
+  existingId?: string;
+  // Complete payload sent to Brightspace.
+  agentData: AgentData;
+  // Release conditions to put on the agent once it exists.
+  conditions?: ConditionsData;
+  // Human readable descriptions for the UI.
+  conditionSummaries: string[];
+  roleSummaries: string[];
+  scheduleSummary: string;
+  // Present when the agent has a schedule.
+  scheduleStart?: number;
+  scheduleStartOffset?: DateOffset;
+  scheduleEnd?: number;
+  scheduleEndOffset?: DateOffset;
+}
+
 export interface NewsPlan {
   name: string;
   content: string;
@@ -75,6 +99,7 @@ export interface CoursePlan {
   assignments: AssignmentPlan[];
   quizzes: QuizPlan[];
   discussions: DiscussionPlan[];
+  agents: AgentPlan[];
   news: NewsPlan[];
 }
 
@@ -109,6 +134,15 @@ const planSlice = createSlice({
       if (i === -1) return;
       state.discussions.splice(i, 1);
     },
+    addAgentPlan(state, action: PayloadAction<AgentPlan>) {
+      if (state.agents.some((a) => a.name === action.payload.name)) return;
+      state.agents.push(action.payload);
+    },
+    removeAgentPlan(state, action: PayloadAction<AgentPlan>) {
+      const i = state.agents.findIndex((a) => a.name === action.payload.name);
+      if (i === -1) return;
+      state.agents.splice(i, 1);
+    },
 
     addNewsPlan(state, action: PayloadAction<NewsPlan>) {
       if (state.news.some((a) => a.name === action.payload.name)) return;
@@ -133,6 +167,8 @@ export const {
   removeQuizPlan,
   addDiscussionPlan,
   removeDiscussionPlan,
+  addAgentPlan,
+  removeAgentPlan,
   addNewsPlan,
   removeNewsPlan,
   resetPlan,
@@ -146,6 +182,9 @@ export const useIsQuizPlanned = (id: string): boolean =>
 
 export const useIsDiscussionPlanned = (id: string): boolean =>
   useAppSelector((s) => s.plan.discussions.some((a) => a.id === id));
+
+export const useIsAgentPlanned = (name: string): boolean =>
+  useAppSelector((s) => s.plan.agents.some((a) => a.name === name));
 
 export const useIsNewsPlanned = (name: string): boolean =>
   useAppSelector((s) => s.plan.news.some((a) => a.name === name));
@@ -171,6 +210,14 @@ export const useIsAllDiscussionPlanned = (): boolean =>
 export const usePlanedDiscussionCount = (): number =>
   useAppSelector((s) => s.plan.discussions.length);
 
+export const useIsAllAgentPlanned = (): boolean =>
+  useAppSelector(
+    (s) => s.plan.agents.length === s.template.value.agents.length,
+  );
+
+export const usePlanedAgentCount = (): number =>
+  useAppSelector((s) => s.plan.agents.length);
+
 export const useIsAllNewsPlanned = (): boolean =>
   useAppSelector((s) => s.plan.news.length === s.template.value.news.length);
 
@@ -186,6 +233,7 @@ export const useIsAnythingPlanned = (): boolean =>
       s.plan.assignments.length > 0 ||
       s.plan.quizzes.length > 0 ||
       s.plan.discussions.length > 0 ||
+      s.plan.agents.length > 0 ||
       s.plan.news.length > 0,
   );
 
@@ -195,6 +243,8 @@ export const usePlannedQuizzes = (): QuizPlan[] =>
   useAppSelector((s) => s.plan.quizzes);
 export const usePlannedDiscussions = (): DiscussionPlan[] =>
   useAppSelector((s) => s.plan.discussions);
+export const usePlannedAgents = (): AgentPlan[] =>
+  useAppSelector((s) => s.plan.agents);
 export const usePlannedNews = (): NewsPlan[] =>
   useAppSelector((s) => s.plan.news);
 
