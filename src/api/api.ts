@@ -10,13 +10,23 @@ export const lpBaseURL = host + lpBase;
 const leBase = `/d2l/api/le/${leVersion}`;
 export const leBaseURL = host + leBase;
 
+// Discussion topics only expose a DueDate starting with LE API 1.90, so the
+// discussions routes use a newer LE version than the rest of the app.
+// https://docs.valence.desire2learn.com/res/discuss.html
+const leDiscussionVersion = "1.90";
+const leDiscussionBase = `/d2l/api/le/${leDiscussionVersion}`;
+export const leDiscussionBaseURL = host + leDiscussionBase;
+
 export interface Paginated<T> {
   Objects: T[];
 }
 
+// https://docs.valence.desire2learn.com/basic/conventions.html
+// D2L does not guarantee both forms: a value may come back with only the
+// Text version (Html null), only the Html version, or both.
 export interface RichText {
   Text: string;
-  Html: string;
+  Html: string | null;
 }
 
 export interface RichTextInput {

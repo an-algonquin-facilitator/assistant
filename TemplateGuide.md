@@ -1,6 +1,6 @@
 # Template Guide
 
-Templates are YAML files that lists how assignments, quizzes, and announcements (called news in brightspace) should look.
+Templates are YAML files that lists how assignments, quizzes, discussions, and announcements (called news in brightspace) should look.
 
 start dates are always the start of the day (00:01)
 due and end dates are always the end of the day (11:59)
@@ -37,6 +37,20 @@ interface Quiz {
   end?: DateOffset; //  default to due date + 1 week
 }
 
+// Represent a discussion topic in the course.
+// Topics are matched by name across ALL forums of the course, so topic names
+// must be unique within the course.
+// ALL discussions default to
+// - being displayed in the calendar
+// - being visible at all time
+interface Discussion {
+  id?: string; // used in announcement Mustache template. Use all lower no space, no userscore, no dash for simplicity, like "discussion1"
+  name: string; // must be exact match with the topic name in Brightspace
+  start?: DateOffset; // default to semester start date
+  due: DateOffset;
+  end?: DateOffset; // default to due date + 1 week
+}
+
 // ALL news default to
 // - original author information not shown.
 // - set to "ready for publish"
@@ -51,6 +65,7 @@ interface Template {
   courseCode: string; // [A-Z]{3}[0-9]{4}, e.g. CST8259
   assignments?: Assignment[];
   quizzes?: Quiz[];
+  discussions?: Discussion[];
   news?: News[];
 }
 ```
@@ -83,6 +98,9 @@ interface MustacheView {
   assignments: {
     [assignmentID: string]: Element;
   };
+  discussions: {
+    [discussionID: string]: Element;
+  };
 }
 ```
 
@@ -101,6 +119,8 @@ news:
       that the midterm is due on {{quizzes.midterm.due.date}}
       <br>
       and that assignment 1 is due on {{assignments.a1.due.date}}
+      <br>
+      and that discussion 1 runs from {{discussions.d1.start.date}} to {{discussions.d1.end.date}}
 quizzes:
   - name: Midterm Exam
     id: midterm
@@ -113,5 +133,16 @@ assignments:
     id: a1
     due:
       weeks: 6
+      days: 2
+discussions:
+  - name: "Discussion 1: Introductions"
+    id: d1
+    start:
+      weeks: 0
+    due:
+      weeks: 1
+      days: 2
+    end:
+      weeks: 1
       days: 2
 ```

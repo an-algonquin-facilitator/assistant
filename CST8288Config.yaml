@@ -44,6 +44,27 @@ assignments:
     id: "project4"
     due:
       weeks: 13
+discussions:
+  - name: "Discussion 1: Object Oriented Programming Fundamentals (3%)"
+    id: "discussion1"
+    start:
+      weeks: 0
+    end:
+      weeks: 1
+      days: 2
+    due:
+      weeks: 1
+      days: 2
+  - name: "Discussion 2: Design Pattern Foundations (2%)"
+    id: "discussion2"
+    start:
+      weeks: 5
+    end:
+      weeks: 6
+      days: 2
+    due:
+      weeks: 6
+      days: 2
 quizzes:
   - name: M1 - Learning Activity 1
     start:
@@ -138,9 +159,9 @@ quizzes:
   - name: Final Exam (20%)
     id: "exam"
     start:
-      weeks: 13
+      weeks: 12
     due:
-      weeks: 14
+      weeks: 13
 news:
   - name: "Welcome to CST8288!"
     end:
@@ -167,9 +188,23 @@ news:
       <p></p>
       <p>Note that the weekly quizzes are for your benefit and are not a part of your final grade.</p>
       <p>Feel free to introduce yourselves in the Discussions section in Brightspace, I would love to hear from you all!&nbsp;</p>
+      <p>Please do not use any form of AI (LLMs or image generators) to generate code for the assignments, group project or any diagrams for the discussions or group projects. I have had to report many students in past offerings for utilizing AI. It is easy for us to identify when you have used AI. It is vital for you to do the thinking and struggling yourself in order to develop the skills you need for your career.</p>
       <p>Don't hesitate to send me any questions you have by email throughout the semester. I will generally answer within 24-48 hours around 5pm or in the evenings.</p>
       <p>Email: buitena@algonquincollege.com</p>
       <p>Regards,<br>Aaron Buitenwerf</p>
+  - name: "Final Stretch! CST8288"
+    start:
+      weeks: 11
+    end:
+      weeks: 15
+    content: |
+      <h3>The Final Stretch!</h3>
+      <p>Part 4 of the group project is due&nbsp;<strong>{{assignments.project4.due.date}}</strong></p>
+      <p>Your online exam found on Brightspace is available starting <strong>{{quizzes.final.start.date}}</strong><strong>&nbsp;</strong>until&nbsp;<strong>{{quizzes.final.end.date}}</strong></p>
+      <p><strong>The exam consists on 30 questions of multiple choice, and true/false answers, for which you will have 1 hour to respond with no help of books or additional material.</strong></p>
+      <p><strong>Please feel free to attempt the Honorlock practice exam prior to the real exam to ensure your setup will function (if you are taking the exam using Honorlock software).</strong></p>
+      <p>Have a fantastic last 2 weeks and finish strong!</p>
+      <p>Aaron Buitenwerf</p>
   - name: "CST8288 First Graded Discussion Post"
     start:
       days: 1
@@ -177,24 +212,39 @@ news:
       weeks: 15
     content: |
       <p>Hello,</p>
-      <p>You have a graded discussion mid-next week. Your post is due 2 days before the due date listed in Brightspace to allow time for others to comment on your posts.</p>
+      <p>You have a graded discussion from {{discussions.discussion1.start.date}} to {{discussions.discussion1.end.date}}.</p>
+      <p><strong>Important:</strong> Your post is due 2 days before the listed due date to allow time for others to comment on your posts.</p>
       <p>If you are looking for a tool to create UML diagrams. I would recommend using <a rel="noopener" href="http://draw.io/">http://draw.io/</a></p>
       <p>Please make sure you reply to 3 other classmates' posts with substance and meaningful responses. Post these responses as early as you can in the discussion period so that others have a chance to reply to your posts.&nbsp;</p>
       <p>You are not able to edit discussion posts once you submit them, however, feel free to submit a new post again and that will be the one I grade.</p>
       <p>I'd highly recommend reading through the grading rubric to see what is important in this assignment. That goes for all this courses assignments!</p>
       <p>I look forward to seeing all your unique UML diagrams! Have a great week!</p>
       <p>Regards,<br>Aaron Buitenwerf</p>
-  - name: "CST8288 Important Info Regarding WAR Files"
+  - name: "CST8288 Midterm"
     start:
-      weeks: 2
+      days: 5
+      weeks: 6
     end:
       weeks: 15
     content: |
-      <p>Hello all!</p>
-      <p>Many assignment submissions in previous offerings of this course included WAR files that did <strong>not</strong> include source code for me to grade. Meaning there are only .class object files and no .java files. <span>When exporting a WAR file from Eclipse, there’s a checkbox option called "export source files</span>" which must be checked.</p>
-      <p>Always double check your WAR files by unzipping them and ensure there are .java files included, otherwise I won't be able to grade your assignments or projects. If you cannot figure out how to do this, it is acceptable to zip the whole project folder including source .java files.</p>
-      <p>Thank you,</p>
-      <p>Aaron Buitenwerf</p>
+      <p>Hello everyone!</p>
+      <p>The midterm will be available to complete starting {{quizzes.midterm.start.date}} and is due by <strong>{{quizzes.midterm.due.date}}</strong>. It covers modules 1-6 inclusive.&nbsp;</p>
+      <p>It is a 30 question multiple choice test available on Brightspace under Quizzes.</p>
+      <p>Good luck to you all!</p>
+      <p>Regards,</p>
+      <p>Aaron Buitenwerf&nbsp;</p>
+  - name: "Important: CST8288 Assigmnent Submissions"
+    start:
+      weeks: 1
+      days: 3
+    end:
+      weeks: 15
+    content: |
+      <p>Hello students!</p>
+      <p>Just wanted to make an announcement regarding all submissions in this course. </p>
+      <p>Many assignment submissions in previous offerings of this course included WAR files that did <strong>not</strong> include source code for me to grade. Meaning there are only .class object files and no .java files.</p>
+      <p>I will always accept .zip files instead of WAR files regardless of what the assignment specifications say and the rubrics. On both the assignments and capstone project. If you wish to use WAR files, PLEASE ensure you check "include source" files when exporting from your IDE, and also VERIFY that when you un-compress the war file that there are .java files alongside the .class files. If you do not submit .java files, I will have no way of reading the code, nor grading your assignment and thus you will lose substantial marks.</p>
+      <p>Regards,<br>Aaron Buitenwerf</p>
   - name: "CST8288 Assignment 1 Guide"
     start:
       weeks: 1
@@ -428,7 +478,7 @@ news:
       weeks: 15
     content: |
       <p>Hello all!</p>
-      <p>This course includes an important group project! You must join a group on Brightspace by <strong>the end of this month/strong> or you will be automatically assigned a group.</p>
+      <p>This course includes an important group project! You must join a group on Brightspace by <strong>the end of this month</strong> or you will be automatically assigned a group.</p>
       <p>The plan for your project is due <strong>{{assignments.project1.due.date}}</strong> as the first part of the project.</p>
       <p>As we approach the group projects, I want to provide you with some tips and reminders. These guidelines are designed to help you navigate the challenges of group work and ensure a successful project outcome.&nbsp;</p>
       <p><strong>Look over the rubric:</strong><br>It is essential that each group member looks over and understands the rubric. Since this is a group project, you will be graded as a group. Keep this in mind!</p>

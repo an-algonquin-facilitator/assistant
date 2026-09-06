@@ -9,6 +9,7 @@ import {
 import type { ReactElement } from "react";
 import { AssignmentWarnings } from "./AssignmentWarnings";
 import { QuizWarnings } from "./QuizWarnings";
+import { DiscussionWarnings } from "./DiscussionWarnings";
 import { NewsWarnings } from "./NewsWarnings";
 import dayjs from "dayjs";
 import {
@@ -68,6 +69,15 @@ export const Overview = (): ReactElement => {
             <TableCell>{course.quizzes.length}</TableCell>
             <TableCell>
               <QuizWarnings template={validationResult} />
+            </TableCell>
+          </TableRow>
+
+          <TableRow>
+            <TableCell>Discussions</TableCell>
+            <TableCell>{validationResult.validDiscussions.length}</TableCell>
+            <TableCell>{course.topics.length}</TableCell>
+            <TableCell>
+              <DiscussionWarnings template={validationResult} />
             </TableCell>
           </TableRow>
 

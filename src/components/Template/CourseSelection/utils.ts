@@ -3,6 +3,7 @@ import { fetchAllNews } from "../../../api/news";
 import { fetchQuizzes } from "../../../api/quiz";
 import { fetchCourse } from "../../../api/course";
 import { fetchFolders } from "../../../api/folder";
+import { fetchAllTopics } from "../../../api/discussion";
 import { store } from "../../../store/store";
 import type { useAppDispatch } from "../../../store/hooks";
 import {
@@ -50,15 +51,17 @@ export const dispatchFullCourseFetches = (
     fetchFolders(token, courseId),
     fetchQuizzes(token, courseId),
     fetchAllNews(token, courseId),
+    fetchAllTopics(token, courseId),
     fetchCourse(token, courseId),
   ]);
 
-  p.then(([folders, quizzes, news, course]) => {
+  p.then(([folders, quizzes, news, topics, course]) => {
     dispatch(
       courseRequestSuccess({
         folders,
         quizzes: quizzes.Objects,
         news,
+        topics,
         course,
       }),
     );

@@ -1,0 +1,35 @@
+[
+  {
+    "ForumId": 2,
+    "TopicId": 300003,
+    "Name": "Discussion 3",
+    "Description": {
+      "Text": "Open forum",
+      "Html": "<p>Open forum</p>"
+    },
+    "StartDate": "2024-01-01T00:00:00.000Z",
+    "EndDate": "2024-01-01T00:00:00.000Z",
+    "UnlockStartDate": null,
+    "UnlockEndDate": null,
+    "IsLocked": false,
+    "AllowAnonymousPosts": false,
+    "RequiresApproval": false,
+    "UnApprovedPostCount": 0,
+    "PinnedPostCount": 0,
+    "ScoringType": null,
+    "IsAutoScore": false,
+    "ScoreOutOf": null,
+    "IncludeNonScoredValues": false,
+    "ScoredCount": 0,
+    "RatingsSum": 0,
+    "RatingsCount": 0,
+    "IsHidden": true,
+    "MustPostToParticipate": false,
+    "RatingType": "0",
+    "ActivityId": "https://ids.brightspace.com/activities/discussiontopic/ABCD1234-ABCD-1234-ABCD-1234ABCD1234-300003",
+    "GroupTypeId": null,
+    "StartDateAvailabilityType": 2,
+    "EndDateAvailabilityType": 0,
+    "DueDate": null
+  }
+]

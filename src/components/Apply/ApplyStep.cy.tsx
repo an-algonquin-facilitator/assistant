@@ -9,8 +9,10 @@ import type { Folder } from "../../api/folder";
 import type { Paginated } from "../../api/api";
 import type { Quiz } from "../../api/quiz";
 import type { News } from "../../api/news";
+import type { Topic } from "../../api/discussion";
 import {
   addAssignmentPlan,
+  addDiscussionPlan,
   addNewsPlan,
   addQuizPlan,
   resetPlan,
@@ -24,6 +26,9 @@ const storePlan = (plan: PlanState): void => {
   }
   for (const q of plan.quizzes) {
     store.dispatch(addQuizPlan(q));
+  }
+  for (const d of plan.discussions) {
+    store.dispatch(addDiscussionPlan(d));
   }
 
   for (const n of plan.news) {
@@ -44,14 +49,19 @@ describe("<ApplyStep />", () => {
       cy.fixture("api/CST2000_folders").then((f) => {
         cy.fixture("api/CST2000_quizzes").then((q) => {
           cy.fixture("api/CST2000_news").then((n) => {
-            store.dispatch(
-              setCourse({
-                course: c as Course,
-                folders: f as Folder[],
-                quizzes: (q as Paginated<Quiz>).Objects,
-                news: n as News[],
-              }),
-            );
+            cy.fixture("api/CST2000_topics_forum1").then((t1) => {
+              cy.fixture("api/CST2000_topics_forum2").then((t2) => {
+                store.dispatch(
+                  setCourse({
+                    course: c as Course,
+                    folders: f as Folder[],
+                    quizzes: (q as Paginated<Quiz>).Objects,
+                    news: n as News[],
+                    topics: [...(t1 as Topic[]), ...(t2 as Topic[])],
+                  }),
+                );
+              });
+            });
           });
         });
       });
@@ -124,6 +134,44 @@ describe("<ApplyStep />", () => {
         {
           method: "PUT",
           url: "https://d52a5d1e-ab94-4159-bbef-ace0093616dc.organizations.api.brightspace.com/d2l/api/le/1.74/1016/quizzes/100001",
+        },
+        (req) => {
+          expect(req.body).to.be.deep.eq(fix);
+          req.reply({ body: {} });
+        },
+      );
+    });
+    cy.contains(/apply!/i).click();
+    cy.contains("Success");
+  });
+
+  it("should update discussion topic", () => {
+    cy.mount(
+      <Provider store={store}>
+        <ApplyStep next={() => undefined} previous={() => undefined} />
+      </Provider>,
+    );
+    cy.fixture("store/single_discussion_plan").then((fix: unknown) => {
+      storePlan(fix as PlanState);
+    });
+
+    cy.fixture("api/GET_topic1").then((fix): void => {
+      cy.intercept(
+        {
+          method: "GET",
+          url: "https://d52a5d1e-ab94-4159-bbef-ace0093616dc.organizations.api.brightspace.com/d2l/api/le/1.90/1016/discussions/forums/1/topics/300001",
+        },
+        (req) => {
+          req.reply({ body: fix as unknown });
+        },
+      );
+    });
+
+    cy.fixture("api/PUT_topic1").then((fix): void => {
+      cy.intercept(
+        {
+          method: "PUT",
+          url: "https://d52a5d1e-ab94-4159-bbef-ace0093616dc.organizations.api.brightspace.com/d2l/api/le/1.90/1016/discussions/forums/1/topics/300001",
         },
         (req) => {
           expect(req.body).to.be.deep.eq(fix);

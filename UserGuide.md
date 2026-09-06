@@ -1,6 +1,6 @@
 # ACO course setup assistant
 
-This will guide you through using the ACO assistant. This tool can setup dates for all assignments, quizzes, and announcements. It can also auto generate content for announcement using a template system that means your announcement dates are always perfect.
+This will guide you through using the ACO assistant. This tool can setup dates for all assignments, quizzes, discussion topics, and announcements. It can also auto generate content for announcement using a template system that means your announcement dates are always perfect.
 
 ## Usage
 
@@ -50,7 +50,7 @@ Hover over any date to see how it's calculated
 
 ![](./doc/10_tooltip.png)
 
-Under News you can even see the rendered content, after the mustache template did it's job. Don't get confused between the brightspace template and the mustache template. The former is for declaring when each assignment and quizzes are due. The Later is used to generate correct dates and data inside announcements.
+Under News you can even see the rendered content, after the mustache template did it's job. Don't get confused between the brightspace template and the mustache template. The former is for declaring when each assignment, quiz and discussion are due. The Later is used to generate correct dates and data inside announcements.
 
 ![](./doc/11_news.png)
 ![](./doc/12_mustache.png)
@@ -71,7 +71,7 @@ For reference the content of that template is as follows:
 ```
 
 For this example I will select several of every kind of items but normally I would select everything for everything.
-Also if you run the assistant in the middle of the semester make sure you do not attempt to modify any assignment or quiz that already has submissions. Click `REVIEW`.
+Also if you run the assistant in the middle of the semester make sure you do not attempt to modify any assignment, quiz or discussion that already has submissions. Click `REVIEW`.
 
 ![](./doc/13_plan_ready.png)
 

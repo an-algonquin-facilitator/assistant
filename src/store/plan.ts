@@ -6,12 +6,14 @@ import { useAppSelector } from "./hooks";
 export interface PlanState {
   assignments: AssignmentPlan[];
   quizzes: QuizPlan[];
+  discussions: DiscussionPlan[];
   news: NewsPlan[];
 }
 
 const initialState: PlanState = {
   assignments: [],
   quizzes: [],
+  discussions: [],
   news: [],
 };
 
@@ -43,6 +45,23 @@ export interface QuizPlan {
   endOffset: DateOffset;
 }
 
+export interface DiscussionPlan {
+  // Discussion topic id. Topics live inside a forum so the forum id is
+  // needed as well to address the topic in the API.
+  id: string;
+  forumId: string;
+  templateId?: string;
+  name: string;
+  start: number;
+  due: number;
+  end: number;
+
+  holidayOffset: number;
+  startOffset: DateOffset;
+  dueOffset: DateOffset;
+  endOffset: DateOffset;
+}
+
 export interface NewsPlan {
   name: string;
   content: string;
@@ -55,6 +74,7 @@ export interface NewsPlan {
 export interface CoursePlan {
   assignments: AssignmentPlan[];
   quizzes: QuizPlan[];
+  discussions: DiscussionPlan[];
   news: NewsPlan[];
 }
 
@@ -80,6 +100,15 @@ const planSlice = createSlice({
       if (i === -1) return;
       state.quizzes.splice(i, 1);
     },
+    addDiscussionPlan(state, action: PayloadAction<DiscussionPlan>) {
+      if (state.discussions.some((a) => a.id === action.payload.id)) return;
+      state.discussions.push(action.payload);
+    },
+    removeDiscussionPlan(state, action: PayloadAction<DiscussionPlan>) {
+      const i = state.discussions.findIndex((a) => a.id === action.payload.id);
+      if (i === -1) return;
+      state.discussions.splice(i, 1);
+    },
 
     addNewsPlan(state, action: PayloadAction<NewsPlan>) {
       if (state.news.some((a) => a.name === action.payload.name)) return;
@@ -102,6 +131,8 @@ export const {
   removeAssignmentPlan,
   addQuizPlan,
   removeQuizPlan,
+  addDiscussionPlan,
+  removeDiscussionPlan,
   addNewsPlan,
   removeNewsPlan,
   resetPlan,
@@ -112,6 +143,9 @@ export const useIsAssignmentPlanned = (id: string): boolean =>
 
 export const useIsQuizPlanned = (id: string): boolean =>
   useAppSelector((s) => s.plan.quizzes.some((a) => a.id === id));
+
+export const useIsDiscussionPlanned = (id: string): boolean =>
+  useAppSelector((s) => s.plan.discussions.some((a) => a.id === id));
 
 export const useIsNewsPlanned = (name: string): boolean =>
   useAppSelector((s) => s.plan.news.some((a) => a.name === name));
@@ -129,6 +163,14 @@ export const useIsAllQuizPlanned = (): boolean =>
     (s) => s.plan.quizzes.length === s.template.value.quizzes.length,
   );
 
+export const useIsAllDiscussionPlanned = (): boolean =>
+  useAppSelector(
+    (s) => s.plan.discussions.length === s.template.value.discussions.length,
+  );
+
+export const usePlanedDiscussionCount = (): number =>
+  useAppSelector((s) => s.plan.discussions.length);
+
 export const useIsAllNewsPlanned = (): boolean =>
   useAppSelector((s) => s.plan.news.length === s.template.value.news.length);
 
@@ -143,6 +185,7 @@ export const useIsAnythingPlanned = (): boolean =>
     (s) =>
       s.plan.assignments.length > 0 ||
       s.plan.quizzes.length > 0 ||
+      s.plan.discussions.length > 0 ||
       s.plan.news.length > 0,
   );
 
@@ -150,6 +193,8 @@ export const usePlannedAssignments = (): AssignmentPlan[] =>
   useAppSelector((s) => s.plan.assignments);
 export const usePlannedQuizzes = (): QuizPlan[] =>
   useAppSelector((s) => s.plan.quizzes);
+export const usePlannedDiscussions = (): DiscussionPlan[] =>
+  useAppSelector((s) => s.plan.discussions);
 export const usePlannedNews = (): NewsPlan[] =>
   useAppSelector((s) => s.plan.news);
 

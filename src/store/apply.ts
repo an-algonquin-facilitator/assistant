@@ -12,6 +12,7 @@ export interface Task {
 export enum TaskType {
   ASSIGNMENT = "ASSIGNMENT",
   QUIZ = "QUIZ",
+  DISCUSSION = "DISCUSSION",
   NEWS = "NEWS",
 }
 

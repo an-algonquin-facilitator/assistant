@@ -6,9 +6,11 @@ import { Tab, Tabs } from "@mui/material";
 import { TabPanel } from "./TabPanel";
 import { AssignmentPanel } from "./AssignmentPanel";
 import { QuizPanel } from "./QuizPanel";
+import { DiscussionPanel } from "./DiscussionPanel";
 import { NewsPanel } from "./NewsPanel";
 import { AssignmentTabLabel } from "./AssignmentTabLabel";
 import { QuizzesTabLabel } from "./QuizzesTabLabel";
+import { DiscussionsTabLabel } from "./DiscussionsTabLabel";
 import { NewsTabLabel } from "./NewsTabLabel";
 
 export const Planner = (): ReactElement => {
@@ -30,6 +32,7 @@ export const Planner = (): ReactElement => {
       >
         <Tab label={<AssignmentTabLabel />} />
         <Tab label={<QuizzesTabLabel />} />
+        <Tab label={<DiscussionsTabLabel />} />
         <Tab label={<NewsTabLabel />} />
       </Tabs>
 
@@ -40,6 +43,9 @@ export const Planner = (): ReactElement => {
         <QuizPanel quizzes={plan.quizzes} />
       </TabPanel>
       <TabPanel value={tab} index={2}>
+        <DiscussionPanel discussions={plan.discussions} />
+      </TabPanel>
+      <TabPanel value={tab} index={3}>
         <NewsPanel news={plan.news} />
       </TabPanel>
     </>

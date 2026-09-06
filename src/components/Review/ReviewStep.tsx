@@ -2,17 +2,20 @@ import { Box, Button, Typography } from "@mui/material";
 import type { PageProps } from "../Assistant/Assistant";
 import {
   usePlannedAssignments,
+  usePlannedDiscussions,
   usePlannedNews,
   usePlannedQuizzes,
 } from "../../store/plan";
 import { ReviewAssignment } from "./ReviewAssignment";
 import { ReviewQuiz } from "./ReviewQuiz";
+import { ReviewDiscussion } from "./ReviewDiscussion";
 import { ReviewNews } from "./ReviewNews";
 import type { ReactElement } from "react";
 
 export const ReviewStep = ({ previous, next }: PageProps): ReactElement => {
   const assignments = usePlannedAssignments();
   const quizzes = usePlannedQuizzes();
+  const discussions = usePlannedDiscussions();
   const news = usePlannedNews();
 
   return (
@@ -32,6 +35,16 @@ export const ReviewStep = ({ previous, next }: PageProps): ReactElement => {
           </Typography>
           {quizzes.map((q) => (
             <ReviewQuiz key={q.id} quiz={q} />
+          ))}
+        </>
+      )}
+      {discussions.length > 0 && (
+        <>
+          <Typography variant="h5" sx={{ mt: 2 }}>
+            Discussions:
+          </Typography>
+          {discussions.map((d) => (
+            <ReviewDiscussion key={d.id} discussion={d} />
           ))}
         </>
       )}

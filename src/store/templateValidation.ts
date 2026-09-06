@@ -2,28 +2,36 @@ import type { SelectedCourse, TemplateFile } from "./template";
 import type { News as BNews } from "../api/news";
 import type { Quiz as BQuiz } from "../api/quiz";
 import type { Folder } from "../api/folder";
+import type { Topic } from "../api/discussion";
 import type {
   AssignmentTemplate,
   QuizTemplate as TQuiz,
+  DiscussionTemplate as TDiscussion,
   NewsTemplate as TNews,
 } from "./template";
 
+export interface ValidTemplate {
+  isTemplateValid: true;
+
+  validAssignments: AssignmentTemplate[];
+  missingBrightspaceAssignments: Folder[];
+  missingTemplateAssignments: AssignmentTemplate[];
+
+  validQuizzes: TQuiz[];
+  missingBrightspaceQuizzes: BQuiz[];
+  missingTemplateQuizzes: TQuiz[];
+
+  validDiscussions: TDiscussion[];
+  missingBrightspaceDiscussions: Topic[];
+  missingTemplateDiscussions: TDiscussion[];
+
+  validNews: TNews[];
+  missingBrightspaceNews: BNews[];
+  missingTemplateNews: TNews[];
+}
+
 export type TemplateValidationResult =
-  | {
-      isTemplateValid: true;
-
-      validAssignments: AssignmentTemplate[];
-      missingBrightspaceAssignments: Folder[];
-      missingTemplateAssignments: AssignmentTemplate[];
-
-      validQuizzes: TQuiz[];
-      missingBrightspaceQuizzes: BQuiz[];
-      missingTemplateQuizzes: TQuiz[];
-
-      validNews: TNews[];
-      missingBrightspaceNews: BNews[];
-      missingTemplateNews: TNews[];
-    }
+  | ValidTemplate
   | { isTemplateValid: false };
 
 export const isValidTemplate = (
@@ -33,7 +41,8 @@ export const isValidTemplate = (
     !template.isTemplateValid ||
     template.validAssignments.length > 0 ||
     template.validNews.length > 0 ||
-    template.validQuizzes.length > 0
+    template.validQuizzes.length > 0 ||
+    template.validDiscussions.length > 0
   );
 };
 
@@ -48,6 +57,7 @@ export const validateTemplate = (
 
   const templateAssignments = ut.template.assignments ?? [];
   const templateQuizzes = ut.template.quizzes ?? [];
+  const templateDiscussions = ut.template.discussions ?? [];
   const templateNews = ut.template.news ?? [];
 
   // in brightspace but not template
@@ -78,6 +88,19 @@ export const validateTemplate = (
   );
 
   // in brightspace but not template
+  const missingBrightspaceDiscussions = course.topics.filter(
+    (b) => !templateDiscussions.some((d) => d.name === b.Name),
+  );
+  // in template but not brightspace
+  const missingTemplateDiscussions = templateDiscussions.filter(
+    (d) => !course.topics.some((b) => b.Name === d.name),
+  );
+
+  const validDiscussions = templateDiscussions.filter(
+    (d) => !missingTemplateDiscussions.includes(d),
+  );
+
+  // in brightspace but not template
   const missingBrightspaceNews = course.news.filter(
     (b) => !templateNews.some((q) => q.name === b.Title),
   );
@@ -95,6 +118,9 @@ export const validateTemplate = (
     validQuizzes,
     missingBrightspaceQuizzes,
     missingTemplateQuizzes,
+    validDiscussions,
+    missingBrightspaceDiscussions,
+    missingTemplateDiscussions,
     // for news all news are valid as we simply create the missing ones.
     validNews: templateNews,
     missingBrightspaceNews,

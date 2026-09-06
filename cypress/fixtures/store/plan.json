@@ -91,10 +91,50 @@
       }
     }
   ],
+  "discussions": [
+    {
+      "id": "300001",
+      "forumId": "1",
+      "templateId": "disc1",
+      "name": "Discussion 1",
+      "start": 1726545660000,
+      "due": 1727323140000,
+      "end": 1731473940000,
+      "holidayOffset": 0,
+      "startOffset": {
+        "weeks": 1
+      },
+      "dueOffset": {
+        "days": 1,
+        "weeks": 2
+      },
+      "endOffset": {
+        "weeks": 9
+      }
+    },
+    {
+      "id": "300003",
+      "forumId": "2",
+      "name": "Discussion 3",
+      "start": 1725940860000,
+      "due": 1729051140000,
+      "end": 1729655940000,
+      "holidayOffset": 1,
+      "startOffset": {},
+      "dueOffset": {
+        "weeks": 4,
+        "days": 6
+      },
+      "endOffset": {
+        "days": 6,
+        "weeks": 5
+      }
+    }
+  ],
   "news": [
     {
       "name": "Welcome to CST2000",
-      "content": "CST2000 is a class about nothing because it doesn't exists. Why are you reading fixture data?\nThis is a demo of the templating system:\nlab1-monthDate: 25<br>\nlab1-month: September<br>\nlab1-monthShort: Sep<br>\nlab1-weekDays: Wednesday<br>\nlab1-weekDaysShort: Wed<br>\nlab1-iso8601: 2024-09-26T03:59:00.000Z<br>\nlab1-date: Wed Sep 25 2024<br>\nquiz1-monthDate: 25<br>\nquiz1-month: September<br>\nquiz1-monthShort: Sep<br>\nquiz1-weekDays: Wednesday<br>\nquiz1-weekDaysShort: Wed<br>\nquiz1-iso8601: 2024-09-26T03:59:00.000Z<br>\nquiz1-date: Wed Sep 25 2024\n",
+      "content": "CST2000 is a class about nothing because it doesn't exists. Why are you reading fixture data?\nThis is a demo of the templating system:\nlab1-monthDate: 25<br>\nlab1-month: September<br>\nlab1-monthShort: Sep<br>\nlab1-weekDays: Wednesday<br>\nlab1-weekDaysShort: Wed<br>\nlab1-iso8601: 2024-09-26T03:59:00.000Z<br>\nlab1-date: Wed Sep 25 2024<br>\nquiz1-monthDate: 25<br>\nquiz1-month: September<br>\nquiz1-monthShort: Sep<br>\nquiz1-weekDays: Wednesday<br>\nquiz1-weekDaysShort: Wed<br>\nquiz1-iso8601: 2024-09-26T03:59:00.000Z<br>\nquiz1-date: Wed Sep 25 2024<br>\ndisc1-start: Tue Sep 17 2024<br>\ndisc1-due: Wed Sep 25 2024<br>\ndisc1-end: Tue Nov 12 2024\n",
       "open": 1726632060000,
       "openOffset": {
         "days": 1,

@@ -4,6 +4,7 @@ import type {
   DateOffset,
   NewsTemplate as TNews,
   QuizTemplate as TQuiz,
+  DiscussionTemplate as TDiscussion,
   CourseTemplate,
   SelectedCourse,
 } from "../../store/template";
@@ -11,11 +12,13 @@ import { isHoliday } from "../../holidays";
 import type {
   AssignmentPlan,
   CoursePlan,
+  DiscussionPlan,
   NewsPlan,
   QuizPlan,
 } from "../../store/plan";
 import type { Quiz as BQuiz } from "../../api/quiz";
 import type { Folder } from "../../api/folder";
+import type { Topic } from "../../api/discussion";
 import { isDefined } from "../Introduction/utils";
 import Mustache from "mustache";
 
@@ -91,6 +94,7 @@ const months = [
 const createMustacheView = (
   assignments: AssignmentPlan[],
   quizzes: QuizPlan[],
+  discussions: DiscussionPlan[],
 ): MustacheView => {
   const createDateObject = (date: number): MustacheDate => {
     const d = new Date(date);
@@ -107,7 +111,9 @@ const createMustacheView = (
     };
   };
 
-  const createMustacheEvent = (e: AssignmentPlan | QuizPlan): MustacheEvent => {
+  const createMustacheEvent = (
+    e: AssignmentPlan | QuizPlan | DiscussionPlan,
+  ): MustacheEvent => {
     return {
       name: e.name,
       start: createDateObject(e.start),
@@ -130,9 +136,17 @@ const createMustacheView = (
       createMustacheEvent(q),
     ]);
 
+  const discussionEntries = discussions
+    .filter((d) => d.templateId)
+    .map((d): [string, MustacheEvent] => [
+      d.templateId ?? "BUG",
+      createMustacheEvent(d),
+    ]);
+
   return {
     assignments: Object.fromEntries(assignmentEntries),
     quizzes: Object.fromEntries(quizEntries),
+    discussions: Object.fromEntries(discussionEntries),
   };
 };
 
@@ -205,9 +219,45 @@ const quizTemplateToPlan = (
   };
 };
 
+const discussionTemplateToPlan = (
+  startDateUnixMS: number,
+  topics: Topic[],
+  discussion: TDiscussion,
+): DiscussionPlan | undefined => {
+  const d = discussion;
+  const topic = topics.find((t) => t.Name === d.name);
+  if (!topic) return undefined;
+  const defaultEndOffset = {
+    days: d.due.days ?? 0,
+    weeks: (d.due.weeks ?? 0) + 1,
+  };
+  const due = calculateDateWithHoliday(
+    startDateUnixMS,
+    d.due,
+    TargetDateType.END,
+  );
+  return {
+    id: topic.TopicId + "",
+    forumId: topic.ForumId + "",
+    templateId: d.id,
+    name: topic.Name,
+    start: calculateDate(startDateUnixMS, d.start ?? {}, true),
+    due: due[0],
+    end:
+      calculateDate(startDateUnixMS, d.end ?? defaultEndOffset, false) +
+      due[1] * msPerDay,
+
+    holidayOffset: due[1],
+    startOffset: d.start ?? {},
+    dueOffset: d.due,
+    endOffset: d.end ?? defaultEndOffset,
+  };
+};
+
 interface MustacheView {
   assignments: Record<string, MustacheEvent>;
   quizzes: Record<string, MustacheEvent>;
+  discussions: Record<string, MustacheEvent>;
 }
 
 interface MustacheDate {
@@ -262,10 +312,11 @@ export const processTemplate = (
   template: CourseTemplate,
   selectedCourse: SelectedCourse,
 ): CoursePlan => {
-  const { course, folders, quizzes } = selectedCourse;
+  const { course, folders, quizzes, topics } = selectedCourse;
   const startDateUnixMS = dayjs(course.StartDate).unix() * msPerSecond;
   const ass = template.assignments ?? [];
   const qu = template.quizzes ?? [];
+  const di = template.discussions ?? [];
   const ne = template.news ?? [];
 
   const plannedQuizzes = qu
@@ -276,7 +327,15 @@ export const processTemplate = (
     .map((a) => assignmentTemplateToPlan(startDateUnixMS, folders, a))
     .filter(isDefined);
 
-  const mustacheView = createMustacheView(plannedAssignments, plannedQuizzes);
+  const plannedDiscussions = di
+    .map((d) => discussionTemplateToPlan(startDateUnixMS, topics, d))
+    .filter(isDefined);
+
+  const mustacheView = createMustacheView(
+    plannedAssignments,
+    plannedQuizzes,
+    plannedDiscussions,
+  );
 
   const plannedNews = ne.map((n) =>
     newsTemplateToPlan(startDateUnixMS, n, mustacheView),
@@ -285,6 +344,7 @@ export const processTemplate = (
   return {
     news: plannedNews,
     quizzes: plannedQuizzes,
+    discussions: plannedDiscussions,
     assignments: plannedAssignments,
   };
 };

@@ -8,12 +8,15 @@ import type { News } from "../api/news";
 import type { Quiz } from "../api/quiz";
 import type { Course } from "../api/course";
 import type { Folder } from "../api/folder";
+import type { Topic } from "../api/discussion";
 
 export interface SelectedCourse {
   course: Course;
   folders: Folder[];
   quizzes: Quiz[];
   news: News[];
+  // Discussion topics from every forum of the course, flattened.
+  topics: Topic[];
 }
 
 export interface TemplateFile {
@@ -42,6 +45,14 @@ export interface QuizTemplate {
   end?: DateOffset;
 }
 
+export interface DiscussionTemplate {
+  id?: string;
+  name: string;
+  start?: DateOffset;
+  due: DateOffset;
+  end?: DateOffset;
+}
+
 export interface NewsTemplate {
   name: string;
   content: string;
@@ -53,6 +64,7 @@ export interface CourseTemplate {
   courseCode: string;
   assignments?: AssignmentTemplate[];
   quizzes?: QuizTemplate[];
+  discussions?: DiscussionTemplate[];
   news?: NewsTemplate[];
 }
 
@@ -78,6 +90,7 @@ const initialState: CourseTemplateState = {
     courseCode: "",
     assignments: [],
     quizzes: [],
+    discussions: [],
     news: [],
   },
   course: {
@@ -113,6 +126,7 @@ const initialState: CourseTemplateState = {
     folders: [],
     quizzes: [],
     news: [],
+    topics: [],
   },
 };
 
@@ -125,6 +139,7 @@ const updateTemplateValidationResult = (
       courseCode: state.file.template.courseCode,
       assignments: state.validationResult.validAssignments,
       quizzes: state.validationResult.validQuizzes,
+      discussions: state.validationResult.validDiscussions,
       news: state.validationResult.validNews,
     };
   }
@@ -192,6 +207,9 @@ export const useTemplateAssignmentCount = (): number =>
 
 export const useTemplateQuizzesCount = (): number =>
   useAppSelector((s) => s.template.value.quizzes.length);
+
+export const useTemplateDiscussionsCount = (): number =>
+  useAppSelector((s) => s.template.value.discussions.length);
 
 export const useTemplateNewsCount = (): number =>
   useAppSelector((s) => s.template.value.news.length);

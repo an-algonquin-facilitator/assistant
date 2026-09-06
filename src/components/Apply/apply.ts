@@ -4,9 +4,16 @@ import { StatusOK } from "../../api/api";
 import type { InputFolder } from "../../api/folder";
 import { updateFolder } from "../../api/folder";
 import { fetchFolder } from "../../api/folder";
-import type { AssignmentPlan, NewsPlan, QuizPlan } from "../../store/plan";
+import type {
+  AssignmentPlan,
+  DiscussionPlan,
+  NewsPlan,
+  QuizPlan,
+} from "../../store/plan";
 import type { InputQuiz } from "../../api/quiz";
 import { fetchQuiz, updateQuiz } from "../../api/quiz";
+import type { InputTopic } from "../../api/discussion";
+import { fetchTopic, updateTopic } from "../../api/discussion";
 import type { CreateNews, News } from "../../api/news";
 import { createNews, updateNews } from "../../api/news";
 import {
@@ -18,10 +25,19 @@ import {
 } from "../../store/apply";
 import type { useAppDispatch } from "../../store/hooks";
 
+// Converts a RichText we received into the RichTextInput the API expects on
+// PUT. Prefer the Html form, but fall back to the Text form when D2L only
+// returned plain text so we never send back an empty description.
 const toRichTextInput = (rt: RichText): RichTextInput => {
+  if (rt.Html !== null && rt.Html !== "") {
+    return {
+      Type: "Html",
+      Content: rt.Html,
+    };
+  }
   return {
-    Type: "Html",
-    Content: rt.Html,
+    Type: "Text",
+    Content: rt.Text,
   };
 };
 
@@ -90,6 +106,44 @@ const applyQuizPlan = async (
   };
 
   const prom = await updateQuiz(token, courseId, qu.id, inputQuiz);
+  if (prom.status !== StatusOK) {
+    const text = await prom.text();
+    return {
+      title: prom.statusText,
+      detail: text,
+    };
+  }
+  return undefined;
+};
+
+const applyDiscussionPlan = async (
+  token: string,
+  courseId: string,
+  di: DiscussionPlan,
+): Promise<APIError | undefined> => {
+  const topic = await fetchTopic(token, [courseId, di.forumId, di.id]);
+  // The PUT replaces the whole topic, so send back everything we fetched and
+  // only override the dates. Availability types are kept as they are so the
+  // topic keeps behaving the same way outside of its availability window.
+  const inputTopic: InputTopic = {
+    ...topic,
+    StartDate: new Date(di.start).toISOString(),
+    DueDate: new Date(di.due).toISOString(),
+    EndDate: new Date(di.end).toISOString(),
+    IsHidden: false,
+    DisplayInCalendar: false,
+    DisplayUnlockDatesInCalendar: false,
+    // We have to convert to RichTextInput for the API to not delete the topic description.
+    Description: toRichTextInput(topic.Description),
+  };
+
+  const prom = await updateTopic(
+    token,
+    courseId,
+    di.forumId,
+    di.id,
+    inputTopic,
+  );
   if (prom.status !== StatusOK) {
     const text = await prom.text();
     return {
@@ -197,8 +251,19 @@ export const apply = async (
     }
   }
 
+  for (const di of plan.discussions) {
+    const task = { name: di.name, type: TaskType.DISCUSSION };
+    dispatch(startTask(task));
+    const error = await applyDiscussionPlan(token, courseId, di);
+    if (error) {
+      dispatch(taskFailed({ ...task, error }));
+    } else {
+      dispatch(taskSuccess(task));
+    }
+  }
+
   for (const ne of plan.news) {
-    const task = { name: ne.name, type: TaskType.QUIZ };
+    const task = { name: ne.name, type: TaskType.NEWS };
     dispatch(startTask(task));
     const error = await applyNewsPlan(token, courseId, news, ne);
     if (error) {

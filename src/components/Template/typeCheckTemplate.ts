@@ -3,6 +3,7 @@ import type {
   DateOffset as TDateOffset,
   AssignmentTemplate as TAssignment,
   QuizTemplate as TQuiz,
+  DiscussionTemplate as TDiscussion,
   NewsTemplate as TNews,
   CourseTemplate as TTemplate,
 } from "../../store/template";
@@ -57,6 +58,25 @@ const QuizValidator = t.exact(
 
 type Quiz = t.TypeOf<typeof QuizValidator>;
 
+const DiscussionValidator = t.exact(
+  t.intersection(
+    [
+      t.type({
+        name: t.string,
+        due: DateOffsetValidator,
+      }),
+      t.partial({
+        id: t.string,
+        start: DateOffsetValidator,
+        end: DateOffsetValidator,
+      }),
+    ],
+    "Discussion",
+  ),
+);
+
+type Discussion = t.TypeOf<typeof DiscussionValidator>;
+
 const NewsValidator = t.exact(
   t.intersection(
     [
@@ -84,6 +104,7 @@ export const TemplateFileValidator = t.exact(
       t.partial({
         assignments: t.array(AssignmentValidator),
         quizzes: t.array(QuizValidator),
+        discussions: t.array(DiscussionValidator),
         news: t.array(NewsValidator),
       }),
     ],
@@ -105,6 +126,9 @@ type Template = t.TypeOf<typeof TemplateFileValidator>;
 
   const _qu0: TQuiz = null as unknown as Quiz;
   const _qu1: Quiz = null as unknown as TQuiz;
+
+  const _di0: TDiscussion = null as unknown as Discussion;
+  const _di1: Discussion = null as unknown as TDiscussion;
 
   const _ne0: TNews = null as unknown as News;
   const _ne1: News = null as unknown as TNews;

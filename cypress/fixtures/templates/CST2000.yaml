@@ -18,7 +18,10 @@ news:
       quiz1-weekDays: {{quizzes.quiz1.due.weekDays}}<br>
       quiz1-weekDaysShort: {{quizzes.quiz1.due.weekDaysShort}}<br>
       quiz1-iso8601: {{quizzes.quiz1.due.iso8601}}<br>
-      quiz1-date: {{quizzes.quiz1.due.date}}
+      quiz1-date: {{quizzes.quiz1.due.date}}<br>
+      disc1-start: {{discussions.disc1.start.date}}<br>
+      disc1-due: {{discussions.disc1.due.date}}<br>
+      disc1-end: {{discussions.disc1.end.date}}
     start:
       weeks: 1
       days: 1
@@ -58,6 +61,23 @@ quizzes:
     due:
       weeks: 3
   - name: Quiz 3
+    due:
+      weeks: 4
+      days: 6
+discussions:
+  - name: Discussion 1
+    id: disc1
+    start:
+      weeks: 1
+    due:
+      days: 1
+      weeks: 2
+    end:
+      weeks: 9
+  - name: Discussion 2
+    due:
+      weeks: 3
+  - name: Discussion 3
     due:
       weeks: 4
       days: 6

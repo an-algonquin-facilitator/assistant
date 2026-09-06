@@ -42,3 +42,16 @@ quizzes:
   - name: Quiz 3
     due:
       weeks: 4
+discussions:
+  - name: Discussion 1
+    id: disc1
+    start:
+      weeks: 1
+    due:
+      days: 1
+      weeks: 2
+    end:
+      weeks: 9
+  - name: Discussion 3
+    due:
+      weeks: 4
