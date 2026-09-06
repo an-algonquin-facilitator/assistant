@@ -1,0 +1,465 @@
+---
+courseCode: CST8288
+assignments:
+  - name: "Assignment/Lab 1: Object Oriented Programming in Java (2%)"
+    id: "lab1"
+    due:
+      weeks: 2
+  - name: "Assignment/Lab 2: Multithreading in Java (2%)"
+    id: "lab2"
+    due:
+      weeks: 3
+  - name: "Assignment/Lab 3: Web Applications and Databases in Java  (4%)"
+    id: "lab3"
+    due:
+      weeks: 5
+  - name: "Assignment/Lab 4: Creational Design Patterns (4%)"
+    id: "lab4"
+    due:
+      weeks: 8
+  - name: "Assignment/Lab 5: Structural and Behavioural Design Patterns  (4%)"
+    id: "lab5"
+    due:
+      weeks: 10
+  - name: "Assignment/Lab 6: Other Patterns (4%)"
+    id: "lab6"
+    due:
+      weeks: 12
+  - name: Group Project 1 (Research) (10%)
+    id: "project1"
+    due:
+      weeks: 4
+      days: 4
+  - name: Group Project 2 (10%)
+    id: "project2"
+    due:
+      weeks: 7
+      days: 4
+  - name: Group Project 3  (10%)
+    id: "project3"
+    due:
+      weeks: 10
+      days: 4
+  - name: Group Project 4 Finalization (10%)
+    id: "project4"
+    due:
+      weeks: 13
+quizzes:
+  - name: M1 - Learning Activity 1
+    start:
+      weeks: 0
+    end:
+      weeks: 1
+    due:
+      weeks: 1
+  - name: M2 - Learning Activity 1
+    start:
+      weeks: 1
+    end:
+      weeks: 2
+    due:
+      weeks: 2
+  - name: M3 - Learning Activity 1
+    start:
+      weeks: 2
+    end:
+      weeks: 3
+    due:
+      weeks: 3
+  - name: M4 - Learning Activity 1
+    start:
+      weeks: 3
+    end:
+      weeks: 4
+    due:
+      weeks: 4
+  - name: M5 - Learning Activity 1
+    start:
+      weeks: 4
+    end:
+      weeks: 5
+    due:
+      weeks: 5
+  - name: M6 - Learning Activity 1
+    start:
+      weeks: 5
+    end:
+      weeks: 6
+    due:
+      weeks: 6
+  - name: M7 - Learning Activity 1
+    start:
+      weeks: 6
+    end:
+      weeks: 7
+    due:
+      weeks: 7
+  - name: M8 - Learning Activity 1
+    start:
+      weeks: 7
+    end:
+      weeks: 8
+    due:
+      weeks: 8
+  - name: M9 - Learning Activity 1
+    start:
+      weeks: 8
+    end:
+      weeks: 9
+    due:
+      weeks: 9
+  - name: M10 - Learning Activity 1
+    start:
+      weeks: 9
+    end:
+      weeks: 10
+    due:
+      weeks: 10
+  - name: M11 - Learning Activity 1
+    start:
+      weeks: 10
+    end:
+      weeks: 11
+    due:
+      weeks: 11
+  - name: M12 - Learning Activity 1
+    start:
+      weeks: 11
+    end:
+      weeks: 12
+    due:
+      weeks: 12
+  - name: Midterm (20%)
+    id: "midterm"
+    start:
+      weeks: 7
+    due:
+      weeks: 8
+  - name: Final Exam (20%)
+    id: "exam"
+    start:
+      weeks: 13
+    due:
+      weeks: 14
+news:
+  - name: "Welcome to CST8288!"
+    end:
+      weeks: 15
+    content: |
+      <p>Hello everyone!</p>
+      <p>Welcome to CST8288 OOP with Design Patterns!</p>
+      <p>My name is Aaron Buitenwerf, I will be the facilitator for this course. I'm excited to work with you all and help you have a successful and fun time in this great course!</p>
+      <p>To start, please look over the <strong>Course Calendar</strong> in Brightspace under Content -&gt; Course Information. You can find all the course's due dates in the Calendar tab in Brightspace.</p>
+      <p></p>
+      <p>There are 2 textbooks for this course:</p>
+      <div>Textbook title: Java: How To Program (Early Objects) W/MyProgramingLab</div>
+      <div>Edition: 11</div>
+      <div>Author: Paul J Deitel</div>
+      <div>Publisher: Pearson</div>
+      <div>ISBN (physical): ISBN: 9780134800301</div>
+      <div>ISBN (etext): ISBN: 9780134835990 (lifetime)</div>
+      <div></div>
+      <div>Textbook title: Design Patterns</div>
+      <div>Edition: 1nd</div>
+      <div>Author: Gamma &amp; Helm</div>
+      <div>Publisher: Pearson</div>
+      <div>ISBN (physical): ISBN: 9780201633610</div>
+      <p></p>
+      <p>Note that the weekly quizzes are for your benefit and are not a part of your final grade.</p>
+      <p>Feel free to introduce yourselves in the Discussions section in Brightspace, I would love to hear from you all!&nbsp;</p>
+      <p>Don't hesitate to send me any questions you have by email throughout the semester. I will generally answer within 24-48 hours around 5pm or in the evenings.</p>
+      <p>Email: buitena@algonquincollege.com</p>
+      <p>Regards,<br>Aaron Buitenwerf</p>
+  - name: "CST8288 First Graded Discussion Post"
+    start:
+      days: 1
+    end:
+      weeks: 15
+    content: |
+      <p>Hello,</p>
+      <p>You have a graded discussion mid-next week. Your post is due 2 days before the due date listed in Brightspace to allow time for others to comment on your posts.</p>
+      <p>If you are looking for a tool to create UML diagrams. I would recommend using <a rel="noopener" href="http://draw.io/">http://draw.io/</a></p>
+      <p>Please make sure you reply to 3 other classmates' posts with substance and meaningful responses. Post these responses as early as you can in the discussion period so that others have a chance to reply to your posts.&nbsp;</p>
+      <p>You are not able to edit discussion posts once you submit them, however, feel free to submit a new post again and that will be the one I grade.</p>
+      <p>I'd highly recommend reading through the grading rubric to see what is important in this assignment. That goes for all this courses assignments!</p>
+      <p>I look forward to seeing all your unique UML diagrams! Have a great week!</p>
+      <p>Regards,<br>Aaron Buitenwerf</p>
+  - name: "CST8288 Important Info Regarding WAR Files"
+    start:
+      weeks: 2
+    end:
+      weeks: 15
+    content: |
+      <p>Hello all!</p>
+      <p>Many assignment submissions in previous offerings of this course included WAR files that did <strong>not</strong> include source code for me to grade. Meaning there are only .class object files and no .java files. <span>When exporting a WAR file from Eclipse, there’s a checkbox option called "export source files</span>" which must be checked.</p>
+      <p>Always double check your WAR files by unzipping them and ensure there are .java files included, otherwise I won't be able to grade your assignments or projects. If you cannot figure out how to do this, it is acceptable to zip the whole project folder including source .java files.</p>
+      <p>Thank you,</p>
+      <p>Aaron Buitenwerf</p>
+  - name: "CST8288 Assignment 1 Guide"
+    start:
+      weeks: 1
+      days: 2
+    end:
+      weeks: 15
+    content: |
+      <p>Hello all!</p>
+      <p>As some assignment specifications are difficult to fully understand what is required of you, I've written some guides on specific assignments I believe require further explanation.</p>
+      <p>Assignment 1 is due <strong>{{assignments.lab1.due.date}}</strong></p>
+      <h2>Assignment 1: Models</h2>
+      <p>To give some context for this assignment, in the web app development industry, it is common practice to separate data objects from service objects. Basically, we create model objects whose sole purpose is to hold data (strings, booleans, other complex data objects) and then service objects which hold little state but have many functions/methods that act upon the state of the app. The models define what kind of state the app can hold and the services act upon that state. In this assignment you are ONLY creating models which basically do nothing but in this case are not pure data as the assignment spec asks you to have some methods on it too (classical OOP). This assignment is showing how models can sometimes make use of different OOP principles (Abstraction, Encapsulation, Inheritance, Polymorphism)&nbsp; to simplify the usage of the model. Don't be afraid of these big names as the implementation of these ideas are not too complex.</p>
+      <h2><strong>Requirements:</strong><strong></strong></h2>
+      <p><strong>Abstract Log class:</strong></p>
+      <p>1. Should have private attributes with accessor methods (public getters and setters) for:</p>
+      <ul>
+      <li>Name</li>
+      <li>Description</li>
+      <li>Date</li>
+      <li>A unique internal ID</li>
+      <li>A unique short code (in the format abc-abc-abc)</li>
+      </ul>
+      <p>2. Abstract implementations for methods called&nbsp;<em>create, read, update, and delete</em>&nbsp;<strong>using simply System.out.println() -&gt; not real implementations.</strong><strong></strong></p>
+      <p>3. Public method for features + validation that has&nbsp;<em>no implementation</em> on the abstract class (each sub class will be implementing this differently). It should have this signature: attachFile(string, string, string, long);</p>
+      <p>4. A private member that is an&nbsp;<em>interface</em> that contains a single method for running actions such as translating, annotating (more details below).</p>
+      <p>5. Abstract constructors: These constructors should allow the creation of log instances by assigning one, some, or none of the attributes. These constructors will be used or overridden by instances of the subclasses.</p>
+      <p><strong>Sub-Classes (child classes) -&gt; TextLog, PhotoLog, AudioLog, VideoLog</strong></p>
+      <p>1. Each of these should extend the abstract Log class (inherits all the abstract implementation for methods, constructors, and the attributes)</p>
+      <p>2. Each of the these should <em>override</em> the attachFile() method of the abstract class, providing both (sub-class specific) action and validation.</p>
+      <p>Validation: throw Exceptions if: an arbitrarily set size limit is exceeded or the provided type string is "not" supported by the sub-class ("png" is not supported in the AudioLog for ex.)</p>
+      <p>Features: call the single method on the inherited <em>interface </em>member to run a specific implementation of the action. The concrete class that implements this interface can be added in the constructor. Each implementation of this interface can also simply print to console what "action" it is taking.</p>
+      <p><strong>Main Class</strong></p>
+      <p>Starting with the main class provided, add test cases that show case every case possible to test your console logs and provide demonstration of the functionality. Modify the starter code in whatever way you wish, it does not have to look exactly like that.</p>
+      <p><strong>Example files/setup:</strong></p>
+      <ul>
+      <li>Main.java (example available for download on Brightspace)</li>
+      <li>Log.java (Abstract class)</li>
+      <li>TextLog.java (Extension of Log class)</li>
+      <li>PhotoLog.java (Extension of Log class)</li>
+      <li>AudioLog.java (Extension of Log class)</li>
+      <li>VideoLog.java (Extension of Log class)</li>
+      <li>IPerformAction.java (Interface for actions)</li>
+      <li>TranscodeService.java (implements IPerformAction)</li>
+      <li>TranslationService.java&nbsp;(implements IPerformAction)</li>
+      <li>CloseCaptioningService.java (implements IPerformAction)</li>
+      <li>AnnotationService.java (implements IPerformAction)</li>
+      </ul>
+      <p>Each of the java files should contain a single class that has members and attributes. Some of the assignment specification sounds like it is asking you to implement complex things like transcoding but this just means to console log "transcoded file" etc.&nbsp;</p>
+      <p>When you add the model files, make sure you import them into the main class and run the code. The example main class assumes the model classes exist as you must add them as imports.</p>
+      <h2>Report</h2>
+      <p>The report can be in any format as long as you:</p>
+      <ul>
+      <li>Document your observations on the changes you made to your code while following the recommended steps.</li>
+      <li>Include snippets of code in your report to illustrate the intermediate steps</li>
+      <li>Recommend talking about what part of the code meets each requirement of the rubric (such as what part of the code is each OOP principle)</li>
+      </ul>
+      <p><em><strong>Note: this summary of the assignment should not replace the assignment specification itself, please read it carefully.</strong></em></p>
+      <p><em></em>Hope this helps!</p>
+      <p>Regards,<br>Aaron Buitenwerf</p>
+  - name: "CST8288 Assignment 2 Guide"
+    start:
+      weeks: 2
+    end:
+      weeks: 15
+    content: |
+      <p>Hello all!</p>
+      <p>Assignment 2 is due <strong>{{assignments.lab2.due.date}}</strong>. You should have a good understanding of Java threads and concurrent processing in order to complete this assignment. Please watch the videos on this topic from <strong>module 3.</strong></p>
+      <p>Similar to assignment 1, the Loggy app scenario is just a theme. You do not need to implement transcribing or closed captioning, you can simply console log an output saying work is "being done" and add a Thread.sleep to simulate a long running task.</p>
+      <ul>
+      <li>Suggested Files/Classes:</li>
+      <li><em>Main.java</em> (use the provided code as a starting point for this file)</li>
+      <li><em>Recording.java</em> (a simple data class with all attributes, should contain a UUID, path to filename, a Long size, a list of strings representing closed captions that are added after object creation by the fake service)</li>
+      <li><em>CCSpooler.java</em> (a class that is responsible for holding a queue and starting up to 5 threads at a time. Should have a method enqueue(Recording) that adds a Recording instance to a queue to be processed)</li>
+      <li><em>CCWorker.java</em> (a worker class that fakes interacting with an external CC creation service -&gt; can just Thread.sleep some&nbsp; amount of time based on the fake file size (higher the file size, longer it should take) and log to the console the file it is doing fake processing on. It should then call a callback function provided to tell the caller it has completed processing a specific file)</li>
+      </ul>
+      <p><strong>Tips:</strong></p>
+      <ul>
+      <li>Should use Java *threads* that you learned about this module. You can use the Concurrency utilities such as the Executer to easily manage the worker threads.</li>
+      <li>Can use Thread.sleep(500) to simulate long running tasks in the thread run code.</li>
+      <li>The assumptions listed at the top of the assignment specification is more describing how a real system would work and is not strictly assignment requirements. The requirements are only to make a skeleton of this system, the important part to demonstrate being what you learned about threads and concurrency this module.</li>
+      <li>There is no need to use the Java files from Assignment 1 in this assignment</li>
+      <li>As always review the rubric to see exactly how I will be grading this assignment</li>
+      </ul>
+      <p>I hope this is helpful in understanding what is required of you!</p>
+      <p>If further clarification on a specific point is required, please email me!</p>
+      <p>Regards,<br>Aaron Buitenwerf</p>
+  - name: "CST8288 Assignment 3 Guide"
+    start:
+      weeks: 4
+    end:
+      weeks: 15
+    content: |
+      <p>Hello all!</p>
+      <p>Assignment 3 is due <strong>{{assignments.lab3.due.date}}</strong>.</p>
+      <p>If you don't know where the start after watching the course content and having reviewed the assignment specification, here is a high-level guide of the potential order you could do this assignment in.</p>
+      <p><strong>Important Notes:</strong></p>
+      <ul>
+      <li>I'd recommend getting started on this assignment as soon as possible as it introduces many new ideas and is generally going to be more work</li>
+      <li>Make sure you have gone through and understand all of Module 4 + 5 before doing this assignment and use the content as reference as you do the work</li>
+      <li>I would HIGHLY recommend using a real Java IDE (either [Eclipse](<a rel="noopener" href="https://eclipseide.org/)">https://eclipseide.org/)</a> or Intellij) &nbsp;instead of something like VS code as it contains Java web development specific functionality that is harder to accomplish on other IDEs.</li>
+      <li>The "Tasks" section at the top of the assignment is NOT requirements. It is intended to set the scene of the assignment. You don't need to implement Image, Video attachments. The requirement is to support text logs only. The Part I section is where requirements begin.</li>
+      <li>Don't worry about the appearance of the website<br><br></li>
+      </ul>
+      <p>Feel free to use this Interface's method signatures for the Data Persistence Layer of the application:</p>
+      <pre class="line-numbers d2l-code"><code class="language-java">public interface ApplicationService {
+
+          public Map&lt;UUID, Log&gt; readLogs();
+
+          public Log readLog(String id);
+
+          public void createLog(Log log);
+
+          public void updateLog(Log log);
+
+          public void deleteLog(String id);
+
+          public void createOrUpdateLog(Log log);
+      }</code></pre>
+      <p></p>
+      <h2>Getting Started</h2>
+      <ol>
+      <li>Start with setting up your environment: If you install Eclipse for the first time: make sure you select Eclipse IDE for Java EE Developers:<br><img src="/content/enforced/691169-24F_CST8288_451/Pasted image 20241004193332_20241005014718674.png" style="max-width: 100%;"><br><br></li>
+      <li>Setup a standalone Tomcat server that runs constantly. PLEASE USE TOMCAT v7.0 server. You will pass your application code to this server as it will contain and manage your Servlets (which are basically HTTP endpoint handlers or 'controllers'). This tutorial in particular is how to set this up: <a rel="noopener" href="https://www.linkedin.com/learning/jakarta-ee-servlets/installing-a-standalone-servlet-container?autoSkip=true&amp;resume=false&amp;u=2199673">https://www.linkedin.com/learning/jakarta-ee-servlets/installing-a-standalone-servlet-container?autoSkip=true&amp;resume=false&amp;u=2199673</a></li>
+      <li>Get the LogsServlet '/LogsServlet' endpoint working:<br>
+      <ol>
+      <li>Potentially need to change the Java attribute in the LogsServlet.java from `@WebServlet("/LogsServlet")` to `@WebServlet(urlPatterns = { "/LogsServlet" })` or use a web.xml file in webapp/WEB-INF that describes the endpoint mappings from URL endpoint to servlet controller that handles the requests.</li>
+      <li>Run the example servlet on your running Tomcat server by right clicking on the project root folder and clicking `run as`-&gt; `run on server` and select your running Tomcat v7 server and let the server restart with your project loaded. &nbsp;If that option does not exist, you need to right click on the project again and go to `properties` -&gt; `Project Facets` and change the selections to include `Dynamic Web Module v3.0`, `Java v21`, `JavaScript v1.0` and `apache-tomcat-7.0.109` runtimes:<br><img src="/content/enforced/691169-24F_CST8288_451/Pasted image 20241004203351_20241005014718766.png" style="max-width: 100%;"></li>
+      <li>type '<a rel="noopener" href="http://localhost:8080/loggy-lab3-begin-master/LogsServlet?name=John+Doe'">http://localhost:8080/loggy-lab3-begin-master/LogsServlet?name=John+Doe'</a> as a URL at the top of your browser. Make sure you see a simple message saying "Hello from a Java Servlet John Doe" before moving on. If the imports for the servlet API are complaining in the IDE, follow this tutorial to add the Tomcat specific APIs to the project: <a rel="noopener" href="https://www.youtube.com/watch?v=g4PZgXF3Pso">https://www.youtube.com/watch?v=g4PZgXF3Pso</a></li>
+      </ol>
+      </li>
+      </ol>
+      <p>Now you should see this when you browse to <a rel="noopener" href="http://localhost:8080/loggy-lab3-begin-master/LogsServlet?name=John+Doe">http://localhost:8080/loggy-lab3-begin-master/LogsServlet?name=John+Doe</a></p>
+      <p><img src="/content/enforced/691169-24F_CST8288_451/Pasted image 20241004202343_20241005014718832.png" width="395" height="218"></p>
+      <h2>Working on the Website:</h2>
+      <ol>
+      <li>&nbsp;Either use the Log class found in the Beans folder of the provided starter code or a simplified version of the Log and TextLog from your Assignment 1</li>
+      <li>Create a simple memory-based (storing the data in simple Map&lt;UUID, Log&gt;) implementation of the `ApplicationService` interface in the ApplicationInMemory.java file (will be replaced with the ApplicationDao.java implementation of the interface later in the assignment)</li>
+      <li>Implement the endpoint's GET method `doGet()` which should return the HTML of the website (see example below). This can be done using `JSP` which is a much cleaner solution but requires some learning or you can simply create big strings that contain the HTML (quite tedious and error prone). You can use an HTML `&lt;form&gt;` element which can automatically submit all the elements in the form to a POST endpoint as query parameters in the HTTP request see docs for reference:&nbsp;<a rel="noopener" href="https://www.w3schools.com/html/html_forms.asp/">https://www.w3schools.com/html/html_forms.asp/</a>. The action buttons can just be links to your site with specific query parameters in the link.</li>
+      <li>Implement the endpoint's POST method `doPost()` which can use HTTP query parameters to get the form input values to create or update a given log. You can also provide extra query parameters in the HTML action buttons to specify you wish to edit or delete a log.</li>
+      </ol>
+      <p>Here's an example of how the UI could look and function:</p>
+      <p><img src="/content/enforced/691169-24F_CST8288_451/chrome_fdakj5ivTV_20241005014718912.gif" width="695" height="654"></p>
+      <h2>Working on the Database:</h2>
+      <ol>
+      <li>Ensure you have either MySQL or HSQLDB installed on your computer and running as a background service.</li>
+      <li>Create the loggy database and schema. As well as the logs table under the schema using the provided schema in the comment at the top of the DBConnection.java file:<br><img src="/content/enforced/691169-24F_CST8288_451/Pasted image 20241004211605_20241005014719040.png" style="max-width: 100%;"><br><img src="/content/enforced/691169-24F_CST8288_451/Pasted image 20241004212023_20241005014719090.png" style="max-width: 100%;"></li>
+      <li>Implement the static method `getConnectionToDatabase()` in `DBConnection.java` to make a connection to your running SQL server using a jdbc connection string and username and password you set when you created the database</li>
+      <li>Implement the `ApplicationDao` by implementing all the same methods as the ApplicationInMemory.java but each method will first get a Database connection with the static method you implemented and then use SQL statements to interact with the database to implement the CRUD operations of the interface.</li>
+      </ol>
+      <p>In general, whenever you go from working code that runs independently to code that runs as part of a large ecosystem of code, problems occur far more often and are harder to debug. If you are having troubles getting things setup, make sure you carefully go through the content of the course and search any issues you are having online. If you can't find your answers there, feel free to email me and I can see if I can provide assistance.</p>
+      <p>Hope this makes things clearer!</p>
+      <p>Regards,<br>Aaron Buitenwerf</p>
+  - name: "CST8288 Assignment 5 Guide"
+    start:
+      weeks: 9
+    end:
+      weeks: 15
+    content: |
+      <p>Hello all!</p>
+      <p>Assignment 5 is due <strong>{{assignments.lab5.due.date}}</strong>.</p>
+      <p>Please first read and understand the official assignment specification as best you can. I will go over the requirements and outline what you could do for it.&nbsp;</p>
+      <p><strong>IMPORTANT: For this assignment you must use the starter code or else it won't make sense</strong>. This assignment doesn't involve servlets like A3 did.</p>
+      <p>As usual, the actual requirements of the assignment specification start after the Scenario section with Part 1:</p>
+      <p>This assignment is all about <strong>Structural and Behavioral</strong> Design Patterns <strong>(Module 9 and 10)</strong>. Ensure you have gone over the course content on this topic and read the relevant textbook chapters if you have the textbook.<br>I would recommend putting the interfaces and or classes of each pattern into it's own folder to stay organized.</p>
+      <p><em><strong>Proxy Pattern</strong></em><br>In this scenario, the proxy class is mostly to reduce to complexity of the interface of the API by only using the methods the application requires in the API. Proxies can also be used for deferring the creation of expensive objects until required (lazy loaded), and providing access control to the subject object.</p>
+      <ol>
+      <li>A Java interface should be created for each API that has the methods we actually use in the app</li>
+      <li>A proxy class should be created that implements each interface (GoogleSpeech2TextProxy, AWSTranscribeProxy)</li>
+      </ol>
+      <p><em><strong>Adapter Pattern</strong></em><br>Sometimes an external package has an interface that is not compatible with the application's core business logic. The adapter class often adds new functionality to a 3rd party library to make it compatible with the application code. In this scenario, we want to have a single interface for transcoding so that we can swap between external sources such as Google or AWS APIs.</p>
+      <ol>
+      <li>Create a Java interface with a single transcoding method that takes in a Recording as input.</li>
+      <li>Create two different adapter classes that implement the interface in separate ways using the proxy classes of the APIs you created previously.</li>
+      </ol>
+      <p><em><strong>Observer Pattern</strong></em><br>This pattern is very useful when you need state to be propagated to many other classes that might be interested in that data. In this scenario, we are using the pattern to have one to many fake external event logging systems that are added as observers of each recording. The recordings can then notify all the logging systems that it's state has changed (specifically when the recording gets updated with a CC file. In this case we are using the pattern in a synchronous case but often it used in an asynchronous environment such as website backends/frontends.</p>
+      <ol>
+      <li>First, create 2 Java interfaces: Observer, Observable. The Observer should have a notify method that takes in a string. The Observable interface should have methods for adding/removing observers and notifying the list of observers.</li>
+      <li>Make the Recording class implement the Observable interface and implement the methods appropriately</li>
+      <li>Make a new class for the fake external logging service that implements the Observer interface. This can simply log the result to the console upon receiving an update from the Observable class (Recordings).</li>
+      <li>Update Main class to create a single external logging service class and hook it up to each observable.</li>
+      </ol>
+      <p>After implementing each pattern, make changes to the CCWorker class to make use of the patterns.</p>
+      <p>Note: please make each interface and class it's own Java file. this is standard practice in the industry.<br>For this assignment please use .ZIP and not .WAR files. Also don't forget to include a report that documents what you learn, what challenges you faced, and your progress on the assignment. Include paragraphs that explain these along with screenshots of the code for references.</p>
+      <p>I hope this clears up what the specification is asking!</p>
+      <p>Regards,<br>Aaron Buitenwerf</p>
+  - name: "CST8288 Assignment 6 Guide"
+    start:
+      weeks: 11
+    end:
+      weeks: 15
+    content: |
+      <p>Hello all!</p>
+      <p>Assignment 6 is due <strong>{{assignments.lab6.due.date}}</strong>.</p>
+      <p>Here is a clarification post for assignment 6. This is the last solo assignment of the semester!</p>
+      <p>Please use the provided starter code OR use your own code from&nbsp;<strong>assignment 3</strong> as a starting point. This assignment is back to being about websites.</p>
+      <h3>MVC Requirement:</h3>
+      <p>The main objective of this assignment is to go from using string concatenation to build up our HTML to using templating to build the dynamic HTML, in this case by using JSP (Java Server Pages). We want to decouple the <strong>view </strong>(the UI) from the <strong>model </strong>(the database of logs) to follow the MVC pattern. Some of you have already done this pre-emptively for assignment 3, in which case you can skip this step and go to Page Styling below.</p>
+      <p>Almost all web frameworks will have a templating system for generated dynamic HTML. It works by providing syntax that goes directly into the HTML to modify that static HTML at runtime. So JSP files are just HTML files with some extra functionality built in to dynamically modify the HTML from the Servlet.</p>
+      <p>Refer the course content (specifically the <strong>JSP for Web Applications section</strong> under Module 12: Other Patterns-&gt;Patterns) to learn the syntax JSP uses, as well as how to add dynamic data into your JSP files from the servlet code.</p>
+      <p>Essentially the goal is to replace all unmaintainable code that looks like this:</p>
+      <pre class="line-numbers d2l-code"><code class="language-java">private String printOutBodyForm(String id, String title, String content) {
+        String out = "        &lt;!-- Form Section--&gt;\n"
+                + "        &lt;header class=\"masthead bg-primary text-white text-center\"&gt;\n"
+                + "        &lt;h1&gt;Log ahead&lt;/h1&gt;\n" + "        &lt;form action=\"logs\" method=\"post\"&gt;\n"
+                + "          &lt;input type=\"hidden\" name=\"id\" value=\"" + id + "\"&gt;"
+                + "          &lt;label for=\"fname\"&gt;Title:&lt;/label&gt;&lt;br&gt;\n"
+                + "          &lt;input type=\"text\" id=\"title\" name=\"title\" value=\"" + title + "\"&gt;&lt;br&gt;\n"
+                + "          &lt;label for=\"lname\"&gt;Content:&lt;/label&gt;&lt;br&gt;\n"
+                + "          &lt;input type=\"text\" id=\"content\" name=\"content\" value=\"" + content + "\"&gt;&lt;br&gt;&lt;br&gt;\n"
+                + "          &lt;input type=\"submit\" value=\"Submit\"&gt;\n"
+                + "          &lt;input type=\"button\" value=\"Cancel\" onclick=\"window.location='logs'\"&gt;\n"
+                + "        &lt;/form&gt;\n" + "        &lt;/header&gt;\n";
+        return out;
+      }</code></pre>
+      <p><br>with a JSP file. Since there is only one web page in this app, you only need a single JSP file.</p>
+      <h3>Page Styling Requirement</h3>
+      <p>Now that our UI code is in nicely formatted HTML files (JSP), we can more easily add class selectors to the elements to style the web page and make it look nice!</p>
+      <p>Make an effort to style <strong>each </strong>element of the webpage using CSS or:<br>If you would rather not write your own CSS and would like to use pre-made CSS, feel free to use Bootstrap <a rel="noopener" href="https://startbootstrap.com/">https://startbootstrap.com/</a>. This requires you to use Bootstrap documentation to learn what CSS class selectors to use in your HTML/JSP files to style your components.&nbsp;</p>
+      <p>In all cases, please have a dedicated styles.css file in your project that is loaded by adding this line to your JSP HTML header:</p>
+      <pre class="line-numbers d2l-code"><code class="language-markup">&lt;link href="css/styles.css" rel="stylesheet" /&gt;</code></pre>
+      <p>Your UI does not need to be perfect, but have fun with it and try to make it as <em>professional </em>looking as you can!</p>
+      <p>Here is an example styling of the app using Bootstrap. (Please don't simply copy this styling exactly)</p>
+      <p><img src="/content/enforced/691169-24F_CST8288_451/firefox_ozmHgeaS4T_20241123193011803.gif" style="max-width: 100%;"></p>
+      <p>As always don't forget to include a report in your submission or you will lose marks.</p>
+      <p>Aaron Buitenwerf</p>
+  - name: "CST8288 Group Project!"
+    start:
+      weeks: 1
+      days: 2
+    end:
+      weeks: 15
+    content: |
+      <p>Hello all!</p>
+      <p>This course includes an important group project! You must join a group on Brightspace by <strong>the end of this month/strong> or you will be automatically assigned a group.</p>
+      <p>The plan for your project is due <strong>{{assignments.project1.due.date}}</strong> as the first part of the project.</p>
+      <p>As we approach the group projects, I want to provide you with some tips and reminders. These guidelines are designed to help you navigate the challenges of group work and ensure a successful project outcome.&nbsp;</p>
+      <p><strong>Look over the rubric:</strong><br>It is essential that each group member looks over and understands the rubric. Since this is a group project, you will be graded as a group. Keep this in mind!</p>
+      <p><strong>Dividing up group work:</strong><br>It is essential to recognize that group projects are about collaboration, meaning that no matter how hard you try to divide the work equally, there will still be within the group who end up doing more work than other members. Within group projects, each individual brings a different set of strengths to the “table,” these strengths will need to be leaned upon to complete the project and meet the rubric's requirements. Use this time to help and truly collaborate to complete the project as a team.&nbsp;</p>
+      <p><strong>Group members do not communicate or take part in group planning discussions:</strong><br>If a member of your group is not actively participating in group conversations, reach out to them directly. It's important to keep everyone in the loop and engaged. Give them ample time to respond. If you don't hear back, please let me know, and I will assist in facilitating the communication.&nbsp;</p>
+      <p><strong>Quality of Work:</strong><br>If a group member's work doesn't meet the project's or rubric's requirements, reaching out and offering assistance is essential. Remember, this is a team effort, and we're here to support each other. Schedule a call or email to discuss how you can help each other meet the task's requirements. If you need more time to revise your work, don't hesitate to request an extension, clearly stating the reasons for the request.&nbsp;</p>
+      <p><br><strong>Extension Requests:</strong><br>Suppose a personal situation or unforeseen circumstance arises through the group project process, such as a sudden illness or a family emergency. In that case, extension requests can be granted to ensure that each member has the opportunity to submit quality work that they are proud of. An Extension request form must be submitted in case of an event like this.&nbsp;</p>
+      <p>Regards,</p>
+      <p>Aaron Buitenwerf</p>
+  - name: "CST8288 Group Project Part 2 Database Security"
+    start:
+      weeks: 6
+      days: 2
+    end:
+      weeks: 15
+    content: |
+      <p>Hello everyone!</p>
+      <p>Part 2 of the group project is due {{assignments.project2.due.date}}.</p>
+      <p>As part of this part of the project, I would like to see each group implement proper secure password storage in the database</p>
+      <p>This does not require a lot of code, just a bit of understanding which I hope to provide:</p>
+      <p>I am sure you have all heard on the news about database leaks and passwords being compromised. Hackers often aim to get the list of passwords from the database of websites so that they can access all the accounts. If the passwords are stored as plain-text on the database, then the hacker immediately gains access to all accounts upon stealing the data. To prevent this, databases should always store passwords as <strong>hashed</strong> strings. Here's a high level view of what hash functions are:</p>
+      <p>A <strong>hash function</strong> is an often complex mathematical/cryptographic function that takes in a string of arbitrary length and outputs a fixed length string of seemingly random characters. However, the function has these special properties:</p>
+      <ul>
+      <li>The output hash derived from a specific input is always the same. Plain Text Password -&gt; HashFunction() -&gt; Unique Hash String</li>
+      <li>The input of the function is near impossible (unfeasible) to obtain given the output hash</li>
+      </ul>
+      <p>So a password such as "mypassword123" will always produce the same hash output when fed through a hash function such as "a8cfcd74832004951b4408cdb0a5dbcd8c7e52d43f7fe-244bf7205805241da". These hashes of the password strings is what should be stored on the database when a user registers. Then to verify a user trying to login, we take their attempt input and put it through the same hash function and compare the output to the hash stored on the database. If they match, the user inputted the correct string.</p>
+      <p>When hackers obtain lists of these hashed passwords from a leaked database, they then use a brute force or dictionary attack on the list by running guesses of the passwords through the hash function the website used and comparing to the list. If the hash function executes too quickly on modern computers, this makes it trivial for hackers to crack all the hashes. Thus, it is vital that us programmers use modern hash functions that take time to compute but not so much time that servers take forever to register a user.</p>
+      <p>This means you should never use a hash function such as the deprecated MD5 hash function. Instead use modern hash functions such as SHA-256. Programmers should always use pre-built and verified packages that implement cryptographic hashing and encryption functionalities as it takes an expert in Cryptography and Mathematics to develop these functions.&nbsp;</p>
+      <p>With all that said, for part 3 or 4 of the project I would like to see each group <em>storing their user passwords as hashes</em> on the database. It is very simple to do this with a package such as <strong>Bcrypt</strong>. See this tutorial for an example: <a rel="noopener" href="https://dzone.com/articles/hashing-passwords-in-java-with-bcrypt">https://dzone.com/articles/hashing-passwords-in-java-with-bcrypt</a></p>
+      <p>I hope that explanation helped you understand why password storage should be treated with care and should never be stored as plain text.</p>
+      <p>If you have any questions about this topic, please reach out as I am very passionate about this topic! I look forward to seeing all the improvements to your great projects in part 3! A reminder that this is due this <strong>Friday Nov 22</strong></p>
+      <p>Regards,</p>
+      <p>Aaron Buitenwerf</p>
